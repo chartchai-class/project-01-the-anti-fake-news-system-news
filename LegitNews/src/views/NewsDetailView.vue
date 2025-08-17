@@ -43,6 +43,23 @@ function goBackHome() {
       style="margin-top:20px; margin-left:10px; padding:8px 16px; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer;">
       ⬅ Back to Home
     </button>
+
+    <!-- Comments Section -->
+    <div v-if="news.comments && news.comments.length" style="margin-top:30px;">
+      <h3>💬 Comments</h3>
+      <ul style="list-style:none; padding:0;">
+        <li v-for="(c, i) in news.comments" :key="i" 
+            style="border:1px solid #ccc; margin:8px 0; padding:10px; border-radius:6px; background:#f9f9f9;">
+          <p style="margin:0;">{{ c.text }}</p>
+          <img v-if="c.image" :src="c.image" alt="comment image" 
+               style="max-width:120px; display:block; margin-top:6px; border-radius:4px;" />
+          <small style="color:#666;">🕒 {{ c.date }}</small>
+        </li>
+      </ul>
+    </div>
+    <div v-else style="margin-top:30px; color:#777;">
+      <p>No comments yet. Be the first to add one by voting!</p>
+    </div>
   </div>
 
   <div v-else style="padding:20px;">

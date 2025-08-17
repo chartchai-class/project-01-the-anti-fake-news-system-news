@@ -23,10 +23,36 @@ function submitVote() {
     return
   }
 
-  // Show success message
+  if (!news) {
+    alert("⚠️ News not found")
+    return
+  }
+
+  // Update votes
+  if (selectedVote.value === "real") {
+    news.votes.real++
+  } else {
+    news.votes.fake++
+  }
+
+  // Save comment if provided
+  if (commentText.value.trim() || commentImage.value.trim()) {
+    news.comments.push({
+      text: commentText.value,
+      image: commentImage.value,
+      date: new Date().toLocaleString()
+    })
+  }
+
+  // Optional: You can later replace this with an API POST request
+  // await axios.post(`/news/${newsId}/vote`, { vote: selectedVote.value, comment: ... })
+
   alert(`✅ Thank you! Your vote for "${selectedVote.value}" has been submitted.`)
 
-  // Later: store comment & vote into Pinia/DB here
+  // Reset form
+  selectedVote.value = null
+  commentText.value = ""
+  commentImage.value = ""
 
   // Navigate back to news detail page
   router.push(`/news/${newsId}`)
@@ -54,7 +80,11 @@ function submitVote() {
     <!-- Optional comment -->
     <div>
       <label>Comment (optional):</label><br />
-      <textarea v-model="commentText" placeholder="Why do you think this?" style="width:100%; height:80px;"></textarea>
+      <textarea 
+        v-model="commentText" 
+        placeholder="Why do you think this?" 
+        style="width:100%; height:80px;">
+      </textarea>
     </div>
 
     <!-- Optional image link -->
@@ -70,6 +100,18 @@ function submitVote() {
     >
       Submit
     </button>
+
+    <!-- Show existing comments -->
+    <div v-if="news.comments.length" style="margin-top:20px;">
+      <h3>Comments</h3>
+      <ul style="list-style:none; padding:0;">
+        <li v-for="(c, i) in news.comments" :key="i" style="border:1px solid #ccc; margin:8px 0; padding:8px; border-radius:6px;">
+          <p>{{ c.text }}</p>
+          <img v-if="c.image" :src="c.image" alt="comment image" style="max-width:100px; display:block; margin-top:5px;" />
+          <small>{{ c.date }}</small>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div v-else style="padding:20px;">
