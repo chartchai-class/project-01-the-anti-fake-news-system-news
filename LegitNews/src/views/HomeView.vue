@@ -86,103 +86,172 @@ function clearFilters() {
 </script>
 
 <template>
-  <div class="home" style="padding: 20px">
-    <h1>News Feed</h1>
+  <div class="home">
 
-    <!-- Filters -->
-    <div style="margin-bottom:15px; padding:10px; border:1px solid #ccc; border-radius:6px;">
-      <strong>Filters:</strong><br />
-
-      <!-- Type filter -->
-      <label><input type="radio" value="all" v-model="filterType" /> All</label>
-      <label style="margin-left:10px;"><input type="radio" value="real" v-model="filterType" /> Real</label>
-      <label style="margin-left:10px;"><input type="radio" value="fake" v-model="filterType" /> Fake</label>
-
-      <!-- Reporter filter -->
-      <div style="margin-top:10px;">
-        <label>Reporter:</label>
-        <input v-model="reporterFilter" placeholder="Search reporter..." />
-      </div>
-
-      <!-- Date range -->
-      <div style="margin-top:10px;">
-        <label>From:</label>
-        <input type="date" v-model="startDate" />
-        <label style="margin-left:10px;">To:</label>
-        <input type="date" v-model="endDate" />
-      </div>
-
-      <!-- Sort -->
-      <div style="margin-top:10px;">
-        <label>Sort by Date:</label>
-        <select v-model="sortOrder">
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-        </select>
-      </div>
-
-      <!-- Items per page -->
-      <div style="margin-top:10px;">
-        <label>Items per page:</label>
-        <select v-model.number="itemsPerPage">
-          <option :value="5">5</option>
-          <option :value="10">10</option>
-          <option :value="15">15</option>
-          <option :value="20">20</option>
-        </select>
-      </div>
-
-        <!-- Clear filters -->
-  <div style="margin-top:10px;">
-    <button @click="clearFilters" 
-      style="padding:6px 12px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer;">
-      ❌ Clear Filters
-    </button>
-  </div>
-    </div>
-
-    <!-- Scrollable container -->
-    <div style="max-height: 500px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
-      <ul style="list-style: none; padding: 0">
-        <li v-for="news in paginatedNews" :key="news.id" 
-            style="border: 1px solid #ccc; margin: 10px 0; padding: 10px; border-radius: 6px;">
-          
-          <!-- headline link -->
-          <RouterLink :to="`/news/${news.id}`">
-            <h3>{{ news.headline }}</h3>
-          </RouterLink>
-
-          <img :src="news.image" alt="news image" style="max-width: 150px; display: block; margin: 5px 0;">
-          
-          <p>{{ news.detail.substring(0, 80) }}...</p>
-          
-          <small>
-            Reporter: {{ news.reporter }} | {{ news.date }}
-          </small>
-          
-          <div style="margin-top: 5px;">
-            Status: 
-            <span v-if="news.votes.real > news.votes.fake" style="color: green; font-weight: bold;">Real</span>
-            <span v-else style="color: red; font-weight: bold;">Fake</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Pagination controls -->
-    <div style="margin-top: 15px; text-align:center;">
-      <button @click="prevPage" :disabled="currentPage === 1">⬅ Prev</button>
-      <span style="margin: 0 10px;">Page {{ currentPage }} / {{ totalPages }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages">Next ➡</button>
-    </div>
-
-    <!-- Add News button -->
-    <div style="margin-top: 20px; text-align: center;">
+    <!-- Toolbar -->
+    <div class="toolbar">
       <RouterLink to="/add-news">
-        <button style="padding:10px 20px; background:#007bff; color:white; border:none; border-radius:6px; cursor:pointer;">
-          ➕ Add News
-        </button>
+        <button class="add-news">Add News</button>
+      </RouterLink>
+
+      <div class="filters">
+        <!-- Type Filter -->
+        <div>
+          <label>Sort by</label>
+          <select v-model="filterType" class="sort">
+            <option value="all">All News</option>
+            <option value="real">Verified News</option>
+            <option value="fake">Fake News</option>
+          </select>
+        </div>
+
+        <!-- Items per page -->
+        <div>
+          <label for="select">Items per page:</label>
+          <select v-model.number="itemsPerPage" id="select">
+            <option :value="6">6</option>
+            <option :value="9">9</option>
+            <option :value="12">12</option>
+            <option :value="15">15</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- News Cards -->
+    <div class="news-container">
+      <RouterLink
+        v-for="news in paginatedNews"
+        :key="news.id"
+        :to="`/news/${news.id}`"
+        style="text-decoration: none; color: inherit;"
+      >
+        <div class="card">
+          <div class="image">
+            <img :src="news.image" alt="news image" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <span class="status" :class="news.votes.real > news.votes.fake ? 'verified' : 'fake'">
+            {{ news.votes.real > news.votes.fake ? 'Verified' : 'Fake' }}
+          </span>
+          <div class="content">
+            <div class="heading">{{ news.headline }}</div>
+            <p>{{ news.detail.substring(0, 80) }}...</p>
+            <div class="meta-row">
+              <div class="meta">Reporter: {{ news.reporter }}</div>
+              <div class="meta">{{ news.date }}</div>
+            </div>
+          </div>
+        </div>
       </RouterLink>
     </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <span @click="prevPage" :style="{cursor: currentPage === 1 ? 'not-allowed' : 'pointer'}">&lt;</span>
+      <span>Page {{ currentPage }} / {{ totalPages }}</span>
+      <span @click="nextPage" :style="{cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'}">&gt;</span>
+    </div>
+
   </div>
 </template>
+
+<style scoped>
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  margin-bottom: 30px;
+}
+
+.add-news {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.filters select, #select {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  text-align: center;
+  height: 30px;
+}
+
+/* News Cards */
+.news-container {
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: flex-start;
+}
+
+.card {
+  width: 380px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.card .image {
+  height: 150px;
+  overflow: hidden;
+}
+
+.status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+.verified {
+  background: #28a745;
+}
+
+.fake {
+  background: #dc5045;
+}
+
+.card .content {
+  padding: 10px;
+}
+
+.card .heading {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* Pagination */
+.pagination {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 16px;
+}
+</style>
+
