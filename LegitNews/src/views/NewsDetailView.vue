@@ -15,50 +15,55 @@ function goBackHome() {
 </script>
 
 <template>
-  <div v-if="news" style="padding: 20px">
-    <h1>{{ news.headline }}</h1>
-    <img :src="news.image" alt="news image" style="max-width: 300px; display: block; margin: 10px 0;">
-    
-    <p>{{ news.detail }}</p>
+  <div class="container" v-if="news">
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-header">
+        <span>{{ news.headline }}</span>
+        <div class="vote-box">
+          <span class="vote-up">{{ news.votes.real }}</span>
+          <span class="vote-down">{{ news.votes.fake }}</span>
+        </div>
+      </div>
 
-    <small>
-      Reporter: {{ news.reporter }} | {{ news.date }}
-    </small>
+      <div class="sub-info">
+        Reporter: {{ news.reporter }} | {{ news.date }}
+      </div>
 
-    <div style="margin-top: 10px;">
-      Status: 
-      <span v-if="news.votes.real > news.votes.fake" style="color: green; font-weight: bold;">Real</span>
-      <span v-else style="color: red; font-weight: bold;">Fake</span>
+      <div class="news-image">
+        <img :src="news.image" alt="news image" style="max-width:100%; border-radius:8px;">
+      </div>
+
+      <div class="news-text">
+        <p>{{ news.detail }}</p>
+      </div>
+
+      <div class="actions">
+        <router-link :to="`/news/${news.id}/vote`">
+          <button>Vote & Comment</button>
+        </router-link>
+        <button @click="goBackHome">⬅ Back to Home</button>
+      </div>
     </div>
 
-    <!-- Vote button -->
-    <router-link :to="`/news/${news.id}/vote`">
-      <button style="margin-top:20px; padding:8px 16px; background:#28a745; color:white; border:none; border-radius:5px; cursor:pointer;">
-        Vote & Comment
-      </button>
-    </router-link>
-
-    <!-- Back button -->
-    <button @click="goBackHome"
-      style="margin-top:20px; margin-left:10px; padding:8px 16px; background:#6c757d; color:white; border:none; border-radius:5px; cursor:pointer;">
-      ⬅ Back to Home
-    </button>
-
-    <!-- Comments Section -->
-    <div v-if="news.comments && news.comments.length" style="margin-top:30px;">
-      <h3>💬 Comments</h3>
-      <ul style="list-style:none; padding:0;">
-        <li v-for="(c, i) in news.comments" :key="i" 
-            style="border:1px solid #ccc; margin:8px 0; padding:10px; border-radius:6px; background:#f9f9f9;">
-          <p style="margin:0;">{{ c.text }}</p>
-          <img v-if="c.image" :src="c.image" alt="comment image" 
-               style="max-width:120px; display:block; margin-top:6px; border-radius:4px;" />
-          <small style="color:#666;">🕒 {{ c.date }}</small>
-        </li>
-      </ul>
-    </div>
-    <div v-else style="margin-top:30px; color:#777;">
-      <p>No comments yet. Be the first to add one by voting!</p>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div v-for="(item, i) in store.allNews.slice(0, 2)" :key="i" class="card">
+        <div class="card-image">
+          <img :src="item.image" alt="card image" style="max-width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <span class="verified" :class="item.votes.real > item.votes.fake ? 'verified' : ''">
+            {{ item.votes.real > item.votes.fake ? 'Verified' : 'Fake' }}
+          </span>
+          <div class="card-title">{{ item.headline }}</div>
+          <div class="card-info">{{ item.reporter }}</div>
+          <div class="card-footer">
+            <span>{{ item.reporter }}</span>
+            <span>{{ item.date }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -66,3 +71,154 @@ function goBackHome() {
     <p>⚠️ News not found</p>
   </div>
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  gap: 20px;
+  max-width: 1240px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+/* Left Detail Section */
+.main-content {
+  background: #fff;
+  width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.main-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub-info {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.vote-box {
+  display: flex;
+  gap: 5px;
+}
+
+.vote-box span {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 12px;
+}
+
+.vote-up { background: #00c400; }
+.vote-down { background: #d90000; }
+
+.news-image {
+  background: #e5e5e5;
+  width: 100%;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #555;
+}
+
+.news-text {
+  background: #e5e5e5;
+  min-height: 150px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #555;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #000;
+  background: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Right Sidebar */
+.sidebar {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card-image {
+  background: #e5e5e5;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.verified {
+  display: inline-block;
+  background: #00e600;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 0;
+  background: #f2f2f2;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.card-info {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+}
+</style>
