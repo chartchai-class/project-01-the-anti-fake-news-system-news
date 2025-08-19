@@ -33,27 +33,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
       </div>
     </div>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <RouterLink to="/add-news">
-        <button class="add-news">Add News</button>
-      </RouterLink>
-
-      <div class="filters">
-        <div>
-          <label for="select">Select</label>
-          <input type="text" id="select" placeholder="-">
-        </div>
-
-        <select class="sort">
-          <option>Sort By</option>
-          <option>All News</option>
-          <option>Verified News</option>
-          <option>Fake News</option>
-        </select>
-      </div>
-    </div>
-
     <!-- Main page content -->
     <main style="flex:1; padding:20px;">
       <router-view />
