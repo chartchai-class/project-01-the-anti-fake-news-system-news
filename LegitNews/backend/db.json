@@ -399,6 +399,487 @@
     "image": "40.jpg",
     "votes": { "real": 70, "fake": 21 },
     "comments": []
+  },
+  {
+    "id": 41,
+    "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle Takes 4th Place in Japan All-Time Box Office Chart in One Month",
+    "details": "Demon Slayer: Kimetsu no Yaiba Infinity Castle has quickly become one of the highest-grossing films in Japanese history. In just 31 days, the movie collected 25.78 billion yen (approximately 174.32 million US dollars) through ticket sales of more than 18.27 million.\n\nDuring the Obon holiday, the film climbed from sixth to fourth place on Japan’s all-time box office chart, surpassing Frozen and displacing Your Name from the top five for the first time since 2016. Infinity Castle now trails only Titanic, which earned 27.7 billion yen in 1997, along with the anime titans Spirited Away and Mugen Train.\n\nInfinity Castle is also now the third-highest-grossing anime film of all time in Japan. Its rapid success demonstrates the continued strength of the Demon Slayer franchise, which has captivated audiences with striking animation and emotionally intense storytelling.",
+    "date": "2025-08-12",
+    "reporter": "BBC News",
+    "image": "41.jpg",
+    "votes": {
+      "real": 324,
+      "fake": 87
+    }
+  },
+  {
+    "id": 42,
+    "title": "Box Office: Superman and F1 Each Nearing $600 Million Milestone",
+    "details": "The global box office has been dominated by a race between Superman and F1, two blockbuster titles that are each nearing the $600 million mark.\n\nSuperman, directed by James Gunn, has proven to be the stronger film domestically, earning $340 million in North America. After six weeks in theaters, its global gross reached $595 million. Despite expectations that it will not surpass the $670 million figure achieved by 2013’s Man of Steel, Superman’s box office performance marks a step forward for DC Studios, which has been searching for consistency in its cinematic output.\n\nMeanwhile, F1 has displayed notable endurance, particularly in international markets. With a worldwide gross of $590 million after eight weeks, including $407 million overseas, the film has surprised many analysts with its ability to hold strong against stiff competition.\n\nThis box office race has highlighted shifting trends in global cinema, where international markets are increasingly decisive in determining a film’s success.",
+    "date": "2025-08-13",
+    "reporter": "CNN News",
+    "image": "42.jpg",
+    "votes": {
+      "real": 317,
+      "fake": 288
+    }
+  },
+  {
+    "id": 43,
+    "title": "How The Fantastic Four: First Steps Brought the Baxter Building to Life",
+    "details": "The Fantastic Four: First Steps is Marvel Studios’ reimagining of the legendary superhero team in a world unlike any other previously seen in the MCU.\n\nThe story takes place in Earth-828, an alternate dimension steeped in retro-futuristic aesthetics inspired by the 1960s. The New York of Earth-828 features flying cars, gleaming skyscrapers, and the iconic Baxter Building, home to Reed Richards, Sue Storm, Johnny Storm, and Ben Grimm.\n\nProduction designer Kasra Farahani, who had earlier worked on Loki, spearheaded the creative direction of this new world. Drawing from architectural masters like Eero Saarinen and Oscar Niemeyer, as well as sci-fi works like 2001: A Space Odyssey, Farahani crafted an environment that balances sleek sophistication with whimsical futuristic flair. Comic book artist Jack Kirby’s classic designs, alongside illustrations by Syd Mead and John Berkey, further influenced the project.\n\nThe Baxter Building’s penthouse, central to the film, was designed as both a futuristic marvel and a warm family space. The film’s aesthetic merges imaginative fantasy with grounded architectural realism, creating a fresh yet nostalgic tone for the team’s MCU debut.",
+    "date": "2025-08-14",
+    "reporter": "Reuters",
+    "image": "43.jpg",
+    "votes": {
+      "real": 469,
+      "fake": 91
+    }
+  },
+  {
+    "id": 44,
+    "title": "Omniscient Reader: The Prophet Draws Mixed Results at the Box Office",
+    "details": "Omniscient Reader: The Prophet, an adaptation of the popular webtoon, faced a turbulent release filled with skepticism and criticism. Changes to character portrayals, controversial casting choices, and questionable cinematography drew significant backlash before its debut.\n\nDespite these challenges, the film attracted strong audiences at first. On July 25, it recorded 80,734 admissions, securing the number one spot at the box office that day. By July 26, total attendance had climbed to 281,263.\n\nHowever, sustaining momentum has proven difficult. Attendance dropped 40% on its second day, casting doubt on the movie’s ability to reach its break-even point of six million admissions. Audience reactions have been mixed. Fans of the original webtoon expressed frustration at the deviations, while newcomers to the story described the film as enjoyable and accessible.\n\nThe broader challenge lies in South Korea’s declining movie theater attendance. In 2025, cinema admissions reached their lowest in over two decades, making box office success harder to achieve. While the film leads the box office in its early days, the path to profitability remains uncertain.",
+    "date": "2025-08-15",
+    "reporter": "Al Jazeera",
+    "image": "44.jpg",
+    "votes": {
+      "real": 361,
+      "fake": 222
+    }
+  },
+  {
+    "id": 45,
+    "title": "Lord of Mysteries’ Donghua Planned Until 2035",
+    "details": "The donghua adaptation of Lord of Mysteries has announced long-term plans that will carry the project through to 2035.\n\nThe show initially struggled with rushed pacing, delays in dubbing, and confusion among audiences, but has since found its rhythm. English-dubbed episodes are being released alongside explanatory segments featuring Old Neil, a character who helps break down complex storylines for new viewers.\n\nThe series has been approved for six to seven additional seasons, concluding with a feature film that will wrap up the journey of The Fool. Season two, slated for 2027, will expand to over 30 episodes and maintain high-quality production values.\n\nIn addition to its main seasons, the series plans to release special episodes that adapt entire arcs from the web novel, potentially running longer than standard episodes. The first of these special releases is expected in 2026, accompanied by a promotional trailer.\n\nWith a roadmap spanning more than a decade, Lord of Mysteries has committed to a faithful adaptation of its expansive source material.",
+    "date": "2025-08-16",
+    "reporter": "The Guardian",
+    "image": "45.jpg",
+    "votes": {
+      "real": 427,
+      "fake": 162
+    }
+  },
+  {
+    "id": 46,
+    "title": "Luminate Report Highlights Power of Superfans; Eminem Exemplifies the Trend",
+    "details": "The Luminate Midyear Music Report underscored the growing importance of superfans in the modern music industry. These listeners, who go beyond casual streaming to purchase merchandise, event tickets, and subscriptions, now drive a significant portion of industry revenue.\n\nEminem exemplifies this phenomenon, with his devoted fanbase—often called “Stans”—embodying the passion and loyalty described in the report. His fans dissect lyrics, collect memorabilia, and support his work across platforms, making them a cornerstone of his enduring success.\n\nThe release of Stans, a documentary about his fandom, reflects a broader shift in how artists are beginning to view their most dedicated followers. Rather than background noise, superfans are being recognized as vital contributors to long-term sustainability in the industry.",
+    "date": "2025-08-17",
+    "reporter": "BBC News",
+    "image": "46.jpg",
+    "votes": {
+      "real": 352,
+      "fake": 86
+    }
+  },
+  {
+    "id": 47,
+    "title": "The Eminem Show Surpasses 8.7 Billion Streams on Spotify",
+    "details": "Eminem’s 2002 classic, The Eminem Show, has surpassed 8.7 billion streams on Spotify, making it his most-played album to date. Averaging 3.5 million streams daily, the album continues to dominate his catalog more than two decades after its release.\n\nThe album was a commercial powerhouse upon release, debuting at number one on the Billboard 200 despite a leak and selling 1.3 million copies in its first full week. Certified Diamond in both the United States and Canada, with over 27 million physical copies sold worldwide, it remains the best-selling hip-hop album of all time. Its streaming performance ensures its legacy continues to grow in the digital age.",
+    "date": "2025-08-18",
+    "reporter": "CNN News",
+    "image": "47.jpg",
+    "votes": {
+      "real": 469,
+      "fake": 135
+    }
+  },
+  {
+    "id": 48,
+    "title": "Eminem Reflects on Writing Stan",
+    "details": "Eminem has shared insights into his mindset when writing the iconic track Stan. Living at his then-partner’s mother’s house at the time, he found himself suddenly grappling with the weight of fame and the idea of influencing fans as deeply as his own idols had influenced him.\n\nHe explained that the surreal experience of realizing he had become a figure of obsession inspired the narrative of Stan. While it was a disturbing concept to embody the perspective of a fan consumed by fixation, the song was rooted in real experiences of meeting admirers who viewed him as larger-than-life.\n\nThe song’s layers, blending satire, reality, and commentary on celebrity culture, contributed to its lasting impact. It continues to be studied as one of the most significant hip-hop tracks of all time.",
+    "date": "2025-08-19",
+    "reporter": "Reuters",
+    "image": "48.jpg",
+    "votes": {
+      "real": 357,
+      "fake": 123
+    }
+  },
+  {
+    "id": 49,
+    "title": "Eminem’s Venom Surpasses 900 Million Streams",
+    "details": "Eminem’s track Venom, created for the 2018 film of the same name, has surpassed 900 million streams on Spotify. Featured as the second single on his Kamikaze album, it has become the album’s most-streamed track by a wide margin.\n\nThe song has achieved Gold or higher certification in 13 countries, including 4× Platinum status in Australia. Its longevity highlights the strong connection between Eminem’s music and major film franchises.",
+    "date": "2025-08-20",
+    "reporter": "Al Jazeera",
+    "image": "49.jpg",
+    "votes": {
+      "real": 401,
+      "fake": 236
+    }
+  },
+  {
+    "id": 50,
+    "title": "Snoop Dogg Turns Smoked Blunts into $9,000 Art Pieces",
+    "details": "Snoop Dogg has partnered with The Joint Venture to launch Ashes to Art, a project transforming his smoked blunts into one-of-a-kind artworks. Each piece is preserved in resin, pigment, and glitter, and signed by the rapper, with prices beginning at $9,000.\n\nCreated by artist Erica Kovitz, the collection pushes the boundaries of what can be considered art while embracing Snoop Dogg’s legacy. The centerpiece, Snoop Doggy Dogg Genesis Burn, incorporates his 1993 LAPD mugshot and retired autograph, attracting bids as high as $70,000.",
+    "date": "2025-08-11",
+    "reporter": "The Guardian",
+    "image": "50.jpg",
+    "votes": {
+      "real": 393,
+      "fake": 79
+    }
+  },
+  {
+    "id": 51,
+    "title": "Snoop Dogg Plans Burger Van at Celtic Park",
+    "details": "Snoop Dogg has expressed his desire to set up a burger van at Celtic Football Club’s stadium in Glasgow. He praised Celtic fans as the most passionate in European football and described the concept as turning the venue into a “foodie paradise.”\n\nHe emphasized the importance of preparation, insisting that quality ingredients and personal involvement in serving fans would make the burgers stand out.",
+    "date": "2025-08-12",
+    "reporter": "BBC News",
+    "image": "51.jpg",
+    "votes": {
+      "real": 312,
+      "fake": 91
+    }
+  },
+  {
+    "id": 52,
+    "title": "Snoop Dogg Attends Paris Olympics in Full Equestrian Kit",
+    "details": "At the Paris Olympics, Snoop Dogg appeared as a special correspondent dressed in full equestrian attire, including a tailcoat, breeches, hard hat, and sunglasses. Accompanied by Martha Stewart, he attended the dressage event at the Palace of Versailles.\n\nThe rapper’s enthusiastic presence brought attention and entertainment to the coverage, showcasing his quirky persona on the global stage.",
+    "date": "2025-08-13",
+    "reporter": "CNN News",
+    "image": "52.jpg",
+    "votes": {
+      "real": 287,
+      "fake": 104
+    }
+  },
+  {
+    "id": 53,
+    "title": "Snoop Dogg Honored with Hollywood Walk of Fame Star",
+    "details": "Snoop Dogg was honored with a star on the Hollywood Walk of Fame, attracting a massive crowd of fans and fellow musicians including Dr. Dre, Pharrell Williams, and Warren G.\n\nHe expressed gratitude to his collaborators and supporters but also highlighted his own perseverance and determination, crediting his success to his relentless dedication and refusal to quit.",
+    "date": "2025-08-14",
+    "reporter": "Reuters",
+    "image": "53.jpg",
+    "votes": {
+      "real": 421,
+      "fake": 78
+    }
+  },
+  {
+    "id": 54,
+    "title": "HBO Reveals New Harry Potter Cast",
+    "details": "HBO announced the main cast for its upcoming Harry Potter reboot series, promising a faithful adaptation of J.K. Rowling’s original novels. Dominic Mclaughlin will play Harry Potter, Arabella Stanton will portray Hermione Granger, and Alastair Stout will take on the role of Ron Weasley.\n\nThe reboot is intended to introduce the Wizarding World to a new generation of viewers while offering a more complete adaptation of the book series.",
+    "date": "2025-08-15",
+    "reporter": "The Guardian",
+    "image": "54.jpg",
+    "votes": {
+      "real": 356,
+      "fake": 92
+    }
+  },
+  {
+    "id": 55,
+    "title": "Supergirl Film Confirmed",
+    "details": "DC Studios has confirmed the upcoming release of Supergirl, directed by Craig Gillespie and written by Ana Nogueira. Milly Alcock will star as Kara Zor-El, with Matthias Schoenaerts, Eve Ridley, David Krumholtz, and Emily Beecham in supporting roles.\n\nThe film follows Supergirl on a quest for vengeance across the galaxy. Initially developed under the DCEU in 2018, the project was reimagined after James Gunn and Peter Safran assumed leadership of DC Studios. Filming took place in the UK and Scotland between January and May 2025, with release scheduled for June 26, 2026.",
+    "date": "2025-08-16",
+    "reporter": "BBC News",
+    "image": "55.jpg",
+    "votes": {
+      "real": 389,
+      "fake": 147
+    }
+  },
+  {
+    "id": 56,
+    "title": "Wonder Woman Reboot in Development",
+    "details": "James Gunn confirmed that DC Studios is actively developing a new Wonder Woman film. Unlike a direct sequel, the project will be a complete reboot, aiming to reset the character’s cinematic presence within the new DC Universe.\n\nThough no director or cast has been confirmed, the announcement signals a fresh approach. The film will stand alone and will not connect to previously announced projects such as the Paradise Lost prequel series.",
+    "date": "2025-08-17",
+    "reporter": "CNN News",
+    "image": "56.jpg",
+    "votes": {
+      "real": 342,
+      "fake": 113
+    }
+  },
+  {
+    "id": 57,
+    "title": "Oppenheimer Surpasses $1 Billion at the Global Box Office",
+    "details": "Christopher Nolan’s Oppenheimer has officially crossed the $1 billion mark at the worldwide box office, becoming the highest-grossing biographical film of all time. The film, which chronicles the life of J. Robert Oppenheimer and the development of the atomic bomb, has captivated audiences with its dramatic storytelling and meticulous attention to historical detail.\n\nOppenheimer has achieved critical acclaim, with particular praise for Cillian Murphy’s performance in the lead role. The film’s achievement highlights Nolan’s ability to deliver visually stunning and thought-provoking cinema that resonates with both critics and audiences. Its monumental box office performance underscores the continuing appeal of serious, adult-oriented dramas in an era dominated by superhero and franchise films.",
+    "date": "2025-08-18",
+    "reporter": "The Guardian",
+    "image": "57.jpg",
+    "votes": {
+      "real": 478,
+      "fake": 89
+    }
+  },
+  {
+    "id": 58,
+    "title": "Twice to Bring K-Pop Spectacle to Bangkok",
+    "details": "The globally popular K-pop group Twice has announced a highly anticipated concert in Bangkok as part of their ongoing world tour. The group, known for its vibrant performances and infectious hits, continues to draw massive crowds across Asia, North America, and Europe.\n\nFans in Thailand have long awaited the group’s return, and the upcoming performance is expected to sell out quickly. Twice’s concerts are celebrated for their high-energy choreography, dazzling stage production, and interactive moments with fans, known as “Once.”\n\nThe Bangkok concert not only highlights Thailand’s importance as a regional hub for K-pop fandom but also demonstrates the group’s enduring popularity nearly a decade into their career.",
+    "date": "2025-08-19",
+    "reporter": "BBC News",
+    "image": "58.jpg",
+    "votes": {
+      "real": 395,
+      "fake": 121
+    }
+  },
+  {
+    "id": 59,
+    "title": "Stranger Things Final Season Generates Massive Buzz",
+    "details": "The announcement of Stranger Things’ upcoming final season has generated enormous anticipation among fans worldwide. As one of Netflix’s flagship original series, Stranger Things has maintained cultural relevance since its 2016 debut, blending 1980s nostalgia with supernatural horror and heartfelt storytelling.\n\nThe final season promises to conclude the story of Eleven and her friends as they face their most dangerous challenge yet. Showrunners Matt and Ross Duffer have confirmed that the final episodes will tie together long-running mysteries surrounding the Upside Down, offering fans closure while delivering the show’s trademark mix of suspense and emotional depth.\n\nWith production underway, fans eagerly await teasers, trailers, and casting updates. The conclusion of Stranger Things marks the end of an era for Netflix, which is looking to cement the series’ legacy as one of its most influential hits.",
+    "date": "2025-08-20",
+    "reporter": "CNN News",
+    "image": "59.jpg",
+    "votes": {
+      "real": 467,
+      "fake": 134
+    }
+  },
+  {
+    "id": 60,
+    "title": "Alice in Borderland Renewed for a Third Season",
+    "details": "Netflix has confirmed the renewal of Alice in Borderland for a third season following the massive success of its second installment. The Japanese survival thriller, adapted from Haro Aso’s manga, has become one of the platform’s most popular non-English series.\n\nThe third season will continue the story of Arisu and Usagi as they navigate deadly games in a mysterious parallel Tokyo. The show’s blend of psychological tension, elaborate game design, and emotional character arcs has earned it critical praise and a growing international audience.\n\nProduction for the new season is expected to begin later this year, with the release anticipated in 2026. Netflix’s decision reflects the platform’s strategy to expand its roster of global hits by investing heavily in Asian content that resonates worldwide.",
+    "date": "2025-08-21",
+    "reporter": "Al Jazeera",
+    "image": "60.jpg",
+    "votes": {
+      "real": 412,
+      "fake": 97
+    }
+  },
+  {
+    "id": 61, 
+    "title": "Phuket Motorcyclist Killed at Coconut Grove Curve",
+    "details": "A 41-year-old motorcyclist from Mai Khao, identified as Samreong, died after losing control of his black GPX Legend 250 at Phuket's infamous Coconut Grove Curve on Thepkasattri Road. The crash happened on August 7, when the victim struck the central median at high speed.\n\nPolice and emergency responders arrived promptly at 5:05 pm, but despite attempts at CPR, the man was pronounced dead at the scene. The crash caused heavy traffic delays until the wreckage was cleared, and his body was later transferred to Thalang Hospital for post-mortem examination.\n\nThe Coconut Grove Curve has long been feared by local riders, especially during Phuket's rainy season. Its sharp bend and uneven surface have been blamed for multiple fatalities over the years. Locals note that even experienced riders often misjudge the curve. The incident highlights Phuket's broader road safety crisis, where motorcycles account for the majority of deaths.",
+    "date": "2025-08-07",
+    "reporter": "CNN News",
+    "image": "21.jpg",
+    "votes": {
+      "real": 412,
+      "fake": 87
+    }
+  },
+  {
+    "id": 62,
+    "title": "Canadian Girl Drowns at Kata Beach in Phuket",
+    "details": "Tragedy struck on August 7 when a 10-year-old Canadian girl drowned at Kata Beach in Phuket. The child had been swimming with her family when she was swept away by strong waves around 4:00 pm.\n\nRescue teams, including divers near Koh Tapu and beach searchers combing shallow waters, scoured the area. The family, who had arrived from Malaysia only a day earlier for a planned two-month holiday, watched as the search continued. Eventually, the girl's body was discovered near the spot where she disappeared.\n\nThe child reportedly suffered a facial wound, leading rescuers to believe she struck rocks beneath the water while drowning. Despite rough seas at the time, no red flags were posted on the beach to warn tourists. The incident has raised concerns over beach safety measures in Phuket, where swimming conditions can turn hazardous quickly.",
+    "date": "2025-08-07",
+    "reporter": "BBC News",
+    "image": "22.jpg",
+    "votes": {
+      "real": 387,
+      "fake": 102
+    }
+  },
+  {
+    "id": 63, 
+    "title": "Thailand Approves Billions for Freight Train Upgrade",
+    "details": "The Thai Cabinet has approved a 2.46-billion-baht plan to overhaul the nation's freight train system. The project will fund the procurement of 946 new container flatcars for the State Railway of Thailand (SRT).\n\nSRT Governor Veeris Ammarapala explained that the initiative aligns with the SRT's 2023-2027 roadmap and is part of the 2026 fiscal year priorities. Each flatcar will carry up to 62 tonnes, capable of transporting two containers of high-density cargo such as fertilizer, sugar, plastic pellets, and industrial salt.\n\nCurrently, only 308 of SRT's 1,062 freight cars can handle such loads. Once the new flatcars are operational, the nation's rail cargo handling capacity is expected to rise by 9 million tonnes annually, on top of the current 13 million tonnes.\n\nThe procurement also supports domestic industry, as the flatcars will be assembled in Thailand using both local and imported parts. The project is expected to strengthen Laem Chabang Port's role as the country's primary export hub. Delivery is scheduled between 2027 and 2032 in five batches.",
+    "date": "2025-08-07",
+    "reporter": "Reuters",
+    "image": "23.jpg",
+    "votes": {
+      "real": 421,
+      "fake": 78
+    }
+  },
+  {
+    "id": 64,
+    "title": "Singaporean Tourist Arrested for Flying Drone in Pattaya",
+    "details": "On August 7, authorities arrested a 44-year-old Singaporean tourist, Goh Chia Hsien, for flying a drone illegally over Walking Street in Pattaya.\n\nThe incident occurred shortly after midnight in the busy nightlife district, where drone operations are prohibited under Thailand's aviation laws. Pattaya City Special Affairs officers apprehended him, and he was later questioned at the Pattaya City Police Station with the assistance of an interpreter.\n\nThe suspect told police he was unaware of the restrictions and had been flying the drone for photography, describing himself as a drone enthusiast. However, he was unable to produce the required permit. Under the Aviation Act of 1954, unauthorized drone operations can lead to fines, imprisonment, or both.\n\nThe arrest underscores Thailand's strict enforcement of aviation safety rules, particularly in sensitive or crowded areas.",
+    "date": "2025-08-07",
+    "reporter": "CNN News",
+    "image": "24.jpg",
+    "votes": {
+      "real": 354,
+      "fake": 93
+    }
+  },
+  {
+    "id": 65,
+    "title": "Police Dismantle Online Gambling Ring Worth 56 Million Baht",
+    "details": "On August 6, Thai police raided a luxury home in Khlong Luang district, Pathum Thani province, uncovering a large-scale illegal gambling operation linked to Auto888vip.com.\n\nThe raid, led by the Technology Crime Suppression Division, resulted in the arrest of a 30-year-old man who managed the site's financial operations. Police confiscated assets worth 56 million baht, including a Mercedes-Benz CLS53, a BMW M4, luxury watches from Rolex and Patek Philippe, cash totaling 28 million baht, and designer clothing and jewelry.\n\nThe site reportedly generated around 20 million baht in revenue per month with 3,000 active accounts. Police are now pursuing additional suspects tied to the operation.\n\nThis bust is part of Thailand's ongoing crackdown on illegal online gambling, which authorities say fuels organized crime and drains billions from the economy.",
+    "date": "2025-08-06",
+    "reporter": "BBC News",
+    "image": "25.jpg",
+    "votes": {
+      "real": 398,
+      "fake": 86
+    }
+  },
+  {
+    "id": 66,
+    "title": "Thai Police Raid Drone Manufacturing Company Over Violations",
+    "details": "On August 5, officials from the National Broadcasting and Telecommunications Commission (NBTC) and the Crime Suppression Division raided a drone manufacturing company in Samut Prakan province.\n\nThe search uncovered numerous drones, anti-drone equipment, and frequency inspection vehicles. Authorities seized all equipment to verify permits and coordinated with customs officials to check for illegal imports.\n\nThe company is owned by a Singaporean national currently overseas, leaving its Thai caretaker responsible for questioning. Violations of the Radio Communications Act of 1955 carry penalties of up to five years in prison, fines of 100,000 baht, or both.\n\nNBTC emphasized the sensitivity of the current security situation, warning that the spread of unauthorized drone technology could threaten national security.",
+    "date": "2025-08-05",
+    "reporter": "Reuters",
+    "image": "26.jpg",
+    "votes": {
+      "real": 365,
+      "fake": 97
+    }
+  },
+  {
+    "id": 67,
+    "title": "Decomposed Body of Tourist Found in Chiang Mai Forest",
+    "details": "On August 3, a local resident collecting forest products stumbled upon the decomposed body of a foreign tourist in Chiang Mai's Doi Suthep forest. The body, believed to be that of a man, was found about two kilometers from the main road in Suthep subdistrict.\n\nDue to advanced decomposition, identification has proven difficult. A black backpack was found nearby, and the remains were transferred to Maharaj Nakorn Chiang Mai Hospital for forensic examination.\n\nPolice suspect the individual may have entered the forest alone, though the cause of death is still unknown. The challenging terrain and late hour complicated retrieval efforts.\n\nThis discovery comes amid a rise in tourist fatalities in Thailand, including the body of another foreign man found floating near Nui Beach in Phuket earlier this year.",
+    "date": "2025-08-03",
+    "reporter": "BBC News",
+    "image": "27.jpg",
+    "votes": {
+      "real": 379,
+      "fake": 88
+    }
+  },
+  {
+    "id": 68,
+    "title": "Thai Provinces Unite to Tackle Drone Threats",
+    "details": "On August 2, Lieutenant General Boonsin Phatklang, Commander of the 2nd Army Region, held a virtual meeting with governors from 20 northeastern provinces to discuss anti-drone measures.\n\nOfficials were instructed to procure counter-drone technology for use at critical locations such as airports, police stations, and armories. Patrols were also ordered to monitor for outsiders in sensitive areas, with suspects facing potential charges of espionage or terrorism, which can carry the death penalty.\n\nThe campaign reflects growing concerns over illegal drone activities, including their potential links to organized crime or cross-border operations.",
+    "date": "2025-08-02",
+    "reporter": "CNN News",
+    "image": "28.jpg",
+    "votes": {
+      "real": 346,
+      "fake": 79
+    }
+  },
+  {
+    "id": 69,
+    "title": "Fire at Chon Buri Postal Warehouse",
+    "details": "In the early hours of August 3, a fire broke out at a Thai Post warehouse in Phanat Nikhom, Chon Buri. Four residents were trapped inside but were rescued by firefighters after an hour-long battle with the flames.\n\nThe fire destroyed a large number of parcels, though some sections of the warehouse were spared. Initial investigations suggest an electrical short circuit as the cause, but forensic teams are still gathering evidence.\n\nThe blaze underscores vulnerabilities in Thailand's postal infrastructure, which has struggled with both accidents and delays in recent years.",
+    "date": "2025-08-03",
+    "reporter": "BBC News",
+    "image": "29.jpg",
+    "votes": {
+      "real": 361,
+      "fake": 81
+    }
+  },
+  {
+    "id": 70,
+    "title": "Phuket Waste Crisis Escalates; Mayor Refuses to Quit",
+    "details": "Phuket is struggling to manage more than 1,300 tonnes of garbage daily. On July 29, Mayor Suphot La-ongphet inspected the overwhelmed Phuket Central Waste Disposal Centre alongside engineers and council officials.\n\nDespite admitting that the landfill is operating beyond capacity, the mayor vowed not to resign. He emphasized that the crisis stems from Phuket's rapid growth in population and tourism. Garbage volumes spiked even during the recent low tourist season.\n\nAn emergency meeting of the Phuket Provincial Waste Board was called for July 31, led by the governor, to devise urgent short- and long-term solutions. The situation has been described by local officials as critical.",
+    "date": "2025-07-29",
+    "reporter": "Reuters",
+    "image": "30.jpg",
+    "votes": {
+      "real": 392,
+      "fake": 90
+    }
+  },
+  {
+    "id": 71,
+    "title": "Shop Owner Seeks Lottery Luck from Temple Spirit",
+    "details": "On July 30, a 44-year-old shop owner from Nakhon Pathom visited Wat Phai Lom to pray for good fortune at the shrine of the temple's Kuman Sombat statue.\n\nCarrying offerings of flowers, incense, and sweets, the shopkeeper performed a ritual in hopes of receiving lucky lottery numbers. The number 353 appeared in the ritual's outcome, which he interpreted as a sign for the upcoming draw.\n\nWat Phai Lom has become popular among Thais seeking lottery blessings, with stories of previous visitors winning large sums adding to the shrine's reputation.",
+    "date": "2025-07-30",
+    "reporter": "CNN News",
+    "image": "31.jpg",
+    "votes": {
+      "real": 348,
+      "fake": 95
+    }
+  },
+  {
+    "id": 72,
+    "title": "New Zealand Tourists Earn Praise for Returning Lost Cash in Phuket",
+    "details": "Two New Zealand tourists earned praise after returning around 1,500 Malaysian ringgit they found in Phuket. They handed the money to a local police station, and it was returned to its owner.\n\nThai netizens applauded their honesty, calling them role models for other travelers. Officials said the act showed that tourism can bring kindness, not just problems.",
+    "date": "2025-08-01",
+    "reporter": "BBC News",
+    "image": "32.jpg",
+    "votes": {
+      "real": 367,
+      "fake": 82
+    }
+  },
+  {
+    "id": 73,
+    "title": "Flooding in Chiang Rai's Mae Sai District",
+    "details": "Heavy rainfall in early August caused the Sai River in Chiang Rai's Mae Sai district to overflow, flooding several communities and forcing evacuations.\n\nEmergency teams provided boats for transportation, and military units helped evacuate vulnerable residents. Relief supplies, including food, drinking water, and blankets, were distributed to affected households.\n\nOfficials warned that with continued rain forecast, flooding risk could spread further downstream near Myanmar.",
+    "date": "2025-08-01",
+    "reporter": "Reuters",
+    "image": "33.jpg",
+    "votes": {
+      "real": 351,
+      "fake": 76
+    }
+  },
+  {
+    "id": 74,
+    "title": "Bangkok to Everest Base Camp Trekking Guide Highlights Adventure for Thai Travelers",
+    "details": "Travel guides for Thai adventurers are highlighting the trek from Bangkok to Everest Base Camp in Nepal. Most travelers fly from Bangkok to Kathmandu, then take a short flight to Lukla, the trek's starting point.\n\nThe journey typically takes 12-14 days and reaches elevations above 5,000 meters. Permits, physical preparation, and acclimatization are essential due to the risk of altitude sickness.\n\nDespite the challenges, the Everest Base Camp route is promoted as a bucket list adventure for Thai travelers.",
+    "date": "2025-08-01",
+    "reporter": "BBC News",
+    "image": "34.jpg",
+    "votes": {
+      "real": 338,
+      "fake": 74
+    }
+  },
+  {
+    "id": 75, 
+    "title": "Drunk Russian Crashes into Thai Woman's Car in Phuket",
+    "details": "A Russian tourist was arrested in Phuket after crashing his car into a Thai woman's vehicle while heavily intoxicated. The collision occurred late at night and left the woman's car badly damaged.\n\nPolice conducted an alcohol test that confirmed the driver was over the legal limit. The incident has renewed calls for stricter enforcement of traffic laws for foreign tourists.",
+    "date": "2025-08-02",
+    "reporter": "CNN News",
+    "image": "35.jpg",
+    "votes": {
+      "real": 326,
+      "fake": 88
+    }
+  },
+  {
+    "id": 76, 
+    "title": "AC Unit Blamed for Fire Scare in Hotel Spa",
+    "details": "Guests at a luxury hotel in central Bangkok were evacuated after smoke was spotted inside the hotel's spa on August 4. Firefighters responded quickly, and the cause was traced to a malfunctioning air-conditioning unit.\n\nNo injuries were reported. The hotel repaired the system and pledged to enhance safety inspections to prevent future incidents.",
+    "date": "2025-08-04",
+    "reporter": "BBC News",
+    "image": "36.jpg",
+    "votes": {
+      "real": 312,
+      "fake": 79
+    }
+  },
+  {
+    "id": 77,
+    "title": "Thai National Caught Smuggling 3 Tons of Clams from Myanmar",
+    "details": "Authorities in Ranong province intercepted a 37-year-old Thai man attempting to smuggle over three tons of clams from Myanmar into Thailand.\n\nOfficials confiscated the clams, valued at more than 300,000 baht, along with the boat used for transport. The suspect faces charges under Thailand's Fisheries Act.\n\nOfficials warned that seafood smuggling bypasses taxes, risks introducing disease, and undermines sustainable fishing.",
+    "date": "2025-08-02",
+    "reporter": "Reuters",
+    "image": "37.jpg",
+    "votes": {
+      "real": 334,
+      "fake": 85
+    }
+  },
+  {
+    "id": 78,
+    "title": "Fire Erupts at Abandoned Ratsada House After 20 Years of Silence",
+    "details": "On August 5, firefighters extinguished a blaze at an abandoned house in Phuket's Ratsada district that had been left untouched for more than two decades.\n\nNeighbors reported smoke late at night. Firefighters battled the flames for over an hour before bringing them under control. No injuries were reported, but the house sustained heavy damage.\n\nThe cause is believed to be an electrical fault from old wiring, though arson has not been ruled out.",
+    "date": "2025-08-05",
+    "reporter": "CNN News",
+    "image": "38.jpg",
+    "votes": {
+      "real": 319,
+      "fake": 77
+    }
+  },
+  {
+    "id": 79,
+    "title": "Phuket Woman Runs from Grab Rider After Fake Cash Promise",
+    "details": "A Phuket woman narrowly avoided fraud when a Grab rider attempted to pay her with counterfeit cash upon delivery.\n\nShe noticed irregularities in the banknotes, ran to safety, and reported the case to authorities. Police are investigating whether the rider is part of a larger network targeting delivery services.\n\nThe incident sparked debate about safety for vendors using delivery apps and calls for stricter verification measures.",
+    "date": "2025-08-06",
+    "reporter": "BBC News",
+    "image": "39.jpg",
+    "votes": {
+      "real": 328,
+      "fake": 81
+    }
+  },
+  {
+    "id":80,
+    "title": "Thailand Targets 2.8 Trillion Baht in Tourism Revenue by 2026",
+    "details": "The Tourism Authority of Thailand set a target of generating 2.8 trillion baht in tourism revenue by 2026, focusing on high-spending visitors, digital platforms, and sustainable tourism.\n\nPlans include strengthening air connectivity and marketing Thailand as a year-round destination. The government expects tourism to play a central role in economic recovery, creating jobs and stimulating local economies.\n\nOfficials are confident that with global demand rebounding, Thailand can return to pre-pandemic tourism levels within two years.",
+    "date": "2025-08-01",
+    "reporter": "Reuters",
+    "image": "40.jpg",
+    "votes": {
+      "real": 401,
+      "fake": 79
+    }
   }
+
 ]
 
