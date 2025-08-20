@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "headline": "India–China Relations Gain Momentum Amid Trump’s Trade Pressure",
+    "details": "China lifted export restrictions on fertilizers, rare earth minerals, magnets, and tunnel boring machines to India, marking fresh momentum in trade ties between the two neighbors. The breakthrough followed talks between External Affairs Minister S. Jaishankar and Chinese Foreign Minister Wang Yi. During his two-day visit to India, Wang assured Jaishankar that Beijing had already acted on New Delhi’s requests, with shipments of the restricted items understood to be underway. This development signaled a pragmatic recalibration in bilateral relations. Both countries recognized that cooperation in critical sectors could ease supply chain pressures and foster stability in an uncertain global order. Rather than a reset driven by sentiment, the move represented a calculated opening—collaborating where interests aligned, managing differences carefully, and building predictability into a fraught relationship. The thaw came after relations between Washington and New Delhi soured when U.S. President Donald Trump doubled tariffs on Indian goods to 50%, including an extra 25% penalty tied to India’s purchases of Russian oil.",
+    "reporter": "BBC News",
+    "date": "2025-08-01 09:30",
+    "image": "1.webp",
+    "votes": { "real": 94, "fake": 15 },
+    "comments": []
+  },
+  {
+    "id": 2,
+    "headline": "Trump’s Tariffs Hit India: Impact on GDP, Debt, and Equity Markets",
+    "details": "The decision by U.S. President Donald Trump to double tariffs on Indian exports from 25% to 50% introduced a complex challenge for India’s economy. The new tariffs, effective 27 August, delivered an immediate shock to exporters but left a 21-day window for India to negotiate. Businesses and industry groups anticipated targeted government support to mitigate the impact. India’s exports to the U.S. were concentrated in labor- and skill-intensive sectors such as textiles, gems and jewelry, pharmaceuticals, electronics, steel, IT services, and refined petroleum products. In FY24, exports in textiles totaled over $11 billion, gems and jewelry $10 billion, and electronics $8 billion, according to the Ministry of Commerce and Industry. These three sectors alone accounted for more than $29 billion and were the most exposed. The steel sector faced pricing disadvantages in the sensitive global market, while IT services risked reduced demand and greater regulatory scrutiny. Refiners and oil exporters also faced pressure, as potential extension of tariffs to refined petroleum products could disrupt long-term planning and profitability, especially given India’s strategic energy ties with Russia and China.",
+    "reporter": "CNN News",
+    "date": "2025-08-01 14:00",
+    "image": "2.webp",
+    "votes": { "real": 4, "fake": 0 },
+    "comments": []
+  },
+  {
+    "id": 3,
+    "headline": "Canon Expands Industrial Solutions in Nagpur",
+    "details": "As Nagpur emerged as a hub for defense manufacturing, pharmaceutical production, and India’s lithium battery ventures, Canon positioned itself to move beyond its traditional printing solutions. At the ET Make in India SME Regional Summit in Nagpur, Canon outlined an expansion strategy that included MRI machines, CT scanners, and semiconductor manufacturing equipment for Indian MSMEs. The company’s diversification reflected the evolving needs of India’s industrial landscape. Canon had recently entered the medical equipment sector with MRI machines, CT scanners, and digital X-ray systems available nationwide. It also began developing semiconductor manufacturing equipment, aligning with India’s push for domestic semiconductor production. For Nagpur, Canon’s expansion matched the city’s transformation into a multi-sectoral industrial hub. Defense manufacturing demanded precision imaging, pharmaceutical production required medical equipment, and the lithium battery sector needed advanced manufacturing solutions—all areas where Canon was now active.",
+    "reporter": "Reuters",
+    "date": "2025-08-02 10:20",
+    "image": "3.webp",
+    "votes": { "real": 54, "fake": 4 },
+    "comments": []
+  },
+  {
+    "id": 4,
+    "headline": "Chevrolet Unveils Electric and Hybrid Corvette Concepts",
+    "details": "General Motors revealed two Chevrolet Corvette concept vehicles, the all-electric Corvette CX and the hybrid CX.R Vision Gran Turismo, at The Quail automotive event in Carmel, California. These models represented GM’s vision for future high-performance vehicles and concluded its 2024 Corvette concept series. The design, developed at Chevrolet’s Performance Studio in Michigan, drew inspiration from fighter jets and video games. The Corvette CX introduced a canopy opening system that swung forward like a tipping hat, replacing traditional doors. The all-wheel-drive supercar featured four motors, one at each wheel, generating over 2,000 horsepower. A 90-kWh lithium-ion battery was integrated into the chassis for optimal weight distribution and a low center of gravity.",
+    "reporter": "Al Jazeera",
+    "date": "2025-08-03 11:45",
+    "image": "4.webp",
+    "votes": { "real": 33, "fake": 0 },
+    "comments": []
+  },
+  {
+    "id": 5,
+    "headline": "UK Withdraws Demand in Apple Privacy Dispute",
+    "details": "The UK withdrew its controversial demand for Apple to provide access to encrypted data of global users. The request, made under the Investigatory Powers Act, had sparked outrage from privacy advocates who argued that creating a backdoor would threaten personal and national security. Apple had previously responded by removing its Advanced Data Protection (ADP) from the UK market and initiating legal proceedings to challenge the order. While Apple maintained that it never created backdoors to its products, the UK government emphasized its cooperation with the U.S. in combating terrorism and child abuse facilitated by technology. Civil rights groups welcomed the withdrawal, but concerns persisted that similar powers could be used by future governments. Privacy organizations stressed that the UK’s legal authority to demand access to encrypted services still posed risks to civil liberties and digital security.",
+    "reporter": "NDTV",
+    "date": "2025-08-04 09:00",
+    "image": "5.webp",
+    "votes": { "real": 30, "fake": 8 },
+    "comments": []
+  },
+  {
+    "id": 6,
+    "headline": "Apple to Invest $100 Billion in the U.S.",
+    "details": "Apple announced an additional $100 billion investment in the U.S. following pressure from President Donald Trump. The White House confirmed that the funds would be directed toward domestic supply chain expansion, including new data centers and a smart glass production line in Kentucky. Trump praised the move as a victory for American manufacturing and emphasized that Apple would avoid tariffs on semiconductors by shifting production to the U.S. CEO Tim Cook highlighted the company’s earlier $500 billion domestic investment and noted that results were already visible. Shares of Apple surged more than 5% after the announcement, with analysts noting that while supply chain adjustments would take time, the pledge might help the company secure lighter treatment under U.S. trade policy.",
+    "reporter": "The Hindu",
+    "date": "2025-08-04 13:30",
+    "image": "6.webp",
+    "votes": { "real": 27, "fake": 12 },
+    "comments": []
+  },
+  {
+    "id": 7,
+    "headline": "Intel Shares Rise as SoftBank Invests $2 Billion",
+    "details": "Intel shares jumped after SoftBank announced a $2 billion stake in the U.S. chipmaker. The move followed reports that the Trump administration was considering a 10% government stake in Intel to support its Ohio manufacturing hub. The deal, valued at $23 per share, was seen as a lifeline for Intel, which had been struggling against competitors like Samsung and TSMC. Analysts noted that the U.S. government’s involvement could reshape the private sector, raising concerns about political influence over companies. The investment reinforced Intel’s importance as one of the few U.S. firms capable of large-scale semiconductor manufacturing, especially for national security and AI applications.",
+    "reporter": "Economic Times",
+    "date": "2025-08-05 08:15",
+    "image": "7.webp",
+    "votes": { "real": 84, "fake": 12 },
+    "comments": []
+  },
+  {
+    "id": 8,
+    "headline": "Trump’s Tariffs Challenge Scottish Imports",
+    "details": "U.S. tariffs on Scottish goods tested consumer demand for imported products. Scottish Gourmet USA, a business in North Carolina, increased prices on items such as shortbread, bacon, pies, and cheese due to a 10% tariff and higher costs for healthcare and supplies. Consumers faced higher prices, with Scottish shortbread reaching $10 per box compared to U.S.-made alternatives at $5-6. The tariffs risked reducing exports from companies like Walker's in Scotland, which employed thousands seasonally, while benefiting U.S. producers such as Mondelez, maker of Lorna Doone cookies. Tariffs also hurt U.S. automakers like GM and Ford, which relied on international supply chains. Toyota and Honda reported billions in additional costs, while Caterpillar estimated losses of $1 billion annually.",
+    "reporter": "Financial Times",
+    "date": "2025-08-05 12:50",
+    "image": "8.webp",
+    "votes": { "real": 44, "fake": 19 },
+    "comments": []
+  },
+  {
+    "id": 9,
+    "headline": "Bolivia’s Economic Woes Ahead of Elections",
+    "details": "Bolivia prepared for general elections amid severe economic challenges. Inflation surged to 24% in June, driven by falling natural gas production, reduced exports, and shortages of U.S. dollars. The decline created fuel and food shortages, sparking protests across the country. Citizens described the rising cost of living as unsustainable, with families cutting back on eating out and spending hours in petrol queues. The Bolivian government had long subsidized fuel, but dwindling revenues made the subsidies increasingly difficult to sustain. Outgoing President Luis Arce blamed parliament for blocking loans, while opponents accused him of mismanagement. Analysts predicted that the next government would face unpopular structural reforms, as the state-heavy economic model appeared unsustainable.",
+    "reporter": "NDTV",
+    "date": "2025-08-06 09:40",
+    "image": "9.webp",
+    "votes": { "real": 29, "fake": 18 },
+    "comments": []
+  },
+  {
+    "id": 10,
+    "headline": "Volkswagen Introduces Subscription for Car Power",
+    "details": "Volkswagen launched a subscription model for UK customers to unlock extra engine power in its ID.3 electric cars. The power upgrade cost £16.50 per month, £165 annually, or £649 for lifetime access tied to the vehicle. VW positioned the option as consumer choice, comparing it to traditional petrol and diesel cars with different power configurations. However, some customers criticized the model, arguing that features already present in cars should not require additional payment. Other automakers, including BMW and Mercedes, had introduced similar subscription models, but surveys showed consumer willingness to pay for in-car services had fallen, despite the overall growth of the global subscription economy.",
+    "reporter": "CNN News",
+    "date": "2025-08-06 14:25",
+    "image": "10.webp",
+    "votes": { "real": 20, "fake": 9 },
+    "comments": []
+  },
+  {
+    "id": 11,
+    "headline": "Intel Shares Surge on Reports of Possible U.S. Stake",
+    "details": "Intel's stock rose more than 7% after reports suggested the Trump administration was considering buying a stake in the company to support its Ohio chip hub. Analysts viewed the move as a potential lifeline for Intel, which had struggled in the AI race. Although details of the deal remained unclear, experts noted that the U.S. government rarely supported individual firms directly. However, Intel's strategic role in semiconductor manufacturing made it a special case. The Ohio plant was envisioned as the world's largest chip facility but had faced repeated delays. Analysts warned that government involvement could set a concerning precedent of political influence over corporate strategy, though many agreed Intel remained vital to U.S. national security interests.",
+    "reporter": "Reporter Zaw",
+    "date": "2025-08-04 20:00",
+    "image": "11.webp",
+    "votes": { "real": 22, "fake": 0 },
+    "comments": []
+  },
+  {
+    "id": 12,
+    "headline": "Shein’s UK Sales Surge to £2 Billion",
+    "details": "Fast-fashion giant Shein reported UK sales of £2 billion, up 32.3% in 2024, with profits rising 57%. The growth came despite inflationary pressures and rising living costs. The company faced potential risks from changes in UK tax exemptions for imports under £135 and from U.S. tariffs after Trump removed tax breaks on low-value packages. Shein expanded its UK presence with new offices, a Liverpool pop-up shop, and a Christmas bus tour across 12 cities. However, it continued to face criticism over labor conditions in Chinese factories and environmental impacts.",
+    "reporter": "Anonymous",
+    "date": "2025-08-03 17:15",
+    "image": "12.webp",
+    "votes": { "real": 10, "fake": 2 },
+    "comments": []
+  },
+  {
+    "id": 13,
+    "headline": "UK Economic Growth Slows but Exceeds Forecasts",
+    "details": "The UK economy grew by 0.3% between April and June, slowing from 0.7% in the first quarter but still exceeding expectations of near stagnation. Growth was driven by services and construction, while retail dragged performance. Chancellor Rachel Reeves highlighted the results as exceeding forecasts but acknowledged that further work was needed to ensure inclusive growth. Analysts noted that resilience in the economy could delay Bank of England interest rate cuts, with inflation expected to peak at 4% before gradually returning to target levels.",
+    "reporter": "Reporter Nyein",
+    "date": "2025-08-02 08:50",
+    "image": "13.webp",
+    "votes": { "real": 14, "fake": 1 },
+    "comments": []
+  },
+  {
+    "id": 14,
+    "headline": "Australia’s Rare Earth Strategy Against China",
+    "details": "Australia committed $1 billion to support rare earth mining in Eneabba, Western Australia, aiming to reduce dependence on China, which controlled more than 80% of global supply. Mining company Iluka Resources planned to build a refinery to process dysprosium and terbium, byproducts of zircon extraction. Analysts emphasized that rare earths were essential for electric vehicles, renewable energy, and defense technologies. Australia sought to provide a cleaner and more reliable supply, though environmental concerns remained over radioactive byproducts of refining. The move reflected growing global urgency after China used its rare earth monopoly as leverage during trade disputes.",
+    "reporter": "Reporter Thura",
+    "date": "2025-08-01 07:40",
+    "image": "14.webp",
+    "votes": { "real": 11, "fake": 4 },
+    "comments": []
+  },
+  {
+    "id": 15,
+    "headline": "Markets Await U.S. Federal Reserve Decision",
+    "details": "Asian markets traded lower ahead of the U.S. Federal Reserve’s interest rate announcement. The Nikkei 225 fell 1%, and the Hang Seng Index dropped 0.9%, while Korea’s Kospi rose 0.5%. Australia’s S&P/ASX 200 remained stable, and China’s CSI 300 was flat. Investors also monitored U.S.–China trade talks and European market reactions to a new U.S.–EU trade agreement.",
+    "reporter": "Reporter Win",
+    "date": "2025-07-31 15:10",
+    "image": "15.jpg",
+    "votes": { "real": 12, "fake": 5 },
+    "comments": []
+  },
+  {
+    "id": 16,
+    "headline": "Global Stocks React to U.S. Inflation Data",
+    "details": "Global stocks edged lower after unexpectedly strong U.S. inflation data challenged expectations of Federal Reserve rate cuts. Treasury yields rose as markets reassessed future monetary policy. The S&P 500 achieved a modest gain, while the Dow Jones and Nasdaq ended flat. Analysts noted that inflation concerns continued to unsettle investors despite record highs in some indices.",
+    "reporter": "Reporter Ei",
+    "date": "2025-07-30 12:00",
+    "image": "16.webp",
+    "votes": { "real": 19, "fake": 2 },
+    "comments": []
+  },
+  {
+    "id": 17,
+    "headline": "State Street Rebrands Global Advisors Division",
+    "details": "State Street announced a rebrand of its Global Advisors division, renaming it State Street Investment Management. The change aimed to strengthen collaboration within the corporation and expand offerings for global investors. CEO Yie-Hsin Hung emphasized the company’s mission of delivering tailored solutions and prioritizing partnerships as part of its 'One State Street' strategy.",
+    "reporter": "Reporter Myint",
+    "date": "2025-07-29 09:25",
+    "image": "17.jpg",
+    "votes": { "real": 20, "fake": 1 },
+    "comments": []
+  },
+  {
+    "id": 18,
+    "headline": "Santos Buyout Deal Faces Delays",
+    "details": "Australian gas producer Santos confirmed delays in finalizing an $18.7 billion buyout led by Abu Dhabi National Oil Company (ADNOC). The consortium requested more time beyond the exclusive due diligence deadline to secure approvals. Shares in Santos fell 3.5% amid investor concerns over the deal’s future. If completed, the transaction would represent the largest all-cash corporate buyout in Australian history.",
+    "reporter": "CNN News",
+    "date": "2025-08-10 14:00",
+    "image": "18.jpg",
+    "votes": { "real": 75, "fake": 20 },
+    "comments": []
+  },
+  {
+    "id": 19,
+    "headline": "U.S. Trade Talks with India Paused",
+    "details": "The U.S. postponed scheduled trade negotiations with India, originally set for late August in New Delhi. Sources indicated that the talks, ongoing since February, would be rescheduled for a later date. The pause came as India faced the highest U.S. tariffs worldwide, with a 50% levy on its goods. Traders had already begun paying a 25% tariff, with the remainder set to take effect on 27 August.",
+    "reporter": "CNN News",
+    "date": "2025-08-10 13:00",
+    "image": "19.webp",
+    "votes": { "real": 34, "fake": 25 },
+    "comments": []
+  },
+  {
+    "id": 20,
+    "headline": "South Korea–U.S. Trade Deal Issues Ahead of Summit",
+    "details": "As South Korea and the U.S. prepared for a summit, unresolved issues from a recent trade deal created potential for disputes. Analysts suggested that President Trump might seek further concessions on defense costs and investments. The absence of a binding written agreement heightened risks of disagreement, with conflicting reports already emerging from both sides. Observers warned that even formal deals like free trade agreements could be subject to reversal under current conditions.",
+    "reporter": "CNN News",
+    "date": "2025-08-10 13:00",
+    "image": "20.jpg",
+    "votes": { "real": 45, "fake": 4 },
+    "comments": []
+  }
+]
