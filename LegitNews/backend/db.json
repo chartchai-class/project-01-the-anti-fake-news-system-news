@@ -198,5 +198,207 @@
     "image": "20.jpg",
     "votes": { "real": 45, "fake": 4 },
     "comments": []
+  },
+
+  {
+    "id": 21,
+    "headline": "Nakamura Closes In On 50th Bullet Brawl Title With Commanding Victory",
+    "details": "GM Hikaru Nakamura moved closer to an unprecedented 50 Bullet Brawl titles after claiming his 46th victory. He opened the event with a near perfect 21.5/22 run and finished with 175 points, 27 ahead of GM Oleksandr Bortnyk and seven more than GM Andrew Tang. FM Dincer Tasdogen took fourth place. The prize distribution awarded Nakamura 400 dollars, Bortnyk 250 dollars, Tang 150 dollars, and Tasdogen 100 dollars, while WIM Mitra Asgharzadeh won the 100 dollar best womens prize with a 16th place finish. The next edition of Bullet Brawl will be held on Saturday, August 23.",
+    "reporter": "Chess.com News",
+    "date": "2025-08-11 09:30",
+    "image": "21.png",
+    "votes": { "real": 83, "fake": 14 },
+    "comments": []
+  },
+  {
+    "id": 22,
+    "headline": "Aronian Wins Saint Louis Rapid & Blitz With 2 Rounds To Spare",
+    "details": "GM Levon Aronian secured the 2025 Saint Louis Rapid and Blitz title with two rounds remaining after consistent performances in the blitz portion. GM Fabiano Caruana finished second despite showing strong form in the rapid but faltering with costly blunders in the blitz rounds. GM Maxime Vachier Lagrave placed third and now leads the Grand Chess Tour standings heading into the Sinquefield Cup. World Champion Gukesh Dommaraju had a disappointing finish and now faces the challenge of winning the Sinquefield Cup to qualify for the Grand Chess Tour Finals in Brazil. Aronian's victory was highlighted by wins against Caruana in both blitz games, which effectively sealed his triumph.",
+    "reporter": "Saint Louis Chess Club",
+    "date": "2025-08-11 13:00",
+    "image": "22.png",
+    "votes": { "real": 71, "fake": 22 },
+    "comments": []
+  },
+  {
+    "id": 23,
+    "headline": "Carlsen Loses Battle, Wins War Over Nakamura In Freestyle Friday",
+    "details": "GM Magnus Carlsen captured victory in Freestyle Friday on August 15 by winning on tiebreaks against GM Hikaru Nakamura. Both scored 10 points, but Carlsen edged ahead due to superior tiebreaks despite losing their direct encounter. This marked Carlsen's first Freestyle Friday win since the event launched in January 2025. Nakamura's earlier win against Carlsen had briefly put him in the lead, but Carlsen's four game win streak solidified his top two standing and gave him the overall victory.",
+    "reporter": "ChessBase",
+    "date": "2025-08-12 10:20",
+    "image": "23.png",
+    "votes": { "real": 64, "fake": 17 },
+    "comments": []
+  },
+  {
+    "id": 24,
+    "headline": "Hou Wins Thriller To Advance To WSCC Semifinals",
+    "details": "GM Hou Yifan overcame GM elect Divya Deshmukh in one of the closest matches of the Womens Speed Chess Championship season. Divya started impressively, employing sacrifices and bold play to take a two point lead. Hou, however, showed resilience and mounted a comeback, eventually forcing the match into an armageddon tiebreak. Hou prevailed in the final game to advance to the semifinals. The next quarterfinal will feature IM Polina Shuvalova against IM Alice Lee.",
+    "reporter": "FIDE News",
+    "date": "2025-08-12 11:45",
+    "image": "24.png",
+    "votes": { "real": 56, "fake": 13 },
+    "comments": []
+  },
+  {
+    "id": 25,
+    "headline": "Keymer Enters World Top-10 For 1st Time",
+    "details": "GM Vincent Keymer reached a career milestone by breaking into the worlds top 10 with a victory over GM Awonder Liang in round seven of the Quantbox Chennai Grand Masters 2025. GM Arjun Erigaisi and GM Karthikeyan Murali shared second place after scoring important results, while GM Nihal Sarin defeated GM Ray Robson. GM Jorden van Foreest missed a chance to beat GM Pranav Venkatesh in a queen endgame. In the Challengers, GMs Pranesh M and Leon Luke Mendonca rose to joint leadership after beating GMs Vaishali Rameshbabu and Diptayan Ghosh, leaving GM Abhimanyu Puranik half a point behind.",
+    "reporter": "Chess.com India",
+    "date": "2025-08-12 15:00",
+    "image": "25.png",
+    "votes": { "real": 49, "fake": 9 },
+    "comments": []
+  },
+  {
+    "id": 26,
+    "headline": "Carlsen's Near Perfection Costs Nakamura Sweep",
+    "details": "In Titled Tuesday on August 12, GMs Hikaru Nakamura and Magnus Carlsen split victories across the two tournaments. Nakamura won the early event on tiebreaks after defeating GM Oleksandr Bortnyk in the final round, while Carlsen dominated the later event with a 10.5 out of 11 score. His performance included a crucial win over Nakamura, who was otherwise undefeated. This marked Nakamura's 90th Titled Tuesday win since 2020 and Carlsen's 35th, 10 of which have come in 2025.",
+    "reporter": "Lichess News",
+    "date": "2025-08-13 09:20",
+    "image": "26.png",
+    "votes": { "real": 77, "fake": 11 },
+    "comments": []
+  },
+  {
+    "id": 27,
+    "headline": "Magnus Carlsen Wins 1st Ever Chess Esports World Cup",
+    "details": "Magnus Carlsen became the first Chess Esports World Cup Champion by defeating GM Alireza Firouzja in the Grand Final. Carlsen won the last three games to secure the 250,000 dollar top prize and also helped Team Liquid claim the overall championship. GM Hikaru Nakamura took third place after narrowly defeating GM Arjun Erigaisi in a match where almost every game ended decisively.",
+    "reporter": "Esports Insider",
+    "date": "2025-08-13 13:40",
+    "image": "27.png",
+    "votes": { "real": 62, "fake": 16 },
+    "comments": []
+  },
+  {
+    "id": 28,
+    "headline": "Lauri Markkanen Dominates Poland in EuroBasket Prep Game",
+    "details": "Finnish star Lauri Markkanen delivered a dominant performance with 42 points and 12 rebounds in just 24 minutes during a EuroBasket 2025 warm up game against Poland. Over three summer preparation games, the 28 year old has averaged 40.3 points and 8.3 rebounds while maintaining strong shooting percentages. His teammates Olivier Nkamhoua, Sasu Salin, and Mikael Jantunen also contributed to Finland's victory.",
+    "reporter": "EuroHoops",
+    "date": "2025-08-14 09:00",
+    "image": "28.jpg",
+    "votes": { "real": 81, "fake": 19 },
+    "comments": []
+  },
+  {
+    "id": 29,
+    "headline": "Luka Doncic Injury Scare Resolved",
+    "details": "Luka Doncic briefly alarmed fans when he appeared injured during Slovenia's friendly game against Latvia. However, the Slovenian Basketball Federation confirmed that he had avoided serious harm. Doncic immediately rejoined the national team and will continue practicing as Slovenia prepares for its next matchup against Great Britain.",
+    "reporter": "ESPN",
+    "date": "2025-08-14 13:20",
+    "image": "29.jpg",
+    "votes": { "real": 65, "fake": 10 },
+    "comments": []
+  },
+  {
+    "id": 30,
+    "headline": "France Finalizes EuroBasket 2025 Roster",
+    "details": "France announced its final 12 man roster for EuroBasket 2025, led by NBA players Guerschon Yabusele, Bilal Coulibaly, Zaccharie Risacher, and Alex Sarr. Vincent Poirier was excluded due to injury, while Nadir Hifi did not make the cut. Several big names, including Victor Wembanyama, Rudy Gobert, Evan Fournier, and Mathias Lessort, are unavailable due to health issues. Nicolas Batum and Nando De Colo retired from international basketball following the Paris 2024 Olympics. France will compete in Group D in Katowice, Poland, facing Belgium, Slovenia, Israel, Poland, and Iceland.",
+    "reporter": "L'Équipe",
+    "date": "2025-08-14 16:00",
+    "image": "30.jpg",
+    "votes": { "real": 59, "fake": 15 },
+    "comments": []
+  },
+  {
+    "id": 31,
+    "headline": "NBA Fans Criticize NBCs 11 PM Doubleheader Schedule",
+    "details": "NBC introduced Coast 2 Coast Tuesday for the 2025 26 NBA season, scheduling the second game of weekly doubleheaders to tip off at 11 PM ET. Fans expressed frustration, particularly those on the East Coast, noting that commercial breaks could push games closer to 11:30 PM starts. The first affected matchup will be the Golden State Warriors against the Los Angeles Clippers on October 28.",
+    "reporter": "NBC Sports",
+    "date": "2025-08-15 08:30",
+    "image": "31.jpg",
+    "votes": { "real": 68, "fake": 9 },
+    "comments": []
+  },
+  {
+    "id": 32,
+    "headline": "NBA 2K26 Reveals Top 3-Point and Mid-Range Ratings",
+    "details": "Ahead of the full NBA 2K26 player ratings release, 2K Games revealed the top three point and mid range shooting specialists. Stephen Curry topped the three point list with a near perfect 99 rating, followed by Kevin Durant and Klay Thompson. For mid range shooting, Nikola Jokic and Kyrie Irving shared the top spot at 98, with Kevin Durant, Devin Booker, Shai Gilgeous Alexander, Andrew Nembhard, and Curry closely behind at 97. NBA 2K26 will release on September 5, 2025.",
+    "reporter": "IGN",
+    "date": "2025-08-15 11:15",
+    "image": "32.jpg",
+    "votes": { "real": 74, "fake": 18 },
+    "comments": []
+  },
+  {
+    "id": 33,
+    "headline": "Bryn Forbes Signs With Greek Club Aris Thessaloniki",
+    "details": "Former NBA guard Bryn Forbes signed a one year contract with Aris Thessaloniki for the 2025 26 season. The 31 year old spent seven years in the NBA with teams including the San Antonio Spurs and Milwaukee Bucks, averaging 8.6 points per game across 473 appearances. His best season came in 2018 19 with the Spurs. Forbes, who faced legal issues in recent years, played in Puerto Rico before moving to Greece.",
+    "reporter": "EuroLeague News",
+    "date": "2025-08-15 14:40",
+    "image": "33.jpg",
+    "votes": { "real": 58, "fake": 7 },
+    "comments": []
+  },
+  {
+    "id": 34,
+    "headline": "Hornets Moussa Diabate Declines France Call-Up",
+    "details": "Charlotte Hornets center Moussa Diabate declined an invitation to join France for EuroBasket 2025. He had been asked to replace the injured Vincent Poirier but opted to focus on his NBA career. Head coach Frederic Fauthoux confirmed Diabate's decision, emphasizing the importance of respecting players who participated in summer preparations. France enters the tournament short handed in the center position, with Victor Wembanyama, Rudy Gobert, Mathias Lessort, and Poirier all unavailable.",
+    "reporter": "Bleacher Report",
+    "date": "2025-08-16 09:30",
+    "image": "34.jpg",
+    "votes": { "real": 69, "fake": 14 },
+    "comments": []
+  },
+  {
+    "id": 35,
+    "headline": "Stephen Curry Stays Calm Despite Quiet Warriors Offseason",
+    "details": "Golden State Warriors star Stephen Curry expressed confidence in his team's core despite the lack of offseason moves. The Warriors have not made any signings or trades while dealing with restricted free agent Jonathan Kuminga's contract situation. Curry believes the roster remains competitive but acknowledged the need for additional support to reach the next level. He enters his 17th NBA season after averaging 24.5 points, 4.4 rebounds, and 6.0 assists last year.",
+    "reporter": "The Athletic",
+    "date": "2025-08-16 12:10",
+    "image": "35.jpg",
+    "votes": { "real": 63, "fake": 11 },
+    "comments": []
+  },
+  {
+    "id": 36,
+    "headline": "Juli Inkster Nearly Makes LPGA History",
+    "details": "Hall of Famer Juli Inkster, at age 65, nearly became the oldest player to make an LPGA cut at the Standard Portland Classic. After opening with a strong 69, she finished with a 74 and missed the cut by one stroke. Inkster last played an LPGA event in 2022 and joined the field to prepare for the U.S. Senior Womens Open. Despite falling short, she expressed satisfaction with competing alongside younger players and will continue her preparations.",
+    "reporter": "Golf Digest",
+    "date": "2025-08-17 10:20",
+    "image": "36.jpg",
+    "votes": { "real": 55, "fake": 8 },
+    "comments": []
+  },
+  {
+    "id": 37,
+    "headline": "Rasmus Hojgaard Leads Danish Golf Championship",
+    "details": "Rasmus Hojgaard held his nerve to lead the Danish Golf Championship by one shot at 13 under. The 24 year old Dane birdied the 17th to pull ahead after pressure from Marco Penge, who briefly overtook him earlier in the round. Ben Schmidt climbed into contention with a course record 64, while Swedens Mikael Lindberg recorded a hole in one. Hojgaard, who won the event in 2023, is also in contention for a Ryder Cup spot.",
+    "reporter": "Sky Sports Golf",
+    "date": "2025-08-17 13:00",
+    "image": "37.jpg",
+    "votes": { "real": 72, "fake": 20 },
+    "comments": []
+  },
+  {
+    "id": 38,
+    "headline": "Sebastian Munoz Shoots 59 at LIV Golf Indianapolis",
+    "details": "Sebastian Munoz carded a remarkable 12 under 59 at the LIV Golf event in Indianapolis, becoming the third player in the leagues short history to break 60. His round included a rare double bogey but was fueled by 13 birdies over 14 holes. Munoz joined Joaquin Niemann and Bryson DeChambeau as the only LIV players to achieve sub 60 rounds.",
+    "reporter": "LIV Golf News",
+    "date": "2025-08-18 09:15",
+    "image": "38.jpg",
+    "votes": { "real": 66, "fake": 18 },
+    "comments": []
+  },
+  {
+    "id": 39,
+    "headline": "Robert MacIntyre Leads BMW Championship After Opening 62",
+    "details": "Robert MacIntyre surged into the lead at the BMW Championship with an 8 under 62, powered by six consecutive birdies to close his round. His performance marked the best putting stretch of his season, including long makes from 65 and 40 feet. Tommy Fleetwood, Scottie Scheffler, and Rickie Fowler remained within striking distance heading into the next round.",
+    "reporter": "PGA Tour News",
+    "date": "2025-08-18 13:30",
+    "image": "39.jpg",
+    "votes": { "real": 61, "fake": 12 },
+    "comments": []
+  },
+  {
+    "id": 40,
+    "headline": "Brooke Henderson One Shot Behind at Portland Classic",
+    "details": "Brooke Henderson opened the Standard Portland Classic with a 7 under 65, leaving her one shot behind leader Adela Cernousek. Henderson, who won the event in 2015 and 2016, birdied all four par 5s and relied on accurate driving to stay in contention. Despite a recent dip in form, she remains a strong contender as she seeks her 14th LPGA Tour title.",
+    "reporter": "LPGA News",
+    "date": "2025-08-19 09:45",
+    "image": "40.jpg",
+    "votes": { "real": 70, "fake": 21 },
+    "comments": []
   }
 ]
+
