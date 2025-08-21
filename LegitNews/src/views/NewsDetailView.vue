@@ -16,7 +16,9 @@ function goBackHome() {
 
 <template>
   <div class="container" v-if="news">
-    <!-- Main Content -->
+    <!-- Main -->
+
+
     <div class="main-content">
       <div class="main-header">
         <span>{{ news.headline }}</span>
@@ -39,10 +41,13 @@ function goBackHome() {
       </div>
 
       <div class="actions">
+        <router-link :to="`/news/${news.id}/viewcomment`">
+          <button> View Comment</button>
+        </router-link>
+        
         <router-link :to="`/news/${news.id}/vote`">
           <button>Vote & Comment</button>
         </router-link>
-        <button @click="goBackHome">⬅ Back to Home</button>
       </div>
     </div>
 

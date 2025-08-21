@@ -6,19 +6,13 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 <template>
   <div id="app" style="display:flex; flex-direction:column; min-height:100vh;">
-    
-    <!-- Header -->
+
     <header class="header">
-      <div class="menu">☰</div>
       <div class="logo">
         <img src="./assets/Legit News Logo.png" alt="Legit News Logo" style="height:60px; width:auto;">
       </div>
-      <RouterLink to="/login">
-        <button type="button" class="login-btn">Login</button>
-      </RouterLink>
     </header>
 
-    <!-- Navigation -->
     <div class="navbar-container">
       <nav>
         <RouterLink to="/">All News</RouterLink>
@@ -33,14 +27,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
       </div>
     </div>
 
-    <!-- Main page content -->
     <main style="flex:1; padding:20px;">
       <router-view />
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-      <!-- Left section: Social icons -->
       <div class="footer-section">
         <p>Follow us on:</p>
         <div class="social-icons">
@@ -51,14 +42,12 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
         </div>
       </div>
 
-      <!-- Center section: Email + Links -->
       <div class="footer-section center">
         <p>Contact us: legitnews25@gmail.com</p>
         <RouterLink to="/terms">Term of use</RouterLink> | 
         <RouterLink to="/about">About us</RouterLink>
       </div>
 
-      <!-- Right section: Logo -->
       <div class="footer-section right">
         <img src="./assets/Legit News Logo.png" alt="Legit news" style="height:60px; width:auto;" class="footer-logo">
       </div>
@@ -67,13 +56,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 </template>
 
 <style>
-/* keep your styles inside here instead of inline */
-
 header {
   background: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 15px 50px;
   border-bottom: 1px solid #ddd;
 }
@@ -140,18 +127,6 @@ nav a {
 .sort{
   width: 120px;
   height: 30px;
-}
-
-.login-btn {
-  width: 120px;
-  height: 40px;
-  font-size: 16px;
-  background: black;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
 /* Footer styles */
