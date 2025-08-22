@@ -12,20 +12,29 @@ app.use(bodyParser.json())
 // ✅ Serve static images folder
 app.use("/images", express.static(path.join(process.cwd(), "images")))
 
-// Path to db.json
-const dbFile = path.join(__dirname, "db.json")
+// Paths to db files
+const dbFile = path.join(__dirname, "db.json")       // news
+const usersFile = path.join(__dirname, "users.json") // users
 
 // --- Helpers ---
 function readDB() {
   const data = fs.readFileSync(dbFile, "utf-8")
-  return JSON.parse(data) // returns an array
+  return JSON.parse(data)
 }
-
 function writeDB(data) {
   fs.writeFileSync(dbFile, JSON.stringify(data, null, 2))
 }
 
-// --- Endpoints ---
+function readUsers() {
+  if (!fs.existsSync(usersFile)) return []
+  const data = fs.readFileSync(usersFile, "utf-8")
+  return JSON.parse(data)
+}
+function writeUsers(data) {
+  fs.writeFileSync(usersFile, JSON.stringify(data, null, 2))
+}
+
+// --- NEWS ENDPOINTS ---
 
 // ✅ Get all news (with optional search + pagination)
 app.get("/news", (req, res) => {
@@ -42,7 +51,6 @@ app.get("/news", (req, res) => {
     )
   }
 
-  // Normalize: add `detail` + full image URL
   results = results.map(n => ({
     ...n,
     detail: n.details || n.detail || "",
@@ -81,14 +89,15 @@ app.get("/news/:id", (req, res) => {
 // ✅ Add a new news article
 app.post("/news", (req, res) => {
   const data = readDB()
+  const maxId = data.length > 0 ? Math.max(...data.map(n => n.id || 0)) : 0
 
   const newArticle = {
-    id: data.length ? data[data.length - 1].id + 1 : 1,
+    id: maxId + 1,
     headline: req.body.headline,
     details: req.body.details || req.body.detail || "",
     reporter: req.body.reporter || "Anonymous",
     date: new Date().toLocaleString(),
-    image: req.body.image || "placeholder.png", // just filename
+    image: req.body.image || "placeholder.png",
     votes: { real: 0, fake: 0 },
     comments: []
   }
@@ -96,11 +105,13 @@ app.post("/news", (req, res) => {
   data.push(newArticle)
   writeDB(data)
 
+  const imageUrl = newArticle.image.startsWith("http")
+    ? newArticle.image
+    : `${req.protocol}://${req.get("host")}/images/${newArticle.image}`
+
   res.status(201).json({
     ...newArticle,
-    image: newArticle.image.startsWith("http")
-      ? newArticle.image
-      : `http://localhost:${PORT}/images/${newArticle.image}`
+    image: imageUrl
   })
 })
 
@@ -134,6 +145,52 @@ app.post("/news/:id/vote", (req, res) => {
 
   writeDB(data)
   res.json(article.votes)
+})
+
+// --- USERS ENDPOINTS ---
+
+// ✅ Register new user
+app.post("/register", (req, res) => {
+  const users = readUsers()
+  const { email, password, name } = req.body
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password are required" })
+  }
+  if (users.find(u => u.email === email)) {
+    return res.status(400).json({ error: "Email already exists" })
+  }
+
+  const newUser = {
+    id: users.length > 0 ? Math.max(...users.map(u => u.id || 0)) + 1 : 1,
+    email,
+    password,
+    name: name || "User"
+  }
+
+  users.push(newUser)
+  writeUsers(users)
+
+  res.status(201).json({ message: "User registered", user: { id: newUser.id, email: newUser.email, name: newUser.name } })
+})
+
+// ✅ Login user
+app.post("/login", (req, res) => {
+  const users = readUsers()
+  const { email, password } = req.body
+
+  const user = users.find(u => u.email === email && u.password === password)
+  if (!user) {
+    return res.status(401).json({ error: "Invalid credentials" })
+  }
+
+  res.json({ message: "Login successful", user: { id: user.id, email: user.email, name: user.name } })
+})
+
+// ✅ Get all users (for debugging, optional)
+app.get("/users", (req, res) => {
+  const users = readUsers()
+  res.json(users.map(u => ({ id: u.id, email: u.email, name: u.name })))
 })
 
 // Run server

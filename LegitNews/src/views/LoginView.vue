@@ -4,11 +4,60 @@ import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
+const name = ref('')
+const showRegister = ref(false)  // toggle between login/register
 const router = useRouter()
 
-function handleLogin() {
-  // For now, just redirect to home page
-  router.push('/home')
+// 🔑 Handle Login
+async function handleLogin() {
+  try {
+    const res = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.value, password: password.value })
+    })
+
+    if (!res.ok) {
+      const errorData = await res.json()
+      alert(errorData.error || 'Login failed')
+      return
+    }
+
+    const data = await res.json()
+    alert(data.message)
+    router.push('/')   // go to homepage
+  } catch (err) {
+    console.error(err)
+    alert('Something went wrong. Please try again.')
+  }
+}
+
+// 📝 Handle Register
+async function handleRegister() {
+  try {
+    const res = await fetch('http://localhost:5000/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+        name: name.value
+      })
+    })
+
+    if (!res.ok) {
+      const errorData = await res.json()
+      alert(errorData.error || 'Register failed')
+      return
+    }
+
+    const data = await res.json()
+    alert(data.message)
+    showRegister.value = false // back to login after success
+  } catch (err) {
+    console.error(err)
+    alert('Something went wrong. Please try again.')
+  }
 }
 </script>
 
@@ -19,9 +68,11 @@ function handleLogin() {
     </div>
 
     <div class="login-body">
-      <h2>Login</h2>
+      <h2 v-if="!showRegister">Login</h2>
+      <h2 v-else>Sign Up</h2>
 
-      <form @submit.prevent="handleLogin">
+      <!-- Login Form -->
+      <form v-if="!showRegister" @submit.prevent="handleLogin">
         <div class="input-group">
           <label>Email</label>
           <input type="email" v-model="email" placeholder="Enter Email" required />
@@ -35,8 +86,30 @@ function handleLogin() {
         <button type="submit" class="login-btn">Login</button>
       </form>
 
+      <!-- Register Form -->
+      <form v-else @submit.prevent="handleRegister">
+        <div class="input-group">
+          <label>Name</label>
+          <input type="text" v-model="name" placeholder="Enter Name" required />
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" v-model="email" placeholder="Enter Email" required />
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" v-model="password" placeholder="********" required />
+        </div>
+
+        <button type="submit" class="login-btn">Register</button>
+      </form>
+
       <div class="signin-link">
-        <a href="#">Sign In</a>
+        <a href="#" @click.prevent="showRegister = !showRegister">
+          {{ showRegister ? "Already have an account? Login" : "Sign Up" }}
+        </a>
       </div>
     </div>
   </div>
