@@ -55,8 +55,8 @@ app.get("/news", (req, res) => {
     ...n,
     detail: n.details || n.detail || "",
     image: n.image.startsWith("http")
-      ? n.image
-      : `http://localhost:${PORT}/images/${n.image}`
+  ? n.image
+  : `http://localhost:${PORT}/images/${n.category}/${n.image}`
   }))
 
   const startIndex = (page - 1) * limit
@@ -81,8 +81,8 @@ app.get("/news/:id", (req, res) => {
     ...article,
     detail: article.details || article.detail || "",
     image: article.image.startsWith("http")
-      ? article.image
-      : `http://localhost:${PORT}/images/${article.image}`
+  ? article.image
+  : `http://localhost:${PORT}/images/${article.category}/${article.image}`
   })
 })
 
