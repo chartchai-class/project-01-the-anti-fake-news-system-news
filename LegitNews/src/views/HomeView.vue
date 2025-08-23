@@ -1,20 +1,27 @@
 <script setup>
 import { useNewsStore } from '@/stores/newsStore'
-import { RouterLink } from 'vue-router'
-import { ref, computed } from 'vue'
-import { onMounted } from 'vue'
-
+import { RouterLink, useRoute } from 'vue-router'
+import { ref, computed, onMounted, watch } from 'vue'
 
 const store = useNewsStore()
+const route = useRoute()
 
-
+// Load news on mount
 onMounted(() => {
-  store.fetchNews()  // tries backend, else dummy data
+  store.fetchNews()
 })
+
+// Watch category param changes (reload / reset)
+watch(
+  () => route.params.name,
+  () => {
+    currentPage.value = 1
+  }
+)
 
 // Pagination state
 const currentPage = ref(1)
-const itemsPerPage = ref(10)
+const itemsPerPage = ref(9)
 
 // Filter states
 const filterType = ref("all") // all, real, fake
@@ -23,9 +30,28 @@ const sortOrder = ref("newest") // newest or oldest
 const startDate = ref("")
 const endDate = ref("")
 
+// Category filter from route
+const categoryFilter = computed(() => route.params.name || null)
+const searchFilter = computed(() => route.params.term || null)
+
 // Computed filtered + sorted news
 const filteredNews = computed(() => {
   let list = [...store.allNews]
+
+  // ✅ Category filter if param exists
+  if (categoryFilter.value) {
+    list = list.filter(
+      n => (n.category || "").toLowerCase() === categoryFilter.value.toLowerCase()
+    )
+  }
+
+    // Search
+  if (searchFilter.value) {
+    const term = searchFilter.value.toLowerCase()
+    list = list.filter(n =>
+      (n.headline || "").toLowerCase().includes(term)
+    )
+  }
 
   // Filter: Real / Fake
   if (filterType.value === "real") {
@@ -36,7 +62,9 @@ const filteredNews = computed(() => {
 
   // Filter by reporter
   if (reporterFilter.value.trim()) {
-    list = list.filter(n => n.reporter.toLowerCase().includes(reporterFilter.value.toLowerCase()))
+    list = list.filter(n =>
+      n.reporter.toLowerCase().includes(reporterFilter.value.toLowerCase())
+    )
   }
 
   // Filter by date range
@@ -58,7 +86,9 @@ const filteredNews = computed(() => {
 })
 
 // Pagination
-const totalPages = computed(() => Math.ceil(filteredNews.value.length / itemsPerPage.value))
+const totalPages = computed(() =>
+  Math.ceil(filteredNews.value.length / itemsPerPage.value)
+)
 
 const paginatedNews = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value
@@ -81,13 +111,10 @@ function clearFilters() {
   itemsPerPage.value = 10
   currentPage.value = 1
 }
-
-
 </script>
 
 <template>
   <div class="home">
-
     <!-- Toolbar -->
     <div class="toolbar">
       <RouterLink to="/add-news">
@@ -118,8 +145,14 @@ function clearFilters() {
       </div>
     </div>
 
+    <!-- Loader -->
+    <div v-if="store.loading" class="loader">
+      <div class="spinner"></div>
+      <p>Loading news...</p>
+    </div>
+
     <!-- News Cards -->
-    <div class="news-container">
+    <div v-else class="news-container">
       <RouterLink
         v-for="news in paginatedNews"
         :key="news.id"
@@ -128,9 +161,16 @@ function clearFilters() {
       >
         <div class="card">
           <div class="image">
-            <img :src="news.image" alt="news image" style="width:100%; height:100%; object-fit:cover;">
+            <img
+              :src="news.image"
+              alt="news image"
+              style="width:100%; height:100%; object-fit:cover;"
+            />
           </div>
-          <span class="status" :class="news.votes.real > news.votes.fake ? 'verified' : 'fake'">
+          <span
+            class="status"
+            :class="news.votes.real > news.votes.fake ? 'verified' : 'fake'"
+          >
             {{ news.votes.real > news.votes.fake ? 'Verified' : 'Fake' }}
           </span>
           <div class="content">
@@ -146,12 +186,19 @@ function clearFilters() {
     </div>
 
     <!-- Pagination -->
-    <div class="pagination">
-      <span @click="prevPage" :style="{cursor: currentPage === 1 ? 'not-allowed' : 'pointer'}">&lt;</span>
+    <div v-if="!store.loading" class="pagination">
+      <span
+        @click="prevPage"
+        :style="{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }"
+        >&lt;</span
+      >
       <span>Page {{ currentPage }} / {{ totalPages }}</span>
-      <span @click="nextPage" :style="{cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'}">&gt;</span>
+      <span
+        @click="nextPage"
+        :style="{ cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }"
+        >&gt;</span
+      >
     </div>
-
   </div>
 </template>
 
@@ -181,11 +228,37 @@ function clearFilters() {
   gap: 30px;
 }
 
-.filters select, #select {
+.filters select,
+#select {
   border: 1px solid #aaa;
   border-radius: 3px;
   text-align: center;
   height: 30px;
+}
+
+/* Loader */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.spinner {
+  border: 6px solid #eee;
+  border-top: 6px solid #333;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* News Cards */
@@ -201,7 +274,7 @@ function clearFilters() {
   width: 380px;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
 }
@@ -254,4 +327,3 @@ function clearFilters() {
   font-size: 16px;
 }
 </style>
-

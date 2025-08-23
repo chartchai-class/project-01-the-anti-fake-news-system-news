@@ -17,6 +17,16 @@ const routes = [
     name: 'add-news', 
     component: AddNewsView 
   },
+  {
+  path: '/category/:name',
+  name: 'category-news',
+  component: HomeView // reuse HomeView.vue
+  },
+  {
+  path: '/search/:term',
+  name: 'search-news',
+  component: HomeView // reuse HomeView.vue
+  },
 ]
 
 const router = createRouter({
