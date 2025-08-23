@@ -6,7 +6,10 @@
     "reporter": "BBC News",
     "date": "2025-08-01 09:30",
     "image": "1.webp",
-    "votes": { "real": 94, "fake": 15 },
+    "votes": {
+      "real": 94,
+      "fake": 15
+    },
     "comments": []
   },
   {
@@ -16,7 +19,10 @@
     "reporter": "CNN News",
     "date": "2025-08-01 14:00",
     "image": "2.webp",
-    "votes": { "real": 4, "fake": 0 },
+    "votes": {
+      "real": 4,
+      "fake": 0
+    },
     "comments": []
   },
   {
@@ -26,7 +32,10 @@
     "reporter": "Reuters",
     "date": "2025-08-02 10:20",
     "image": "3.webp",
-    "votes": { "real": 54, "fake": 4 },
+    "votes": {
+      "real": 54,
+      "fake": 4
+    },
     "comments": []
   },
   {
@@ -36,7 +45,10 @@
     "reporter": "Al Jazeera",
     "date": "2025-08-03 11:45",
     "image": "4.webp",
-    "votes": { "real": 33, "fake": 0 },
+    "votes": {
+      "real": 33,
+      "fake": 0
+    },
     "comments": []
   },
   {
@@ -46,7 +58,10 @@
     "reporter": "NDTV",
     "date": "2025-08-04 09:00",
     "image": "5.webp",
-    "votes": { "real": 30, "fake": 8 },
+    "votes": {
+      "real": 30,
+      "fake": 8
+    },
     "comments": []
   },
   {
@@ -56,7 +71,10 @@
     "reporter": "The Hindu",
     "date": "2025-08-04 13:30",
     "image": "6.webp",
-    "votes": { "real": 27, "fake": 12 },
+    "votes": {
+      "real": 27,
+      "fake": 12
+    },
     "comments": []
   },
   {
@@ -66,7 +84,10 @@
     "reporter": "Economic Times",
     "date": "2025-08-05 08:15",
     "image": "7.webp",
-    "votes": { "real": 84, "fake": 12 },
+    "votes": {
+      "real": 84,
+      "fake": 12
+    },
     "comments": []
   },
   {
@@ -76,7 +97,10 @@
     "reporter": "Financial Times",
     "date": "2025-08-05 12:50",
     "image": "8.webp",
-    "votes": { "real": 44, "fake": 19 },
+    "votes": {
+      "real": 44,
+      "fake": 19
+    },
     "comments": []
   },
   {
@@ -86,7 +110,10 @@
     "reporter": "NDTV",
     "date": "2025-08-06 09:40",
     "image": "9.webp",
-    "votes": { "real": 29, "fake": 18 },
+    "votes": {
+      "real": 29,
+      "fake": 18
+    },
     "comments": []
   },
   {
@@ -96,7 +123,10 @@
     "reporter": "CNN News",
     "date": "2025-08-06 14:25",
     "image": "10.webp",
-    "votes": { "real": 20, "fake": 9 },
+    "votes": {
+      "real": 20,
+      "fake": 9
+    },
     "comments": []
   },
   {
@@ -106,7 +136,10 @@
     "reporter": "Reporter Zaw",
     "date": "2025-08-04 20:00",
     "image": "11.webp",
-    "votes": { "real": 22, "fake": 0 },
+    "votes": {
+      "real": 22,
+      "fake": 0
+    },
     "comments": []
   },
   {
@@ -116,7 +149,10 @@
     "reporter": "Anonymous",
     "date": "2025-08-03 17:15",
     "image": "12.webp",
-    "votes": { "real": 10, "fake": 2 },
+    "votes": {
+      "real": 10,
+      "fake": 2
+    },
     "comments": []
   },
   {
@@ -126,7 +162,10 @@
     "reporter": "Reporter Nyein",
     "date": "2025-08-02 08:50",
     "image": "13.webp",
-    "votes": { "real": 14, "fake": 1 },
+    "votes": {
+      "real": 14,
+      "fake": 1
+    },
     "comments": []
   },
   {
@@ -136,7 +175,10 @@
     "reporter": "Reporter Thura",
     "date": "2025-08-01 07:40",
     "image": "14.webp",
-    "votes": { "real": 11, "fake": 4 },
+    "votes": {
+      "real": 11,
+      "fake": 4
+    },
     "comments": []
   },
   {
@@ -146,7 +188,10 @@
     "reporter": "Reporter Win",
     "date": "2025-07-31 15:10",
     "image": "15.jpg",
-    "votes": { "real": 12, "fake": 5 },
+    "votes": {
+      "real": 12,
+      "fake": 5
+    },
     "comments": []
   },
   {
@@ -156,7 +201,10 @@
     "reporter": "Reporter Ei",
     "date": "2025-07-30 12:00",
     "image": "16.webp",
-    "votes": { "real": 19, "fake": 2 },
+    "votes": {
+      "real": 19,
+      "fake": 2
+    },
     "comments": []
   },
   {
@@ -166,7 +214,10 @@
     "reporter": "Reporter Myint",
     "date": "2025-07-29 09:25",
     "image": "17.jpg",
-    "votes": { "real": 20, "fake": 1 },
+    "votes": {
+      "real": 20,
+      "fake": 1
+    },
     "comments": []
   },
   {
@@ -176,7 +227,10 @@
     "reporter": "CNN News",
     "date": "2025-08-10 14:00",
     "image": "18.jpg",
-    "votes": { "real": 75, "fake": 20 },
+    "votes": {
+      "real": 75,
+      "fake": 20
+    },
     "comments": []
   },
   {
@@ -186,7 +240,10 @@
     "reporter": "CNN News",
     "date": "2025-08-10 13:00",
     "image": "19.webp",
-    "votes": { "real": 34, "fake": 25 },
+    "votes": {
+      "real": 34,
+      "fake": 25
+    },
     "comments": []
   },
   {
@@ -196,10 +253,12 @@
     "reporter": "CNN News",
     "date": "2025-08-10 13:00",
     "image": "20.jpg",
-    "votes": { "real": 45, "fake": 4 },
+    "votes": {
+      "real": 45,
+      "fake": 4
+    },
     "comments": []
   },
-
   {
     "id": 21,
     "headline": "Nakamura Closes In On 50th Bullet Brawl Title With Commanding Victory",
@@ -207,7 +266,10 @@
     "reporter": "Chess.com News",
     "date": "2025-08-11 09:30",
     "image": "21.png",
-    "votes": { "real": 83, "fake": 14 },
+    "votes": {
+      "real": 83,
+      "fake": 14
+    },
     "comments": []
   },
   {
@@ -217,7 +279,10 @@
     "reporter": "Saint Louis Chess Club",
     "date": "2025-08-11 13:00",
     "image": "22.png",
-    "votes": { "real": 71, "fake": 22 },
+    "votes": {
+      "real": 71,
+      "fake": 22
+    },
     "comments": []
   },
   {
@@ -227,7 +292,10 @@
     "reporter": "ChessBase",
     "date": "2025-08-12 10:20",
     "image": "23.png",
-    "votes": { "real": 64, "fake": 17 },
+    "votes": {
+      "real": 64,
+      "fake": 17
+    },
     "comments": []
   },
   {
@@ -237,7 +305,10 @@
     "reporter": "FIDE News",
     "date": "2025-08-12 11:45",
     "image": "24.png",
-    "votes": { "real": 56, "fake": 13 },
+    "votes": {
+      "real": 56,
+      "fake": 13
+    },
     "comments": []
   },
   {
@@ -247,7 +318,10 @@
     "reporter": "Chess.com India",
     "date": "2025-08-12 15:00",
     "image": "25.png",
-    "votes": { "real": 49, "fake": 9 },
+    "votes": {
+      "real": 49,
+      "fake": 9
+    },
     "comments": []
   },
   {
@@ -257,7 +331,10 @@
     "reporter": "Lichess News",
     "date": "2025-08-13 09:20",
     "image": "26.png",
-    "votes": { "real": 77, "fake": 11 },
+    "votes": {
+      "real": 77,
+      "fake": 11
+    },
     "comments": []
   },
   {
@@ -267,7 +344,10 @@
     "reporter": "Esports Insider",
     "date": "2025-08-13 13:40",
     "image": "27.png",
-    "votes": { "real": 62, "fake": 16 },
+    "votes": {
+      "real": 62,
+      "fake": 16
+    },
     "comments": []
   },
   {
@@ -277,7 +357,10 @@
     "reporter": "EuroHoops",
     "date": "2025-08-14 09:00",
     "image": "28.jpg",
-    "votes": { "real": 81, "fake": 19 },
+    "votes": {
+      "real": 81,
+      "fake": 19
+    },
     "comments": []
   },
   {
@@ -287,7 +370,10 @@
     "reporter": "ESPN",
     "date": "2025-08-14 13:20",
     "image": "29.jpg",
-    "votes": { "real": 65, "fake": 10 },
+    "votes": {
+      "real": 65,
+      "fake": 10
+    },
     "comments": []
   },
   {
@@ -297,7 +383,10 @@
     "reporter": "L'Équipe",
     "date": "2025-08-14 16:00",
     "image": "30.jpg",
-    "votes": { "real": 59, "fake": 15 },
+    "votes": {
+      "real": 59,
+      "fake": 15
+    },
     "comments": []
   },
   {
@@ -307,7 +396,10 @@
     "reporter": "NBC Sports",
     "date": "2025-08-15 08:30",
     "image": "31.jpg",
-    "votes": { "real": 68, "fake": 9 },
+    "votes": {
+      "real": 68,
+      "fake": 9
+    },
     "comments": []
   },
   {
@@ -317,7 +409,10 @@
     "reporter": "IGN",
     "date": "2025-08-15 11:15",
     "image": "32.jpg",
-    "votes": { "real": 74, "fake": 18 },
+    "votes": {
+      "real": 74,
+      "fake": 18
+    },
     "comments": []
   },
   {
@@ -327,7 +422,10 @@
     "reporter": "EuroLeague News",
     "date": "2025-08-15 14:40",
     "image": "33.jpg",
-    "votes": { "real": 58, "fake": 7 },
+    "votes": {
+      "real": 58,
+      "fake": 7
+    },
     "comments": []
   },
   {
@@ -337,7 +435,10 @@
     "reporter": "Bleacher Report",
     "date": "2025-08-16 09:30",
     "image": "34.jpg",
-    "votes": { "real": 69, "fake": 14 },
+    "votes": {
+      "real": 69,
+      "fake": 14
+    },
     "comments": []
   },
   {
@@ -347,7 +448,10 @@
     "reporter": "The Athletic",
     "date": "2025-08-16 12:10",
     "image": "35.jpg",
-    "votes": { "real": 63, "fake": 11 },
+    "votes": {
+      "real": 63,
+      "fake": 11
+    },
     "comments": []
   },
   {
@@ -357,7 +461,10 @@
     "reporter": "Golf Digest",
     "date": "2025-08-17 10:20",
     "image": "36.jpg",
-    "votes": { "real": 55, "fake": 8 },
+    "votes": {
+      "real": 55,
+      "fake": 8
+    },
     "comments": []
   },
   {
@@ -367,7 +474,10 @@
     "reporter": "Sky Sports Golf",
     "date": "2025-08-17 13:00",
     "image": "37.jpg",
-    "votes": { "real": 72, "fake": 20 },
+    "votes": {
+      "real": 72,
+      "fake": 20
+    },
     "comments": []
   },
   {
@@ -377,7 +487,10 @@
     "reporter": "LIV Golf News",
     "date": "2025-08-18 09:15",
     "image": "38.jpg",
-    "votes": { "real": 66, "fake": 18 },
+    "votes": {
+      "real": 66,
+      "fake": 18
+    },
     "comments": []
   },
   {
@@ -387,7 +500,10 @@
     "reporter": "PGA Tour News",
     "date": "2025-08-18 13:30",
     "image": "39.jpg",
-    "votes": { "real": 61, "fake": 12 },
+    "votes": {
+      "real": 61,
+      "fake": 12
+    },
     "comments": []
   },
   {
@@ -397,7 +513,10 @@
     "reporter": "LPGA News",
     "date": "2025-08-19 09:45",
     "image": "40.jpg",
-    "votes": { "real": 70, "fake": 21 },
+    "votes": {
+      "real": 70,
+      "fake": 21
+    },
     "comments": []
   },
   {
@@ -641,7 +760,7 @@
     }
   },
   {
-    "id": 61, 
+    "id": 61,
     "title": "Phuket Motorcyclist Killed at Coconut Grove Curve",
     "details": "A 41-year-old motorcyclist from Mai Khao, identified as Samreong, died after losing control of his black GPX Legend 250 at Phuket's infamous Coconut Grove Curve on Thepkasattri Road. The crash happened on August 7, when the victim struck the central median at high speed.\n\nPolice and emergency responders arrived promptly at 5:05 pm, but despite attempts at CPR, the man was pronounced dead at the scene. The crash caused heavy traffic delays until the wreckage was cleared, and his body was later transferred to Thalang Hospital for post-mortem examination.\n\nThe Coconut Grove Curve has long been feared by local riders, especially during Phuket's rainy season. Its sharp bend and uneven surface have been blamed for multiple fatalities over the years. Locals note that even experienced riders often misjudge the curve. The incident highlights Phuket's broader road safety crisis, where motorcycles account for the majority of deaths.",
     "date": "2025-08-07",
@@ -665,7 +784,7 @@
     }
   },
   {
-    "id": 63, 
+    "id": 63,
     "title": "Thailand Approves Billions for Freight Train Upgrade",
     "details": "The Thai Cabinet has approved a 2.46-billion-baht plan to overhaul the nation's freight train system. The project will fund the procurement of 946 new container flatcars for the State Railway of Thailand (SRT).\n\nSRT Governor Veeris Ammarapala explained that the initiative aligns with the SRT's 2023-2027 roadmap and is part of the 2026 fiscal year priorities. Each flatcar will carry up to 62 tonnes, capable of transporting two containers of high-density cargo such as fertilizer, sugar, plastic pellets, and industrial salt.\n\nCurrently, only 308 of SRT's 1,062 freight cars can handle such loads. Once the new flatcars are operational, the nation's rail cargo handling capacity is expected to rise by 9 million tonnes annually, on top of the current 13 million tonnes.\n\nThe procurement also supports domestic industry, as the flatcars will be assembled in Thailand using both local and imported parts. The project is expected to strengthen Laem Chabang Port's role as the country's primary export hub. Delivery is scheduled between 2027 and 2032 in five batches.",
     "date": "2025-08-07",
@@ -809,7 +928,7 @@
     }
   },
   {
-    "id": 75, 
+    "id": 75,
     "title": "Drunk Russian Crashes into Thai Woman's Car in Phuket",
     "details": "A Russian tourist was arrested in Phuket after crashing his car into a Thai woman's vehicle while heavily intoxicated. The collision occurred late at night and left the woman's car badly damaged.\n\nPolice conducted an alcohol test that confirmed the driver was over the legal limit. The incident has renewed calls for stricter enforcement of traffic laws for foreign tourists.",
     "date": "2025-08-02",
@@ -821,7 +940,7 @@
     }
   },
   {
-    "id": 76, 
+    "id": 76,
     "title": "AC Unit Blamed for Fire Scare in Hotel Spa",
     "details": "Guests at a luxury hotel in central Bangkok were evacuated after smoke was spotted inside the hotel's spa on August 4. Firefighters responded quickly, and the cause was traced to a malfunctioning air-conditioning unit.\n\nNo injuries were reported. The hotel repaired the system and pledged to enhance safety inspections to prevent future incidents.",
     "date": "2025-08-04",
@@ -869,7 +988,7 @@
     }
   },
   {
-    "id":80,
+    "id": 80,
     "title": "Thailand Targets 2.8 Trillion Baht in Tourism Revenue by 2026",
     "details": "The Tourism Authority of Thailand set a target of generating 2.8 trillion baht in tourism revenue by 2026, focusing on high-spending visitors, digital platforms, and sustainable tourism.\n\nPlans include strengthening air connectivity and marketing Thailand as a year-round destination. The government expects tourism to play a central role in economic recovery, creating jobs and stimulating local economies.\n\nOfficials are confident that with global demand rebounding, Thailand can return to pre-pandemic tourism levels within two years.",
     "date": "2025-08-01",
@@ -1080,11 +1199,11 @@
     "reporter": "Reuters",
     "image": "97.jpg",
     "votes": {
-        "real": 320,
-        "fake": 45
+      "real": 320,
+      "fake": 45
     }
-},
-{
+  },
+  {
     "aid": 98,
     "title": "Trump Proposes Putin-Zelensky Summit",
     "details": "President Donald Trump has announced plans for a potential face-to-face summit between Russian President Vladimir Putin and Ukrainian President Volodymyr Zelensky, a move he described as a breakthrough opportunity to end the war. The proposal followed high-level discussions at the White House with European leaders, where Trump emphasized the importance of direct dialogue between Moscow and Kyiv. Vice President JD Vance and Secretary of State Marco Rubio have been tasked with coordinating the summit’s preparations, signaling Washington’s intent to take a leading role in facilitating the negotiations.\n\nZelensky welcomed the proposal, stating that Ukraine is ready for talks that include clear security guarantees and territorial integrity as central conditions. European leaders also cautiously endorsed the initiative, stressing the importance of diplomacy while warning that any deal must not compromise Ukraine’s sovereignty. Their reaction underscored the delicate balance between pursuing peace and ensuring that Ukraine does not face pressure to accept unfavorable terms.\n\nMoscow, however, has so far offered no firm confirmation of its participation, issuing only vague statements about potential future dialogue. Analysts suggest that Russia’s reluctance stems from its desire to consolidate military gains before entering into negotiations. Despite the uncertainty, Trump’s proposal has generated significant global attention, with investors and policymakers watching closely to see whether the plan can overcome longstanding obstacles that have derailed previous peace efforts.",
@@ -1092,11 +1211,11 @@
     "reporter": "CNN",
     "image": "98.jpg",
     "votes": {
-        "real": 290,
-        "fake": 60
+      "real": 290,
+      "fake": 60
     }
-},
-{
+  },
+  {
     "aid": 99,
     "title": "Stock Markets Cautious Amid Ukraine Talks",
     "details": "Global stock markets delivered a mixed performance as peace talks between Ukraine and Russia appeared to advance. European indices rose modestly, buoyed by optimism that negotiations could ease geopolitical tensions and reduce risks to energy supply chains. In contrast, Wall Street posted a more cautious response, with investors divided over the impact of diplomacy on corporate earnings and global growth. Defense sector stocks in particular declined on speculation that reduced demand for arms could follow if a peace agreement were reached, highlighting how markets are closely tied to geopolitical developments.\n\nTraders also focused heavily on the upcoming speech by U.S. Federal Reserve Chair Jerome Powell at the Jackson Hole symposium, where expectations of interest rate adjustments are high. Many analysts believe Powell’s remarks could set the tone for global monetary policy in the months ahead, influencing not only equities but also currencies and commodities. Oil prices edged lower on the possibility that a Ukraine deal might lead to eased sanctions on Russian energy, while energy-importing nations welcomed the potential for more stable prices.\n\nIn corporate news, Intel’s stock surged after Japanese tech conglomerate SoftBank announced a $2 billion investment, reflecting growing interest in revitalizing the semiconductor industry. The contrasting trends — optimism in technology, caution in defense, and uncertainty in energy — illustrate how global markets are navigating a complex environment shaped by both diplomatic efforts and economic policy shifts.",
@@ -1104,11 +1223,11 @@
     "reporter": "Bloomberg",
     "image": "99.jpg",
     "votes": {
-        "real": 345,
-        "fake": 50
+      "real": 345,
+      "fake": 50
     }
-},
-{
+  },
+  {
     "aid": 100,
     "title": "Financial Sector Buzz: SoftBank Invests in Intel, Apple Expands in India",
     "details": "The global financial sector was abuzz this week after two major announcements signaled significant shifts in technology and manufacturing. Japanese investment giant SoftBank confirmed a $2 billion investment in Intel, acquiring a 2% stake in the struggling chipmaker. The move is intended to provide Intel with fresh capital as it attempts to execute a turnaround strategy focused on advanced semiconductor manufacturing and AI-driven technology. Industry analysts said SoftBank’s involvement reflects confidence in Intel’s long-term prospects, despite the company’s recent struggles to compete with rivals like TSMC and AMD.\n\nMeanwhile, Apple revealed plans to expand iPhone 17 production in India, marking a milestone in its strategy to diversify supply chains away from China. For the first time, Apple announced that all iPhone 17 models destined for the U.S. market will be manufactured in India. The move not only reduces Apple’s reliance on Chinese factories but also strengthens India’s growing role as a global manufacturing hub. Indian officials celebrated the announcement, highlighting it as evidence of the country’s ability to attract high-value investment and create thousands of skilled jobs.\n\nAnalysts say the developments underscore two broader trends: a shift in global technology investment toward strategic partnerships and a realignment of supply chains amid rising tariffs and geopolitical tensions. Together, SoftBank’s bold bet on Intel and Apple’s India expansion suggest that companies are adapting quickly to a world where resilience and diversification are as important as efficiency and cost savings.",
@@ -1116,11 +1235,21 @@
     "reporter": "Financial Times",
     "image": "100.jpg",
     "votes": {
-        "real": 365,
-        "fake": 40
+      "real": 365,
+      "fake": 40
     }
-}
-
-
+  },
+  {
+    "id": 97,
+    "headline": "Matty ",
+    "details": "MAtty",
+    "reporter": "Anonymous",
+    "date": "2025/8/23 16:25:30",
+    "image": "https://via.placeholder.com/150",
+    "votes": {
+      "real": 0,
+      "fake": 0
+    },
+    "comments": []
+  }
 ]
-

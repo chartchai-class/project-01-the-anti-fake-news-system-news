@@ -1,24 +1,33 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useNewsStore } from '@/stores/newsStore'
+import { ref } from 'vue'
+import VoteCommentView from './VoteCommentView.vue'   // reuse teammate’s design
 
 const route = useRoute()
-const router = useRouter()
 const store = useNewsStore()
 
 const newsId = Number(route.params.id)
 const news = store.allNews.find(n => n.id === newsId) || null
 
-function goBackHome() {
-  router.push('/') // redirect to home
+// dropdown toggles
+const showComment = ref(false)
+const showVote = ref(false)
+
+function toggleComment() {
+  showComment.value = !showComment.value
+  showVote.value = false // close other dropdown
+}
+
+function toggleVote() {
+  showVote.value = !showVote.value
+  showComment.value = false // close other dropdown
 }
 </script>
 
 <template>
   <div class="container" v-if="news">
     <!-- Main -->
-
-
     <div class="main-content">
       <div class="main-header">
         <span>{{ news.headline }}</span>
@@ -40,14 +49,24 @@ function goBackHome() {
         <p>{{ news.detail }}</p>
       </div>
 
+      <!-- Action buttons -->
       <div class="actions">
-        <router-link :to="`/news/${news.id}/viewcomment`">
-          <button> View Comment</button>
-        </router-link>
-        
-        <router-link :to="`/news/${news.id}/vote`">
-          <button>Vote & Comment</button>
-        </router-link>
+        <button @click="toggleComment">
+          {{ showComment ? "Hide Comments" : "View Comment" }}
+        </button>
+        <button @click="toggleVote">
+          {{ showVote ? "Cancel Vote" : "Vote & Comment" }}
+        </button>
+      </div>
+
+      <!-- Dropdown for comments -->
+      <div v-if="showComment" style="margin-top:20px;">
+        <VoteCommentView :id="newsId" mode="view-comment" />
+      </div>
+
+      <!-- Dropdown for voting -->
+      <div v-if="showVote" style="margin-top:20px;">
+        <VoteCommentView :id="newsId" mode="vote" />
       </div>
     </div>
 
@@ -76,6 +95,7 @@ function goBackHome() {
     <p>⚠️ News not found</p>
   </div>
 </template>
+
 
 <style scoped>
 .container {
