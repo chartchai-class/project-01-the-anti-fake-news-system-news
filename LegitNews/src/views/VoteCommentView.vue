@@ -18,11 +18,12 @@ const isViewOnly = computed(() => props.mode === 'view-comment')
 
 // Form state
 const selectedVote = ref(null)   // "real" or "fake"
+const commentName = ref("")      // ✅ name input
 const commentText = ref("")
 const commentImage = ref("")
-const hasVoted = ref(false)       // ✅ lock state
-const userVote = ref(null)        // ✅ store what user voted
-const userCommentIndex = ref(null) // ✅ track which comment belongs to user
+const hasVoted = ref(false)      
+const userVote = ref(null)       
+const userCommentIndex = ref(null) 
 
 // Handle submit
 function submitVote() {
@@ -35,7 +36,7 @@ function submitVote() {
     return
   }
 
-  // ✅ If already voted, adjust old vote
+  // ✅ Adjust old vote if exists
   if (hasVoted.value && userVote.value) {
     if (userVote.value === "real") news.votes.real--
     else if (userVote.value === "fake") news.votes.fake--
@@ -48,18 +49,20 @@ function submitVote() {
     news.votes.fake++
   }
 
+  const userDisplayName = commentName.value.trim() || "Anonymous"
+
   // ✅ Update or create comment
   if (userCommentIndex.value !== null) {
-    // update existing comment
     news.comments[userCommentIndex.value] = {
       ...news.comments[userCommentIndex.value],
+      name: userDisplayName,
       text: commentText.value,
       image: commentImage.value,
       date: new Date().toLocaleString()
     }
   } else if (commentText.value.trim() || commentImage.value.trim()) {
-    // add new comment
     news.comments.push({
+      name: userDisplayName,
       text: commentText.value,
       image: commentImage.value,
       date: new Date().toLocaleString()
@@ -67,7 +70,6 @@ function submitVote() {
     userCommentIndex.value = news.comments.length - 1
   }
 
-  // Lock state
   hasVoted.value = true
   userVote.value = selectedVote.value
 
@@ -77,11 +79,13 @@ function submitVote() {
 // Reset vote (allow re-voting)
 function changeVote() {
   hasVoted.value = false
-  selectedVote.value = userVote.value // prefill with old vote
+  selectedVote.value = userVote.value 
   commentText.value = userCommentIndex.value !== null ? news.comments[userCommentIndex.value].text : ""
   commentImage.value = userCommentIndex.value !== null ? news.comments[userCommentIndex.value].image : ""
+  commentName.value = userCommentIndex.value !== null ? news.comments[userCommentIndex.value].name : ""
 }
 </script>
+
 
 <template>
   <div v-if="news" style="padding:20px;">
@@ -98,7 +102,7 @@ function changeVote() {
       >
         <div class="comment-avatar"></div>
         <div class="comment-body">
-          <strong>Anonymous</strong>
+          <strong>{{ c.name || 'Anonymous' }}</strong>
           <p>{{ c.text }}</p>
           <img v-if="c.image" :src="c.image" alt="comment image" style="max-width:100px; margin-top:5px;" />
           <small>{{ c.date }}</small>
@@ -117,10 +121,23 @@ function changeVote() {
       <!-- Show form if not voted -->
       <div v-if="!hasVoted">
         <div class="vote-buttons">
-          <button class="btn-real" @click="selectedVote = 'real'">Real</button>
-          <button class="btn-fake" @click="selectedVote = 'fake'">Fake</button>
+          <button 
+            class="btn-real" 
+            :class="{ active: selectedVote === 'real' }" 
+            @click="selectedVote = 'real'">
+            Real
+          </button>
+          <button 
+            class="btn-fake" 
+            :class="{ active: selectedVote === 'fake' }" 
+            @click="selectedVote = 'fake'">
+            Fake
+          </button>
         </div>
 
+        <div class="form-group">
+          <input type="text" v-model="commentName" placeholder="Your Name (Optional)" />
+        </div>
         <div class="form-group">
           <input type="text" v-model="commentImage" placeholder="Image URL (Optional)" />
         </div>
@@ -137,7 +154,7 @@ function changeVote() {
       <div v-else class="vote-result">
         <p>✅ You voted: <strong>{{ userVote }}</strong></p>
         <p v-if="userCommentIndex !== null && news.comments[userCommentIndex]">
-          💬 Your comment: "{{ news.comments[userCommentIndex].text }}"
+          💬 Your comment ({{ news.comments[userCommentIndex].name }}): "{{ news.comments[userCommentIndex].text }}"
         </p>
         <button class="btn-cancel" @click="changeVote">Change Vote</button>
       </div>
@@ -148,6 +165,7 @@ function changeVote() {
     <p>⚠️ News not found</p>
   </div>
 </template>
+
 
 <style scoped>
 .actions {
@@ -244,6 +262,30 @@ function changeVote() {
   border-radius: 6px;
   background: #f0f0f0;
   font-size: 14px;
+}
+
+/* Highlight selected vote button */
+.vote-buttons button {
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+.vote-buttons button.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.vote-buttons .btn-real.active {
+  background: #00e600; /* brighter green when selected */
+}
+
+.vote-buttons .btn-fake.active {
+  background: #ff1a1a; /* brighter red when selected */
+}
+
+/* Ensure name input looks consistent */
+.form-group input[type="text"] {
+  font-weight: 500;
 }
 
 </style>

@@ -6,16 +6,22 @@ import { ref, computed, onMounted, watch } from 'vue'
 const store = useNewsStore()
 const route = useRoute()
 
+// ✅ Loading state
+const isLoading = ref(true)
+
 // Load news on mount
-onMounted(() => {
-  store.fetchNews()
+onMounted(async () => {
+  isLoading.value = true
+  await store.fetchNews()
+  setTimeout(() => (isLoading.value = false), 500)
 })
 
-// Watch category param changes (reload / reset)
+// Watch category/search param changes
 watch(
-  () => route.params.name,
+  () => [route.params.name, route.params.term],
   () => {
     currentPage.value = 1
+    triggerLoading()
   }
 )
 
@@ -30,22 +36,34 @@ const sortOrder = ref("newest") // newest or oldest
 const startDate = ref("")
 const endDate = ref("")
 
-// Category filter from route
+// Category & Search filter from route
 const categoryFilter = computed(() => route.params.name || null)
 const searchFilter = computed(() => route.params.term || null)
+
+// ✅ Watchers for filter + itemsPerPage
+watch([filterType, itemsPerPage, sortOrder], () => {
+  currentPage.value = 1
+  triggerLoading()
+})
+
+// Helper function to simulate loading
+function triggerLoading() {
+  isLoading.value = true
+  setTimeout(() => (isLoading.value = false), 500)
+}
 
 // Computed filtered + sorted news
 const filteredNews = computed(() => {
   let list = [...store.allNews]
 
-  // ✅ Category filter if param exists
+  // Category filter
   if (categoryFilter.value) {
     list = list.filter(
       n => (n.category || "").toLowerCase() === categoryFilter.value.toLowerCase()
     )
   }
 
-    // Search
+  // Search filter
   if (searchFilter.value) {
     const term = searchFilter.value.toLowerCase()
     list = list.filter(n =>
@@ -53,21 +71,21 @@ const filteredNews = computed(() => {
     )
   }
 
-  // Filter: Real / Fake
+  // Real / Fake filter
   if (filterType.value === "real") {
     list = list.filter(n => n.votes.real > n.votes.fake)
   } else if (filterType.value === "fake") {
     list = list.filter(n => n.votes.fake >= n.votes.real)
   }
 
-  // Filter by reporter
+  // Reporter filter
   if (reporterFilter.value.trim()) {
     list = list.filter(n =>
       n.reporter.toLowerCase().includes(reporterFilter.value.toLowerCase())
     )
   }
 
-  // Filter by date range
+  // Date range filter
   if (startDate.value) {
     list = list.filter(n => new Date(n.date) >= new Date(startDate.value))
   }
@@ -95,11 +113,18 @@ const paginatedNews = computed(() => {
   return filteredNews.value.slice(start, start + itemsPerPage.value)
 })
 
+// Pagination actions
 function nextPage() {
-  if (currentPage.value < totalPages.value) currentPage.value++
+  if (currentPage.value < totalPages.value) {
+    triggerLoading()
+    setTimeout(() => currentPage.value++, 500)
+  }
 }
 function prevPage() {
-  if (currentPage.value > 1) currentPage.value--
+  if (currentPage.value > 1) {
+    triggerLoading()
+    setTimeout(() => currentPage.value--, 500)
+  }
 }
 
 function clearFilters() {
@@ -108,10 +133,11 @@ function clearFilters() {
   startDate.value = ""
   endDate.value = ""
   sortOrder.value = "newest"
-  itemsPerPage.value = 10
+  itemsPerPage.value = 9
   currentPage.value = 1
 }
 </script>
+
 
 <template>
   <div class="home">
@@ -146,9 +172,8 @@ function clearFilters() {
     </div>
 
     <!-- Loader -->
-    <div v-if="store.loading" class="loader">
-      <div class="spinner"></div>
-      <p>Loading news...</p>
+    <div v-if="isLoading" class="flex justify-center items-center min-h-[400px]">
+      <div class="w-24 h-24 border-8 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
     </div>
 
     <!-- News Cards -->
@@ -186,7 +211,7 @@ function clearFilters() {
     </div>
 
     <!-- Pagination -->
-    <div v-if="!store.loading" class="pagination">
+    <div v-if="!isLoading" class="pagination">
       <span
         @click="prevPage"
         :style="{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }"
@@ -234,31 +259,6 @@ function clearFilters() {
   border-radius: 3px;
   text-align: center;
   height: 30px;
-}
-
-/* Loader */
-.loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 50px;
-}
-
-.spinner {
-  border: 6px solid #eee;
-  border-top: 6px solid #333;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 10px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* News Cards */
