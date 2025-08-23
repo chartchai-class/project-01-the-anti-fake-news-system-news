@@ -8,7 +8,13 @@
     "date": "2025-08-01 09:30",
     "image": "1.webp",
     "votes": { "real": 94, "fake": 15 },
-    "comments": []
+    "comments": [
+      "So Trump indirectly pushed India and China together? That’s ironic.",
+      "This could be a turning point in Asia trade politics.",
+      "Not sure how long India-China cooperation will last.",
+      "Interesting angle, but sounds too convenient."
+    ]
+    
   },
   {
      "category": "Business News",
@@ -19,7 +25,12 @@
     "date": "2025-08-01 14:00",
     "image": "2.webp",
     "votes": { "real": 4, "fake": 0 },
-    "comments": []
+     "comments": [
+      "Not again. Tariffs always hit the wrong people.",
+      "India should push back harder, this is unfair.",
+      "Markets are definitely going to feel this.",
+      "Trump still playing the tariff game like before."
+    ]
   },
   {
      "category": "Business News",
@@ -30,7 +41,12 @@
     "date": "2025-08-02 10:20",
     "image": "3.webp",
     "votes": { "real": 54, "fake": 4 },
-    "comments": []
+    "comments": [
+      "Nagpur becoming an industrial hub? That’s new.",
+      "Canon investing in SMEs sounds promising for jobs.",
+      "Make in India really is paying off if true.",
+      "Seems like more corporate PR than real impact."
+    ]
   },
   {
      "category": "Business News",
@@ -41,7 +57,11 @@
     "date": "2025-08-03 11:45",
     "image": "4.webp",
     "votes": { "real": 33, "fake": 0 },
-    "comments": []
+    "comments": [
+      "An electric Corvette? I never thought I'd see the day.",
+      "If it still looks like a Corvette, I’m on board!",
+      "This feels like Chevy’s answer to Tesla’s Roadster.",
+      "Concept cars are nice, but will they ever hit production?"]
   },
   {
      "category": "Business News",
@@ -52,7 +72,12 @@
     "date": "2025-08-04 09:00",
     "image": "5.webp",
     "votes": { "real": 30, "fake": 8 },
-    "comments": []
+     "comments": [
+      "Finally, some common sense from the UK.",
+      "So basically, criminals can keep hiding? Not good.",
+      "Apple always wins these privacy battles.",
+      "If the US says so, maybe the UK just gave up quietly."
+    ]
   },
   {
      "category": "Business News",
@@ -229,7 +254,12 @@
     "date": "2025-08-11 09:30",
     "image": "21.png",
     "votes": { "real": 83, "fake": 14 },
-    "comments": []
+    "comments": [
+      "Hikaru is unstoppable in bullet, no doubt.",
+      "50 titles already? That’s insane consistency.",
+      "Feels like no one can touch him in this format.",
+      "Still waiting for someone to challenge him seriously."
+    ]
   },
   {
     "category": "Sport news",
@@ -240,7 +270,12 @@
     "date": "2025-08-11 13:00",
     "image": "22.png",
     "votes": { "real": 71, "fake": 22 },
-    "comments": []
+    "comments": [
+      "Aronian still got it! What a legend.",
+      "Clinching with 2 rounds left is crazy impressive.",
+      "I thought Caruana would challenge him more.",
+      "Saint Louis always brings the best chess events."
+    ]
   },
   {
     "category": "Sport news",
@@ -251,7 +286,12 @@
     "date": "2025-08-12 10:20",
     "image": "23.png",
     "votes": { "real": 64, "fake": 17 },
-    "comments": []
+    "comments": [
+      "Classic Magnus: lose a game, still win the event.",
+      "Hikaru vs Carlsen is the rivalry we never get tired of.",
+      "Freestyle Fridays are the best content in chess right now.",
+      "Magnus’ endgames are just unfair, even online."
+    ]
   },
   {
     "category": "Sport news",
@@ -262,7 +302,12 @@
     "date": "2025-08-12 11:45",
     "image": "24.png",
     "votes": { "real": 56, "fake": 13 },
-    "comments": []
+    "comments": [
+      "Hou Yifan proving once again she’s one of the greatest.",
+      "So happy to see her back on the big stage!",
+      "That tiebreak was absolutely nerve-wracking.",
+      "Semifinals are going to be epic with her in the mix."
+    ]
   },
   {
     "category": "Sport news",
@@ -273,7 +318,12 @@
     "date": "2025-08-12 15:00",
     "image": "25.png",
     "votes": { "real": 49, "fake": 9 },
-    "comments": []
+    "comments": [
+      "Keymer in the top 10 at just 20 years old, wow!",
+      "Finally some German representation at the very top.",
+      "This kid has such a bright future ahead.",
+      "Top-10 is tough, hope he can stay there consistently."
+    ]
   },
   {
     "category": "Sport news",
@@ -437,7 +487,13 @@
     "votes": {
       "real": 324,
       "fake": 87
-    }
+    },
+    "comments": [
+      "Demon Slayer keeps breaking records like it’s nothing.",
+      "¥80 billion in a month is just crazy numbers.",
+      "This is on its way to dethroning Ghibli someday.",
+      "Infinity Castle was absolutely gorgeous on the big screen."
+    ]
   },
   {"category": "Entertainment news",
     "id": 42,
@@ -449,7 +505,13 @@
     "votes": {
       "real": 317,
       "fake": 288
-    }
+    },
+    "comments": [
+      "Both of these movies are killing it at the box office!",
+      "Superman doing well domestically isn’t surprising.",
+      "F1 really hanging strong overseas, that’s impressive.",
+      "Can’t wait to see which one hits $600M first."
+    ]
   },
   {"category": "Entertainment news",
     "id": 43,
@@ -461,7 +523,13 @@
     "votes": {
       "real": 469,
       "fake": 91
-    }
+    },
+    "comments": [
+      "The Baxter Building finally getting the love it deserves.",
+      "Marvel better not mess this one up.",
+      "I love that they’re mixing practical and CGI this time.",
+      "Fantastic Four has so much potential, hoping this one works."
+    ]
   },
   {"category": "Entertainment news",
     "id": 44,
@@ -473,7 +541,13 @@
     "votes": {
       "real": 361,
       "fake": 222
-    }
+    },
+    "comments": [
+      "Didn’t expect Omniscient Reader to blow up this much!",
+      "The adaptation was confusing but still fun.",
+      "Web novel fans are definitely carrying these numbers.",
+      "This could open the door for even more Korean adaptations."
+    ]
   },
   {"category": "Entertainment news",
     "id": 45,
@@ -485,7 +559,13 @@
     "votes": {
       "real": 427,
       "fake": 162
-    }
+    },
+    "comments": [
+      "A 10-year donghua plan? That’s ambitious!",
+      "2035 feels so far away, hope they can keep up quality.",
+      "This is a huge win for Lord of Mysteries fans.",
+      "If they really stick to this roadmap, it’ll be legendary."
+    ]
   },
   {"category": "Entertainment news",
     "id": 46,
@@ -497,7 +577,8 @@
     "votes": {
       "real": 352,
       "fake": 86
-    }
+    },
+     "comments": []
   },
   {"category": "Entertainment news",
     "id": 47,
@@ -509,7 +590,8 @@
     "votes": {
       "real": 469,
       "fake": 135
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 48,
@@ -533,7 +615,8 @@
     "votes": {
       "real": 401,
       "fake": 236
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 50,
@@ -545,7 +628,8 @@
     "votes": {
       "real": 393,
       "fake": 79
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 51,
@@ -557,7 +641,7 @@
     "votes": {
       "real": 312,
       "fake": 91
-    }
+    },"comments": []
   },
   {"category": "Entertainment news",
     "id": 52,
@@ -569,7 +653,8 @@
     "votes": {
       "real": 287,
       "fake": 104
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 53,
@@ -581,7 +666,8 @@
     "votes": {
       "real": 421,
       "fake": 78
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 54,
@@ -593,7 +679,8 @@
     "votes": {
       "real": 356,
       "fake": 92
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 55,
@@ -605,7 +692,7 @@
     "votes": {
       "real": 389,
       "fake": 147
-    }
+    },"comments": []
   },
   {"category": "Entertainment news",
     "id": 56,
@@ -617,7 +704,8 @@
     "votes": {
       "real": 342,
       "fake": 113
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 57,
@@ -629,7 +717,8 @@
     "votes": {
       "real": 478,
       "fake": 89
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 58,
@@ -641,7 +730,8 @@
     "votes": {
       "real": 395,
       "fake": 121
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 59,
@@ -653,7 +743,8 @@
     "votes": {
       "real": 467,
       "fake": 134
-    }
+    },
+    "comments": []
   },
   {"category": "Entertainment news",
     "id": 60,
@@ -665,7 +756,8 @@
     "votes": {
       "real": 412,
       "fake": 97
-    }
+    },
+    "comments": []
   },
   {"category": "Local news",
     "id": 61, 
@@ -677,7 +769,13 @@
     "votes": {
       "real": 412,
       "fake": 87
-    }
+    },
+    "comments": [
+      "That curve is a death trap, needs fixing ASAP.",
+      "So sad, happens way too often in Phuket.",
+      "Tourists and locals both suffer here, why no action?",
+      "They should install warning lights and cameras there."
+    ]
   },
   {"category": "Local news",
     "id": 62,
@@ -689,7 +787,13 @@
     "votes": {
       "real": 387,
       "fake": 102
-    }
+    },
+     "comments": [
+      "Heartbreaking. Condolences to the family.",
+      "Resorts need better lifeguard training.",
+      "Parents also need to be extra cautious with kids near pools.",
+      "Thailand tourism needs to take safety more seriously."
+    ]
   },
   {"category": "Local news",
     "id": 63, 
@@ -701,7 +805,13 @@
     "votes": {
       "real": 421,
       "fake": 78
-    }
+    },
+     "comments": [
+      "Finally some serious investment in rail freight!",
+      "Hope this actually finishes on time and budget.",
+      "This could be a game-changer for ASEAN trade.",
+      "I’ll believe it when I see it — big projects often stall here."
+    ]
   },
   {"category": "Local news",
     "id": 64,
@@ -713,7 +823,13 @@
     "votes": {
       "real": 354,
       "fake": 93
-    }
+    },
+     "comments": [
+      "Tourists need to read the rules before flying drones.",
+      "40,000 baht fine is steep but fair.",
+      "Not surprised — Pattaya is strict with drones.",
+      "I wonder how many others fly without knowing the law."
+    ]
   },
   {"category": "Local news",
     "id": 65,
@@ -725,7 +841,13 @@
     "votes": {
       "real": 398,
       "fake": 86
-    }
+    },
+    "comments": [
+      "Good job by the police, that’s a huge bust.",
+      "56 million baht is no small operation!",
+      "Illegal gambling always finds a way to come back though.",
+      "Hope they actually charge the big bosses, not just small players."
+    ]
   },
   {"category": "Local news",
     "id": 66,
@@ -737,7 +859,8 @@
     "votes": {
       "real": 365,
       "fake": 97
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 67,
@@ -749,7 +872,8 @@
     "votes": {
       "real": 379,
       "fake": 88
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 68,
@@ -761,7 +885,8 @@
     "votes": {
       "real": 346,
       "fake": 79
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 69,
@@ -773,7 +898,8 @@
     "votes": {
       "real": 361,
       "fake": 81
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 70,
@@ -785,7 +911,8 @@
     "votes": {
       "real": 392,
       "fake": 90
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 71,
@@ -797,7 +924,8 @@
     "votes": {
       "real": 348,
       "fake": 95
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 72,
@@ -809,7 +937,8 @@
     "votes": {
       "real": 367,
       "fake": 82
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 73,
@@ -821,7 +950,8 @@
     "votes": {
       "real": 351,
       "fake": 76
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 74,
@@ -833,7 +963,8 @@
     "votes": {
       "real": 338,
       "fake": 74
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 75, 
@@ -845,7 +976,8 @@
     "votes": {
       "real": 326,
       "fake": 88
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 76, 
@@ -857,7 +989,8 @@
     "votes": {
       "real": 312,
       "fake": 79
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 77,
@@ -869,7 +1002,8 @@
     "votes": {
       "real": 334,
       "fake": 85
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 78,
@@ -881,7 +1015,8 @@
     "votes": {
       "real": 319,
       "fake": 77
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id": 79,
@@ -893,7 +1028,8 @@
     "votes": {
       "real": 328,
       "fake": 81
-    }
+    },
+    "comments":[]
   },
   {"category": "Local news",
     "id":80,
@@ -905,7 +1041,8 @@
     "votes": {
       "real": 401,
       "fake": 79
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 81,
@@ -917,7 +1054,13 @@
     "votes": {
       "real": 520,
       "fake": 48
-    }
+    },
+    "comments": [
+      "I was on one of those flights, it was absolute chaos!",
+      "Airlines always blame IT, but sounds like poor management too.",
+      "Hope passengers at least get proper compensation.",
+      "This could push people toward smaller carriers."
+    ]
   },
   {"category": "Global news",
     "id": 82,
@@ -929,7 +1072,13 @@
     "votes": {
       "real": 460,
       "fake": 52
-    }
+    },
+     "comments": [
+      "Not surprising that Putin ignored Trump.",
+      "Trump always claims he can end wars instantly.",
+      "Sounds like political theater more than diplomacy.",
+      "Interesting that this even got leaked."
+    ]
   },
   {"category": "Global news",
     "id": 83,
@@ -941,7 +1090,13 @@
     "votes": {
       "real": 440,
       "fake": 65
-    }
+    },
+     "comments": [
+      "Wow, an 8% drop is brutal in one day.",
+      "Chinese brands really eating everyone’s lunch now.",
+      "Maybe Global Tech should focus more on software?",
+      "Sounds like the beginning of a long decline."
+    ]
   },
   {"category": "Global news",
     "id": 84,
@@ -953,7 +1108,13 @@
     "votes": {
       "real": 410,
       "fake": 72
-    }
+    },
+     "comments": [
+      "Feels like déjà vu from 1970s stagflation.",
+      "Tariffs always end up hurting consumers the most.",
+      "Central banks can’t fix geopolitics though.",
+      "Scary how quickly inflation risks are spreading."
+    ]
   },
   {"category": "Global news",
     "id": 85,
@@ -965,7 +1126,13 @@
     "votes": {
       "real": 395,
       "fake": 60
-    }
+    },
+    "comments": [
+      "America’s trade policy has been messy for years.",
+      "Worker-centered sounds nice but doesn’t help exports much.",
+      "Protectionism always backfires in the long run.",
+      "This is why allies are frustrated with the U.S."
+    ]
   },
   {"category": "Global news",
     "id": 86,
@@ -977,7 +1144,8 @@
     "votes": {
       "real": 380,
       "fake": 55
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 87,
@@ -989,7 +1157,8 @@
     "votes": {
       "real": 405,
       "fake": 50
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 88,
@@ -1001,7 +1170,8 @@
     "votes": {
       "real": 420,
       "fake": 58
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 89,
@@ -1013,7 +1183,8 @@
     "votes": {
       "real": 390,
       "fake": 62
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 90,
@@ -1025,7 +1196,8 @@
     "votes": {
       "real": 375,
       "fake": 45
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 91,
@@ -1037,7 +1209,8 @@
     "votes": {
       "real": 400,
       "fake": 50
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 92,
@@ -1049,7 +1222,8 @@
     "votes": {
       "real": 425,
       "fake": 55
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 93,
@@ -1061,7 +1235,8 @@
     "votes": {
       "real": 410,
       "fake": 48
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 94,
@@ -1073,7 +1248,8 @@
     "votes": {
       "real": 430,
       "fake": 50
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 95,
@@ -1085,7 +1261,8 @@
     "votes": {
       "real": 395,
       "fake": 48
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 96,
@@ -1097,7 +1274,8 @@
     "votes": {
       "real": 380,
       "fake": 52
-    }
+    },
+    "comments":[]
   },
   {"category": "Global news",
     "id": 97,
@@ -1109,7 +1287,8 @@
     "votes": {
         "real": 320,
         "fake": 45
-    }
+    },
+    "comments":[]
 },
 {"category": "Global news",
     "id": 98,
@@ -1121,7 +1300,8 @@
     "votes": {
         "real": 290,
         "fake": 60
-    }
+    },
+    "comments":[]
 },
 {"category": "Global news",
     "id": 99,
@@ -1133,7 +1313,8 @@
     "votes": {
         "real": 345,
         "fake": 50
-    }
+    },
+    "comments":[]
 },
 {"category": "Global news",
     "id": 100,
@@ -1145,7 +1326,8 @@
     "votes": {
         "real": 365,
         "fake": 40
-    }
+    },
+    "comments":[]
 },
   {
     "category": "Business",
@@ -1158,7 +1340,8 @@
     "votes": {
       "real": 298,
       "fake": 612
-    }
+    },
+     "comments": ["The scale of Tesla’s alleged Bangkok factory is suspicious — such a massive project would have extensive international press coverage, not just a single report."]
   },
   {
     "category": "Business",
@@ -1171,7 +1354,8 @@
     "votes": {
       "real": 256,
       "fake": 701
-    }
+    },
+    "comments":[]
   },
   {
     "category": "Business",
@@ -1184,7 +1368,8 @@
     "votes": {
       "real": 214,
       "fake": 743
-    }
+    },
+    "comments":[]
   },
 
   {
@@ -1198,7 +1383,8 @@
     "votes": {
       "real": 332,
       "fake": 688
-    }
+    },
+    "comments": ["While Ronaldo has opened academies elsewhere, no credible sports networks confirm plans for Chiang Mai, suggesting this story is fabricated."]
   },
   {
     "category": "Sport",
@@ -1211,7 +1397,8 @@
     "votes": {
       "real": 289,
       "fake": 755
-    }
+    },
+    "comments":[]
   },
   {
     "category": "Sport",
@@ -1224,7 +1411,8 @@
     "votes": {
       "real": 275,
       "fake": 768
-    }
+    },
+    "comments":[]
   },
 
   {
@@ -1238,7 +1426,8 @@
     "votes": {
       "real": 318,
       "fake": 792
-    }
+    },
+    "comments":[]
   },
   {
     "category": "Entertainment",
@@ -1251,7 +1440,8 @@
     "votes": {
       "real": 274,
       "fake": 820
-    }
+    },
+    "comments": ["A BTS farewell concert would be one of the biggest entertainment stories worldwide, yet no major outlets have reported on such an event."]
   },
   {
     "category": "Entertainment",
@@ -1264,7 +1454,8 @@
     "votes": {
       "real": 301,
       "fake": 745
-    }
+    },
+    "comments":[]
   },
 
   {
@@ -1278,7 +1469,8 @@
     "votes": {
       "real": 259,
       "fake": 811
-    }
+    },
+    "comments": ["Bangkok has ongoing mass-transit expansions, but a maglev underground train between airports would be a multi-billion-dollar project — something too large to go unnoticed by global infrastructure media."]
   },
   {
     "category": "Local Thailand",
@@ -1291,7 +1483,8 @@
     "votes": {
       "real": 233,
       "fake": 830
-    }
+    },
+    "comments":[]
   },
   {
     "category": "Local Thailand",
@@ -1304,7 +1497,8 @@
     "votes": {
       "real": 247,
       "fake": 789
-    }
+    },
+    "comments":[]
   },
 
   {
@@ -1318,7 +1512,8 @@
     "votes": {
       "real": 324,
       "fake": 882
-    }
+    },
+    "comments":[]
   },
   {
     "category": "Global",
@@ -1331,7 +1526,8 @@
     "votes": {
       "real": 268,
       "fake": 801
-    }
+    },
+    "comments": ["The UN rarely enforces lifestyle mandates like a global siesta; the idea is humorous but not grounded in real-world policymaking."]
   },
   {
     "category": "Global",
@@ -1344,7 +1540,8 @@
     "votes": {
       "real": 290,
       "fake": 900
-    }
+    },
+    "comments":[]
   }
 
 
