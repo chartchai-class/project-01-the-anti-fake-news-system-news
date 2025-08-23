@@ -7,9 +7,12 @@ const route = useRoute()
 const router = useRouter()
 const store = useNewsStore()
 
-// Get the news item by ID
+// Get news by ID
 const newsId = Number(route.params.id)
 const news = store.allNews.find(n => n.id === newsId) || null
+
+// detect mode
+const isViewOnly = computed(() => route.name === 'view-comment')
 
 // Form state
 const selectedVote = ref(null)   // "real" or "fake"
@@ -19,12 +22,12 @@ const commentImage = ref("")
 // Handle submit
 function submitVote() {
   if (!selectedVote.value) {
-    alert("⚠️ Please select Real or Fake before submitting.")
+    alert("Please select Real or Fake before submitting.")
     return
   }
 
   if (!news) {
-    alert("⚠️ News not found")
+    alert("News not found")
     return
   }
 
@@ -35,7 +38,7 @@ function submitVote() {
     news.votes.fake++
   }
 
-  // Save comment if provided
+  // Save comment
   if (commentText.value.trim() || commentImage.value.trim()) {
     news.comments.push({
       text: commentText.value,
@@ -44,73 +47,64 @@ function submitVote() {
     })
   }
 
-  // Optional: You can later replace this with an API POST request
-  // await axios.post(`/news/${newsId}/vote`, { vote: selectedVote.value, comment: ... })
-
-  alert(`✅ Thank you! Your vote for "${selectedVote.value}" has been submitted.`)
+  alert(`Thank you! Your vote for "${selectedVote.value}" has been submitted.`)
 
   // Reset form
   selectedVote.value = null
   commentText.value = ""
   commentImage.value = ""
 
-  // Navigate back to news detail page
-  router.push(`/news/${newsId}`)
+  router.push(`/news/${newsId}`)  // Navigate back to news detail page
 }
 </script>
 
 <template>
   <div v-if="news" style="padding:20px;">
-    <h2>Vote on: {{ news.headline }}</h2>
+    <h2>{{ news.headline }}</h2>
     <p><small>Reporter: {{ news.reporter }} | {{ news.date }}</small></p>
-    <p>{{ news.detail }}</p>
 
-    <!-- Vote buttons -->
-    <div style="margin:15px 0;">
-      <label>
-        <input type="radio" value="real" v-model="selectedVote" />
-        Real
-      </label>
-      <label style="margin-left:15px;">
-        <input type="radio" value="fake" v-model="selectedVote" />
-        Fake
-      </label>
-    </div>
-
-    <!-- Optional comment -->
-    <div>
-      <label>Comment (optional):</label><br />
-      <textarea 
-        v-model="commentText" 
-        placeholder="Why do you think this?" 
-        style="width:100%; height:80px;">
-      </textarea>
-    </div>
-
-    <!-- Optional image link -->
-    <div style="margin-top:10px;">
-      <label>Image URL (optional):</label><br />
-      <input v-model="commentImage" placeholder="https://..." style="width:100%;" />
-    </div>
-
-    <!-- Submit button -->
-    <button 
-      style="margin-top:15px; padding:8px 16px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;"
-      @click="submitVote"
-    >
-      Submit
-    </button>
-
-    <!-- Show existing comments -->
-    <div v-if="news.comments.length" style="margin-top:20px;">
-      <h3>Comments</h3>
-      <ul style="list-style:none; padding:0;">
-        <li v-for="(c, i) in news.comments" :key="i" style="border:1px solid #ccc; margin:8px 0; padding:8px; border-radius:6px;">
+    <!-- Comments -->
+    <div class="comments-section">
+      <h3>💬 Comments ({{ news.comments.length }})</h3>
+      <div 
+        v-for="(c, i) in news.comments" 
+        :key="i" 
+        class="comment"
+      >
+        <div class="comment-avatar"></div>
+        <div class="comment-body">
+          <strong>Anonymous</strong>
           <p>{{ c.text }}</p>
-          <img v-if="c.image" :src="c.image" alt="comment image" style="max-width:100px; display:block; margin-top:5px;" />
+          <img v-if="c.image" :src="c.image" alt="comment image" style="max-width:100px; margin-top:5px;" />
           <small>{{ c.date }}</small>
-        </li>
-      </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show vote form only in vote page -->
+    <div v-if="!isViewOnly" class="vote-section">
+      <p>
+        {{
+          ((news.votes.real / (news.votes.real + news.votes.fake || 1)) * 100).toFixed(1)
+        }}% of readers think this is real
+      </p>
+
+      <div class="vote-buttons">
+        <button class="btn-real" @click="selectedVote = 'real'">Real</button>
+        <button class="btn-fake" @click="selectedVote = 'fake'">Fake</button>
+      </div>
+
+      <div class="form-group">
+        <input type="text" v-model="commentImage" placeholder="Image URL (Optional)" />
+      </div>
+      <div class="form-group">
+        <textarea rows="4" v-model="commentText" placeholder="Write your comment"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-submit" @click="submitVote">Submit</button>
+        <button class="btn-cancel" @click="router.push(`/news/${newsId}`)">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -118,3 +112,93 @@ function submitVote() {
     <p>⚠️ News not found</p>
   </div>
 </template>
+
+<style scoped>
+.actions {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #000;
+  background: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.comment-body {
+  font-size: 14px;
+}
+.comment-body strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.vote-section {
+  margin-top: 20px;
+}
+.vote-buttons {
+  margin: 15px 0;
+  display: flex;
+  gap: 20px;
+}
+.vote-buttons button {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-real { background: #00c400; color: #fff; }
+.btn-fake { background: #d90000; color: #fff; }
+
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+.form-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+.btn-submit { background: #000; color: #fff; }
+.btn-cancel { background: #fff; border: 1px solid #000; }
+</style>
