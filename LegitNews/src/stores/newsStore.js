@@ -2,6 +2,11 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "/api"  
+  // ✅ fallback to /api on Vercel
+})
+
 export const useNewsStore = defineStore('news', {
   state: () => ({
     newsList: [],
@@ -14,12 +19,11 @@ export const useNewsStore = defineStore('news', {
   },
 
   actions: {
-    // Fallback dummy data
     loadDummyNews() {
       this.newsList = Array.from({ length: 20 }, (_, i) => ({
         id: i + 1,
         headline: `Sample Headline ${i + 1}`,
-        detail: `This is the full detail for news item ${i + 1}. It provides a longer description about the event.`,
+        detail: `This is the full detail for news item ${i + 1}.`,
         reporter: i % 3 === 0 ? "Anonymous" : `Reporter ${i + 1}`,
         date: `2025-08-17 ${10 + (i % 12)}:00`,
         image: "https://via.placeholder.com/150",
@@ -27,15 +31,11 @@ export const useNewsStore = defineStore('news', {
       }))
     },
 
-    // Fetch ALL news from backend (no pagination at backend side)
     async fetchNews() {
       this.loading = true
       this.error = null
       try {
-        const res = await axios.get("http://localhost:5000/news", {
-          params: { page: 1, limit: 1000 }   // ✅ fetch all in one go
-        })
-        // backend returns { data, total, page, limit }
+        const res = await api.get("/news", { params: { page: 1, limit: 1000 } })
         this.newsList = res.data.data || res.data
       } catch (err) {
         console.error("Backend not available, loading dummy data instead.", err)
