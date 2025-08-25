@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { useNewsStore } from '@/stores/newsStore'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
 
 const store = useNewsStore()
 const router = useRouter()
@@ -18,26 +17,25 @@ async function submitNews() {
     return
   }
 
-  try {
-    // Send to backend
-    const res = await axios.post("http://localhost:5000/news", {
-      headline: headline.value,
-      detail: detail.value,
-      reporter: reporter.value || "Anonymous",
-      image: image.value || "https://via.placeholder.com/150"
-    })
-
-    // Add to store (update frontend state)
-    store.newsList.unshift(res.data)
-
-    alert("✅ News added successfully!")
-    router.push('/')
-  } catch (err) {
-    console.error("Error adding news:", err)
-    alert("❌ Failed to add news.")
+  // ✅ Create a new news object (frontend only)
+  const newNews = {
+    id: Date.now(),
+    headline: headline.value,
+    detail: detail.value,
+    reporter: reporter.value || "Anonymous",
+    image: image.value || "https://via.placeholder.com/150",
+    date: new Date().toISOString(),
+    votes: { real: 0, fake: 0 }
   }
+
+  // ✅ Add to store
+  store.newsList.unshift(newNews)
+
+  alert("✅ News added successfully!")
+  router.push('/')
 }
 </script>
+
 
 <template>
   <div class="form-container">
