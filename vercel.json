@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     { "src": "LegitNews/vite.config.js", "use": "@vercel/static-build" },
-    { "src": "api/**/*.js", "use": "@vercel/node" }
+    { "src": "LegitNews/api/**/*.js", "use": "@vercel/node" }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/LegitNews/" }
+    { "source": "/api/(.*)", "destination": "/LegitNews/api/$1" },
+    { "source": "/(.*)", "destination": "/LegitNews/$1" }
   ]
 }
