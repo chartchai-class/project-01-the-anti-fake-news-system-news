@@ -10,31 +10,48 @@ const headline = ref("")
 const detail = ref("")
 const reporter = ref("")
 const image = ref("")
+const category = ref("Local News")
 
 async function submitNews() {
-  if (!headline.value || !detail.value) {
-    alert("⚠️ Headline and Detail are required.")
+  if (!headline.value || !detail.value || !category.value) {
+    alert("⚠️ Headline, Detail and Category are required.")
     return
   }
 
-  // ✅ Create a new news object (frontend only)
+  // ✅ find the highest existing id in the loaded list
+  const lastId = store.newsList.length > 0 
+    ? Math.max(...store.newsList.map(n => n.id)) 
+    : 0
+
   const newNews = {
-    id: Date.now(),
+    category: category.value,
+    id: lastId + 1,                     // ✅ increase id by 1
     headline: headline.value,
     detail: detail.value,
     reporter: reporter.value || "Anonymous",
+    date: new Date().toISOString().slice(0, 16).replace("T", " "),
     image: image.value || "https://via.placeholder.com/150",
-    date: new Date().toISOString(),
     votes: { real: 0, fake: 0 }
   }
 
-  // ✅ Add to store
-  store.newsList.unshift(newNews)
+  // ✅ Add into current list (frontend only)
+  store.addNews(newNews)
+
+  // clear form
+  headline.value = ""
+  detail.value = ""
+  reporter.value = ""
+  image.value = ""
+  category.value = ""
 
   alert("✅ News added successfully!")
   router.push('/')
 }
 </script>
+
+
+
+
 
 
 <template>
@@ -52,6 +69,20 @@ async function submitNews() {
           <label>Headline</label>
           <input type="text" v-model="headline" placeholder="Enter Headline" />
         </div>
+
+        <!-- Category -->
+<div class="form-group">
+  <label>Category</label>
+  <select v-model="category">
+    <option disabled value="">-- Select Category --</option>
+    <option>Local News</option>
+    <option>Global News</option>
+    <option>Business News</option>
+    <option>Sport News</option>
+    <option>Entertainment News</option>
+  </select>
+</div>
+
 
         <!-- Image -->
         <div class="form-group">
