@@ -2,6 +2,7 @@
 import { ref } from "vue"
 import { RouterLink, useRouter } from "vue-router"
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import logo from '@/assets/Legit News Logo.png'
 
 const isOpen = ref(false)
 const searchTerm = ref("")
@@ -23,7 +24,7 @@ function handleSearch() {
       <!-- Logo -->
       <div class="logo">
         <RouterLink to="/">
-          <img src="./assets/Legit News Logo.png" alt="Legit News Logo" class="h-[60px] w-auto">
+          <img src="logo" alt="Legit News Logo" class="h-[60px] w-auto">
         </RouterLink>
       </div>
 
@@ -104,7 +105,7 @@ function handleSearch() {
       </div>
 
       <div class="flex-1 flex justify-center md:justify-end">
-        <img src="./assets/Legit News Logo.png" alt="Legit News Logo" class="h-[60px] w-auto">
+        <img src="logo" alt="Legit News Logo" class="h-[60px] w-auto">
       </div>
     </footer>
   </div>

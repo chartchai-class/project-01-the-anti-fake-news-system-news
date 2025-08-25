@@ -1,11 +1,23 @@
 {
   "version": 2,
   "builds": [
-    { "src": "LegitNews/package.json", "use": "@vercel/static-build" },
-    { "src": "LegitNews/api/**/*.js", "use": "@vercel/node" }
+    {
+      "src": "LegitNews/package.json",
+      "use": "@vercel/static-build"
+    },
+    {
+      "src": "LegitNews/api/**/*.js",
+      "use": "@vercel/node"
+    }
   ],
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/LegitNews/$1" }
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "LegitNews/api/$1.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "LegitNews/$1"
+    }
   ]
 }
