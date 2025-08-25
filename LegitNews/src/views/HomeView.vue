@@ -21,7 +21,8 @@ watch(
   () => [route.params.name, route.params.term],
   () => {
     currentPage.value = 1
-    triggerLoading()
+    isLoading.value = true
+    setTimeout(() => (isLoading.value = false), 500)
   }
 )
 
@@ -39,18 +40,6 @@ const endDate = ref("")
 // Category & Search filter from route
 const categoryFilter = computed(() => route.params.name || null)
 const searchFilter = computed(() => route.params.term || null)
-
-// ✅ Watchers for filter + itemsPerPage
-watch([filterType, itemsPerPage, sortOrder], () => {
-  currentPage.value = 1
-  triggerLoading()
-})
-
-// Helper function to simulate loading
-function triggerLoading() {
-  isLoading.value = true
-  setTimeout(() => (isLoading.value = false), 500)
-}
 
 // Computed filtered + sorted news
 const filteredNews = computed(() => {
@@ -116,14 +105,20 @@ const paginatedNews = computed(() => {
 // Pagination actions
 function nextPage() {
   if (currentPage.value < totalPages.value) {
-    triggerLoading()
-    setTimeout(() => currentPage.value++, 500)
+    isLoading.value = true
+    setTimeout(() => {
+      currentPage.value++
+      isLoading.value = false
+    }, 500)
   }
 }
 function prevPage() {
   if (currentPage.value > 1) {
-    triggerLoading()
-    setTimeout(() => currentPage.value--, 500)
+    isLoading.value = true
+    setTimeout(() => {
+      currentPage.value--
+      isLoading.value = false
+    }, 500)
   }
 }
 
@@ -137,7 +132,6 @@ function clearFilters() {
   currentPage.value = 1
 }
 </script>
-
 
 <template>
   <div class="home">
