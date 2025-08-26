@@ -30,7 +30,8 @@ async function submitNews() {
     reporter: reporter.value || "Anonymous",
     date: new Date().toISOString().slice(0, 16).replace("T", " "),
     image: image.value || "https://via.placeholder.com/150",
-    votes: { real: 0, fake: 0 }
+    votes: { real: 0, fake: 0 },
+    comments: []
   }
 
   store.addNews(newNews)
@@ -143,5 +144,11 @@ async function submitNews() {
         </button>
       </div>
     </form>
+  </div>
+
+    <div class="mt-8 ml-[50px]">
+    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
+      ← back to home
+    </RouterLink>
   </div>
 </template>
