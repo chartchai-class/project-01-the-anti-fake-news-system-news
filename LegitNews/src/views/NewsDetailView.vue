@@ -96,7 +96,7 @@ watch(
 
     <!-- Related News -->
     <div class="w-full lg:w-[400px] flex flex-col gap-5">
-      <h3 v-if="relatedNews.length" class="text-lg font-bold px-2">📰 Related News</h3>
+      <h3 v-if="relatedNews.length" class="text-lg font-bold px-2"> Related News</h3>
 
       <RouterLink
         v-for="(item, i) in relatedNews"

@@ -32,11 +32,3 @@ Our application allows users to:
 
 ---
 
-## 🛠️ Technologies Used
-- **Frontend:** Vue.js, Pinia (state management), Tailwind CSS  
-- **Backend:** Node.js (Vercel serverless functions)  
-- **Database:** JSON / LocalStorage (prototype phase)  
-- **Deployment:** Vercel  
-
----
-
