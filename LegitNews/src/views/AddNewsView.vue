@@ -18,14 +18,13 @@ async function submitNews() {
     return
   }
 
-  // ✅ find the highest existing id in the loaded list
   const lastId = store.newsList.length > 0 
     ? Math.max(...store.newsList.map(n => n.id)) 
     : 0
 
   const newNews = {
     category: category.value,
-    id: lastId + 1,                     // ✅ increase id by 1
+    id: lastId + 1,                     
     headline: headline.value,
     detail: detail.value,
     reporter: reporter.value || "Anonymous",
@@ -34,7 +33,6 @@ async function submitNews() {
     votes: { real: 0, fake: 0 }
   }
 
-  // ✅ Add into current list (frontend only)
   store.addNews(newNews)
 
   // clear form
@@ -49,174 +47,101 @@ async function submitNews() {
 }
 </script>
 
-
-
-
-
-
 <template>
-  <div class="form-container">
-    <!-- Header -->
-    <div class="form-header">
+  <div class="bg-white w-full max-w-3xl mx-auto mt-12 rounded-xl shadow-lg overflow-hidden">
+    <div class="h-24 bg-black text-white flex justify-center items-center text-lg sm:text-xl font-bold text-center px-4">
       Have a story to share? Upload your news and let us verify it!
     </div>
 
-    <!-- Form -->
-    <form @submit.prevent="submitNews">
-      <div class="form-body">
-        <!-- Headline -->
-        <div class="form-group">
-          <label>Headline</label>
-          <input type="text" v-model="headline" placeholder="Enter Headline" />
+    <form @submit.prevent="submitNews" class="p-6 sm:p-10">
+      <div class="space-y-6">
+        <div>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Headline</label>
+          <input 
+            type="text" 
+            v-model="headline" 
+            placeholder="Enter Headline"
+            class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+          />
         </div>
 
-        <!-- Category -->
-<div class="form-group">
-  <label>Category</label>
-  <select v-model="category">
-    <option disabled value="">-- Select Category --</option>
-    <option>Local News</option>
-    <option>Global News</option>
-    <option>Business News</option>
-    <option>Sport News</option>
-    <option>Entertainment News</option>
-  </select>
-</div>
-
-
-        <!-- Image -->
-        <div class="form-group">
-          <label>Image URL</label>
-          <input type="url" v-model="image" placeholder="https://" />
+        <div>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Category</label>
+          <select 
+            v-model="category" 
+            class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+          >
+            <option disabled value="">-- Select Category --</option>
+            <option>Local News</option>
+            <option>Global News</option>
+            <option>Business News</option>
+            <option>Sport News</option>
+            <option>Entertainment News</option>
+          </select>
         </div>
 
-        <!-- Reporter -->
-        <div class="form-group">
-          <label>Reporter</label>
-          <input type="text" v-model="reporter" placeholder="Enter Reporter Name" />
+        <div>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Image URL</label>
+          <input 
+            type="url" 
+            v-model="image" 
+            placeholder="https://" 
+            class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+          />
         </div>
 
-        <!-- Date & Time (optional, not stored) -->
-        <div class="inline-fields">
-          <div class="form-group">
-            <label>Date</label>
-            <input type="date" />
+        <div>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Reporter</label>
+          <input 
+            type="text" 
+            v-model="reporter" 
+            placeholder="Enter Reporter Name"
+            class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+          />
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0">
+          <div class="flex-1">
+            <label class="block mb-2 text-base font-semibold text-gray-800">Date</label>
+            <input 
+              type="date" 
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+            />
           </div>
-          <div class="form-group">
-            <label>Time</label>
-            <input type="time" />
+          <div class="flex-1">
+            <label class="block mb-2 text-base font-semibold text-gray-800">Time</label>
+            <input 
+              type="time" 
+              class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+            />
           </div>
         </div>
 
-        <!-- Detail -->
-        <div class="form-group">
-          <label>Detail</label>
-          <textarea v-model="detail" rows="3" placeholder="Enter Detail"></textarea>
+        <div>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Detail</label>
+          <textarea 
+            v-model="detail" 
+            rows="3" 
+            placeholder="Enter Detail"
+            class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
+          ></textarea>
         </div>
       </div>
 
-      <!-- Footer buttons -->
-      <div class="form-footer">
-        <button type="submit" class="btn btn-upload">Upload</button>
-        <button type="reset" class="btn btn-cancel">Cancel</button>
+      <div class="flex justify-between mt-8">
+        <button 
+          type="submit" 
+          class="w-28 h-10 rounded-md font-semibold bg-black text-white hover:bg-gray-800 transition"
+        >
+          Upload
+        </button>
+        <button 
+          type="reset" 
+          class="w-28 h-10 rounded-md font-semibold bg-white border border-black text-black hover:bg-gray-100 transition"
+        >
+          Cancel
+        </button>
       </div>
     </form>
   </div>
 </template>
-
-<style scoped>
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-}
-
-.form-container {
-  background: #fff;
-  width: 850px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  margin: 50px auto;
-}
-
-.form-header {
-  height: 100px;
-  background: #000;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.form-body {
-  padding: 30px 50px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-  background: #eeeeee;
-  box-sizing: border-box;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: #555;
-  background: #fff;
-}
-
-.inline-fields {
-  display: flex;
-  gap: 50px;
-}
-
-.inline-fields .form-group {
-  flex: 2;
-}
-
-.form-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 50px 30px 50px;
-}
-
-.btn {
-  width: 120px;
-  height: 40px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.btn-upload {
-  background: #000;
-  color: #fff;
-}
-
-.btn-cancel {
-  background: #fff;
-  border: 1px solid #000;
-  color: #000;
-}
-</style>
