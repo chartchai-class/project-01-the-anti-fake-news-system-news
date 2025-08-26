@@ -3,6 +3,8 @@ import HomeView from '@/views/HomeView.vue'
 import NewsDetailView from '@/views/NewsDetailView.vue'
 import VoteCommentView from '@/views/VoteCommentView.vue'
 import AddNewsView from '@/views/AddNewsView.vue'
+import AboutUs from '@/views/AboutUs.vue'
+import Term from '@/views/Term.vue'
 
 const routes = [
   { path: '/', 
@@ -20,12 +22,21 @@ const routes = [
   {
   path: '/category/:name',
   name: 'category-news',
-  component: HomeView // reuse HomeView.vue
+  component: HomeView 
   },
   {
   path: '/search/:term',
   name: 'search-news',
-  component: HomeView // reuse HomeView.vue
+  component: HomeView 
+  },
+  { path: '/about', 
+    name: 'AboutUs', 
+    component: AboutUs 
+  },
+   {
+    path: '/terms',
+    name: 'Terms',
+    component: Term
   },
 ]
 
