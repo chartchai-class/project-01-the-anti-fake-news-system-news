@@ -88,15 +88,24 @@ function handleSearch() {
       <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
         <p>Follow us on:</p>
         <div class="flex space-x-3 mt-2">
-          <a href="#" class="text-gray-600 hover:text-blue-500 text-2xl"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-gray-600 hover:text-blue-500 text-2xl"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-gray-600 hover:text-blue-500 text-2xl"><i class="bi bi-youtube"></i></a>
-          <a href="#" class="text-gray-600 hover:text-blue-500 text-2xl"><i class="bi bi-tiktok"></i></a>
+          <a href="https://www.facebook.com/htet.o.thu" target="_blank" rel="noopener" class="text-gray-600 hover:text-blue-500 text-2xl">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com/htet_hot/" target="_blank" rel="noopener" class="text-gray-600 hover:text-pink-500 text-2xl">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a href="https://www.youtube.com/@kaungkhantsan12" target="_blank" rel="noopener" class="text-gray-600 hover:text-red-500 text-2xl">
+            <i class="bi bi-youtube"></i>
+          </a>
         </div>
+
       </div>
 
       <div class="flex-1 text-center">
-        <p>Contact us: legitnews25@gmail.com</p>
+        <p>Contact us: <a href="mailto:legitnews25@gmail.com" class="text-blue-600 underline hover:text-blue-800">
+            legitnews25@gmail.com</a>
+        </p>
+
         <div>
           <RouterLink to="/terms" class="mx-2 text-black text-sm hover:underline">Terms of Use</RouterLink> | 
           <RouterLink to="/about" class="mx-2 text-black text-sm hover:underline">About Us</RouterLink>
