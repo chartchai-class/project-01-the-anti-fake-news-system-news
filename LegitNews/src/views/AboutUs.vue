@@ -50,6 +50,13 @@ import profile3 from '@/assets/images/profile3.jpg'
 
     </div>
   </div>
+
+    <div class="mt-8 ml-[50px]">
+    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
+      ← back to home
+    </RouterLink>
+  </div>
+  
 </template>
 
 

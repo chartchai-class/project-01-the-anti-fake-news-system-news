@@ -136,4 +136,11 @@ watch(
   <div v-else class="p-5">
     <p>⚠️ News not found</p>
   </div>
+
+  <div class="mt-8 ml-[50px]">
+    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
+      ← back to home
+    </RouterLink>
+  </div>
+
 </template>
