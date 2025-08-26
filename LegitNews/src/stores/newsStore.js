@@ -63,6 +63,20 @@ export const useNewsStore = defineStore('news', {
         const res = await api.get("/news", { params: { page: 1, limit: 1000 } })
         const backendNews = res.data.data || res.data
 
+        backendNews.forEach(n => {
+          n.comments = (n.comments || []).map(c =>
+            typeof c === "string"
+              ? { name: "Anonymous", text: c, image: "", date: "" }  // backend strings
+              : {
+                  // already an object, just make sure keys exist
+                  name: c.name || "Anonymous",
+                  text: c.text || "",
+                  image: c.image || "",
+                  date: c.date || ""
+                }
+          )
+        })
+
         // Merge with localStorage (local comes first)
         const local = this.loadLocal()
         this.newsList = [...local, ...backendNews]
