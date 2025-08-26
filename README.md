@@ -22,7 +22,7 @@ Our application allows users to:
 - 💬 Leave comments and discuss articles  
 - 📊 View statistics of votes to identify credibility  
 
-By combining **community-driven feedback** with a clear UI, the system creates a collaborative environment for promoting trustworthy information.
+
 
 ---
 
@@ -40,22 +40,3 @@ By combining **community-driven feedback** with a clear UI, the system creates a
 
 ---
 
-## 📌 How It Works
-1. **Upload News:** Users can contribute news articles with headlines, details, and images.  
-2. **Community Votes:** Visitors can vote on whether they believe the article is *real* or *fake*.  
-3. **Comment System:** Readers can share their thoughts, add image references, and discuss credibility.  
-4. **Related News:** The system automatically suggests related articles within the same category.  
-
----
-
-## 📷 Screenshots (Optional)
-_Add some screenshots of your UI here to make it visually engaging._
-
----
-
-## 📬 Contact
-If you have any questions regarding this project, please feel free to contact us.  
-
----
-
-> 🎓 Developed with passion and teamwork by **Group [Your Group Name]**, Chiang Mai University.
