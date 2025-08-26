@@ -28,7 +28,7 @@ Our application allows users to:
 
 ## 🚀 Deployment & Demo
 - 🌐 **Live Website:** [Click Here](https://project-01-the-anti-fake-news-syste-chi.vercel.app/)  
-- 🎥 **Demo Video:** [Watch Here](https://your-video-url.com)  
+- 🎥 **Demo Video:** [Watch Here]([https://your-video-url.com](https://youtu.be/0uBI8tZHwWQ))  
 
 ---
 
