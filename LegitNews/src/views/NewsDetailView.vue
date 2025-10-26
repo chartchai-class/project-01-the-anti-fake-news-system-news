@@ -1,29 +1,60 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { useNewsStore } from '@/stores/newsStore'
-import { ref, computed, watch } from 'vue'
-import VoteCommentView from './VoteCommentView.vue'   
+import { ref, computed, watch, onMounted } from 'vue'
+import VoteCommentView from './VoteCommentView.vue'
 
 const route = useRoute()
 const store = useNewsStore()
 
 const newsId = ref(Number(route.params.id))
-const news = ref(store.allNews.find(n => n.id === newsId.value) || null)
+const news   = ref(store.allNews.find(n => n.id === newsId.value) || null)
 
 const showComment = ref(false)
-const showVote = ref(false)
+const showVote    = ref(false)
+
+const comments    = ref([])     // <-- hold fetched comments here
+const loadingCmt  = ref(false)
+const cmtError    = ref(null)
+
+async function ensureNewsLoaded() {
+  // handle refresh / direct link where store is empty
+  if (!news.value) {
+    await store.fetchNews()
+    news.value = store.allNews.find(n => n.id === newsId.value) || null
+  }
+}
+
+async function loadComments() {
+  if (!news.value) return
+  loadingCmt.value = true
+  cmtError.value = null
+  try {
+    comments.value = await store.fetchComments(newsId.value)  // <-- calls backend /api/news/:id/comments
+  } catch (e) {
+    console.error(e)
+    cmtError.value = 'Failed to load comments'
+    comments.value = []
+  } finally {
+    loadingCmt.value = false
+  }
+}
 
 function toggleComment() {
   showComment.value = !showComment.value
-  showVote.value = false 
+  showVote.value = false
+  // load once, when first opened
+  if (showComment.value && comments.value.length === 0 && !loadingCmt.value) {
+    loadComments()
+  }
 }
 
 function toggleVote() {
   showVote.value = !showVote.value
-  showComment.value = false 
+  showComment.value = false
 }
 
-// ✅ Related news: same category, exclude current
+// Related news: same category, exclude current
 const relatedNews = computed(() => {
   if (!news.value) return []
   return store.allNews
@@ -31,16 +62,22 @@ const relatedNews = computed(() => {
     .slice(0, 2)
 })
 
-// ✅ Update when navigating to a new news id
+// Update when navigating to a new news id
 watch(
   () => route.params.id,
-  (newId) => {
+  async (newId) => {
     newsId.value = Number(newId)
     news.value = store.allNews.find(n => n.id === newsId.value) || null
     showComment.value = false
     showVote.value = false
+    comments.value = []
+    await ensureNewsLoaded()
   }
 )
+
+onMounted(async () => {
+  await ensureNewsLoaded()
+})
 </script>
 
 <template>
@@ -49,7 +86,7 @@ watch(
     <!-- Main News -->
     <div class="bg-white w-full lg:w-[800px] p-5 rounded-xl shadow-md">
       <div class="flex justify-between items-center mb-2 text-2xl font-bold">
-        <span>{{ news.headline }}</span>        
+        <span>{{ news.headline }}</span>
       </div>
 
       <div class="text-sm text-gray-600 mb-4">
@@ -85,10 +122,16 @@ watch(
         </button>
       </div>
 
+      <!-- Comments -->
       <div v-if="showComment" class="mt-5">
-        <VoteCommentView :id="newsId" mode="view-comment" />
+        <div v-if="loadingCmt" class="text-sm text-gray-500">Loading comments...</div>
+        <div v-else-if="cmtError" class="text-sm text-red-600">{{ cmtError }}</div>
+        <VoteCommentView :id="newsId" mode="view-comment" :initial="comments" />
+        <!-- If your VoteCommentView doesn't accept 'initial', it can fetch via store too;
+             keeping it here lets you control when the call happens -->
       </div>
 
+      <!-- Vote -->
       <div v-if="showVote" class="mt-5">
         <VoteCommentView :id="newsId" mode="vote" />
       </div>
@@ -142,5 +185,4 @@ watch(
       ← back to home
     </RouterLink>
   </div>
-
 </template>
