@@ -5,6 +5,10 @@ import VoteCommentView from '@/views/VoteCommentView.vue'
 import AddNewsView from '@/views/AddNewsView.vue'
 import AboutUs from '@/views/AboutUs.vue'
 import Term from '@/views/Term.vue'
+import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+
 
 const routes = [
   { path: '/', 
@@ -38,6 +42,10 @@ const routes = [
     name: 'Terms',
     component: Term
   },
+  { path: '/login',    name: 'login',    component: LoginView },
+  { path: '/register', name: 'register', component: RegisterView },
+  { path: '/profile',  name: 'profile',  component: ProfileView },
+
 ]
 
 const router = createRouter({

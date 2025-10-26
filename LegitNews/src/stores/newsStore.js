@@ -2,10 +2,10 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api"  
-  // ✅ fallback to /api on Vercel
-})
+  baseURL: `${API_BASE}/api` // backend prefix
+});
 
 export const useNewsStore = defineStore('news', {
   state: () => ({
@@ -60,24 +60,32 @@ export const useNewsStore = defineStore('news', {
       this.loading = true
       this.error = null
       try {
-        const res = await api.get("/news", { params: { page: 1, limit: 1000 } })
-        const backendNews = res.data.data || res.data
+        // Spring uses zero-based page + "size", not "limit"
+        const res = await api.get("/news", { params: { page: 0, size: 1000 } })
 
-        backendNews.forEach(n => {
-          n.comments = (n.comments || []).map(c =>
-            typeof c === "string"
-              ? { name: "Anonymous", text: c, image: "", date: "" }  // backend strings
-              : {
-                  // already an object, just make sure keys exist
-                  name: c.name || "Anonymous",
-                  text: c.text || "",
-                  image: c.image || "",
-                  date: c.date || ""
-                }
-          )
-        })
+        // If backend returns Page<NewsDTO>, pick res.data.content
+        const page = res.data
+        const raw = Array.isArray(page?.content) ? page.content : (Array.isArray(res.data) ? res.data : [])
 
-        // Merge with localStorage (local comes first)
+        // Map backend fields -> frontend shape
+        const backendNews = raw.map(n => ({
+          id: n.id,
+          category: n.category ?? "General",
+          headline: n.headline ?? "Untitled",
+          detail: n.details ?? "",                                  // backend: details
+          reporter: n.reporter ?? "Anonymous",
+          date: n.dateTime ? new Date(n.dateTime).toLocaleString()  // backend: dateTime (ISO)
+                            : new Date().toLocaleString(),
+          image: n.imagePublicUrl || n.imageUrl || "",              // prefer computed Firebase URL
+          votes: {
+            real: Number.isFinite(n.votesReal) ? n.votesReal : 0,   // backend: votesReal
+            fake: Number.isFinite(n.votesFake) ? n.votesFake : 0    // backend: votesFake
+          },
+          // Comments are now separate in backend (/api/news/{id}/comments); keep empty for list page
+          comments: []
+        }))
+
+        // Merge with localStorage extras (local first)
         const local = this.loadLocal()
         this.newsList = [...local, ...backendNews]
       } catch (err) {
@@ -87,6 +95,26 @@ export const useNewsStore = defineStore('news', {
       } finally {
         this.loading = false
       }
+    },
+
+    // ✅ Fetch comments for a single news article
+    async fetchComments(newsId) {
+      try {
+        const res = await api.get(`/news/${newsId}/comments`, { params: { page: 0, size: 50 } })
+        const page = res.data
+        const comments = (page?.content || []).map(c => ({
+          name: c.userName || "Anonymous",
+          text: c.content || "",
+          image: "", // (you can later link user avatars)
+          date: c.createdAt ? new Date(c.createdAt).toLocaleString() : ""
+        }))
+        return comments
+      } catch (err) {
+        console.error("Failed to load comments for news", newsId, err)
+        return []
+      }
     }
+
+
   }
 })

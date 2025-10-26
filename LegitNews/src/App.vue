@@ -2,6 +2,12 @@
 import { ref } from "vue"
 import { RouterLink, useRouter } from "vue-router"
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import ProfileBadge from '@/components/ProfileBadge.vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const auth = useAuthStore()
+auth.init()
+
 
 const isOpen = ref(false)
 const searchTerm = ref("")
@@ -48,6 +54,9 @@ function handleSearch() {
             class="px-2 py-1 w-[280px] border border-gray-300 rounded"
           />
         </div>
+
+        <!-- Profile Badge -->
+        <ProfileBadge /> 
       </div>
 
       <!-- Hamburger -->
