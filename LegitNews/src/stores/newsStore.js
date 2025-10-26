@@ -95,7 +95,26 @@ export const useNewsStore = defineStore('news', {
       } finally {
         this.loading = false
       }
+    },
+
+    // ✅ Fetch comments for a single news article
+    async fetchComments(newsId) {
+      try {
+        const res = await api.get(`/news/${newsId}/comments`, { params: { page: 0, size: 50 } })
+        const page = res.data
+        const comments = (page?.content || []).map(c => ({
+          name: c.userName || "Anonymous",
+          text: c.content || "",
+          image: "", // (you can later link user avatars)
+          date: c.createdAt ? new Date(c.createdAt).toLocaleString() : ""
+        }))
+        return comments
+      } catch (err) {
+        console.error("Failed to load comments for news", newsId, err)
+        return []
+      }
     }
+
 
   }
 })

@@ -30,15 +30,20 @@ async function loadComments() {
   loadingCmt.value = true
   cmtError.value = null
   try {
-    comments.value = await store.fetchComments(newsId.value)  // <-- calls backend /api/news/:id/comments
+    const list = await store.fetchComments(newsId.value)
+    comments.value = list
+    // ⬇️ make the store item hold the comments so VoteCommentView sees them
+    news.value.comments = list
   } catch (e) {
     console.error(e)
     cmtError.value = 'Failed to load comments'
     comments.value = []
+    news.value && (news.value.comments = [])
   } finally {
     loadingCmt.value = false
   }
 }
+
 
 function toggleComment() {
   showComment.value = !showComment.value
