@@ -49,7 +49,7 @@ async function submitNews() {
 </script>
 
 <template>
-  <div class="bg-white w-full max-w-3xl mx-auto mt-12 rounded-xl shadow-lg overflow-hidden">
+  <div class="bg-white w-[calc(100%-100px)] mx-[50px] mt-12 mb-12 rounded-xl shadow-lg overflow-hidden">
     <div class="h-24 bg-black text-white flex justify-center items-center text-lg sm:text-xl font-bold text-center px-4">
       Have a story to share? Upload your news and let us verify it!
     </div>
@@ -146,9 +146,10 @@ async function submitNews() {
     </form>
   </div>
 
-    <div class="mt-8 ml-[50px]">
-    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
-      ← back to home
+  <div class="mt-8 mb-8 mx-[50px]">
+    <RouterLink to="/"class="flex items-center justify-center w-[150px] h-[40px] bg-white text-black border border-gray-400 rounded hover:bg-gray-100 transition">
+      Back to home
     </RouterLink>
   </div>
+
 </template>
