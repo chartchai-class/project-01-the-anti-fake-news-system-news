@@ -88,6 +88,11 @@ const paginatedNews = computed(() => {
   return filteredNews.value.slice(start, start + itemsPerPage.value)
 })
 
+const categoryLabel = computed(() => {
+  if (!categoryFilter.value) return "All News"
+  return categoryFilter.value.charAt(0).toUpperCase() + categoryFilter.value.slice(1)
+})
+
 function nextPage() {
   if (currentPage.value < totalPages.value) {
     isLoading.value = true
@@ -106,7 +111,6 @@ function prevPage() {
     }, 500)
   }
 }
-
 function clearFilters() {
   filterType.value = "all"
   reporterFilter.value = ""
@@ -120,23 +124,25 @@ function clearFilters() {
 
 <template>
   <div class="home">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center px-6 py-3 border-b border-gray-300 bg-white mb-8 gap-4">
-      
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center px-6 py-3 max-w-[1200px] mx-auto bg-white mb-4 gap-4">
       <div class="w-full sm:w-auto">
         <RouterLink to="/add-news">
-          <button class="w-full sm:w-auto bg-black text-white px-4 py-2 rounded cursor-pointer">
+          <button class="w-full sm:w-auto bg-black text-white text-base font-semibold px-4 py-2 rounded cursor-pointer hover:bg-gray-800">
             Add News
           </button>
         </RouterLink>
       </div>
 
-      <div class="flex flex-row gap-4 w-full sm:w-auto sm:items-center sm:justify-end">
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <label class="text-sm">Sort By</label>
+      <div class="flex flex-row flex-wrap sm:flex-nowrap gap-5 w-full sm:w-auto sm:justify-end items-center text-base font-semibold text-gray-800">
+        <div v-if="!isLoading" class="flex items-center">
+          <span>{{ categoryLabel }}: {{ filteredNews.length }}</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <label class="text-base font-semibold">Sort By</label>
           <select
             v-model="filterType"
-            class="border border-gray-400 rounded text-center h-[30px] text-sm px-2 flex-1 sm:flex-none"
+            class="border border-gray-400 rounded text-center h-[36px] px-3 text-base font-semibold"
           >
             <option value="all">All News</option>
             <option value="real">Verified News</option>
@@ -144,12 +150,12 @@ function clearFilters() {
           </select>
         </div>
 
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <label for="select" class="text-sm">Select</label>
+        <div class="flex items-center gap-2">
+          <label for="select" class="text-base font-semibold">Select</label>
           <select
             v-model.number="itemsPerPage"
             id="select"
-            class="border border-gray-400 rounded text-center h-[30px] text-sm px-2 flex-1 sm:flex-none"
+            class="border border-gray-400 rounded text-center h-[36px] px-3 text-base font-semibold"
           >
             <option :value="6">6</option>
             <option :value="9">9</option>
@@ -164,10 +170,7 @@ function clearFilters() {
       <div class="w-24 h-24 border-8 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
     </div>
 
-    <div
-      v-else
-      class="px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto"
-    >
+    <div v-if="!isLoading" class="px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
       <RouterLink
         v-for="news in paginatedNews"
         :key="news.id"
@@ -176,11 +179,7 @@ function clearFilters() {
       >
         <div class="w-full bg-white rounded-lg shadow-md overflow-hidden relative hover:shadow-lg transition">
           <div class="h-[150px] overflow-hidden">
-            <img
-              :src="news.image"
-              alt="news image"
-              class="w-full h-full object-cover"
-            />
+            <img :src="news.image" alt="news image" class="w-full h-full object-cover" />
           </div>
 
           <span
@@ -203,21 +202,18 @@ function clearFilters() {
       </RouterLink>
     </div>
 
-    <div
-      v-if="!isLoading"
-      class="text-center my-5 text-base flex justify-center items-center gap-4"
-    >
+    <div v-if="!isLoading" class="text-center my-5 text-base flex justify-center items-center gap-4">
       <span
         @click="prevPage"
-        :class="['cursor-pointer select-none', currentPage === 1 ? 'opacity-40 cursor-not-allowed' : '']"
-      >&lt;</span>
+        :class="['cursor-pointer select-none', currentPage === 1 ? 'opacity-40 cursor-not-allowed' : '']">&lt;
+      </span>
 
       <span>Page {{ currentPage }} / {{ totalPages }}</span>
 
       <span
         @click="nextPage"
-        :class="['cursor-pointer select-none', currentPage === totalPages ? 'opacity-40 cursor-not-allowed' : '']"
-      >&gt;</span>
+        :class="['cursor-pointer select-none', currentPage === totalPages ? 'opacity-40 cursor-not-allowed' : '']">&gt;
+      </span>
     </div>
   </div>
 </template>

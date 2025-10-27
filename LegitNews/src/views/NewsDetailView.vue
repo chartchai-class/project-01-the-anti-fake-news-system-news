@@ -138,8 +138,8 @@ watch(
   </div>
 
   <div class="mt-8 ml-[50px]">
-    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
-      ← back to home
+    <RouterLink to="/"class="flex items-center justify-center w-[150px] h-[40px] bg-white text-black border border-gray-400 rounded hover:bg-gray-100 transition">
+      Back to home
     </RouterLink>
   </div>
 

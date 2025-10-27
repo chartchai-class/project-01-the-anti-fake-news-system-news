@@ -33,19 +33,34 @@ function onSubmit() {
 
 <template>
   <div class="max-w-md w-full mx-auto bg-white rounded-xl shadow p-6">
-    <h1 class="text-xl font-bold mb-4">Register</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center">Register</h1>
     <div v-if="err" class="mb-3 text-red-600 text-sm">{{ err }}</div>
 
     <div class="space-y-3">
-      <input v-model="name" type="text" placeholder="Name" class="w-full border border-gray-300 rounded px-3 py-2" />
-      <input v-model="surname" type="text" placeholder="Surname" class="w-full border border-gray-300 rounded px-3 py-2" />
-      <input v-model="email" type="email" placeholder="Email" class="w-full border border-gray-300 rounded px-3 py-2" />
-      <input v-model="password" type="password" placeholder="Password" class="w-full border border-gray-300 rounded px-3 py-2" />
-      <input v-model="photoUrl" type="url" placeholder="Photo URL (optional)" class="w-full border border-gray-300 rounded px-3 py-2" />
+      <label class="block mb-2 text-base font-semibold text-gray-800">First Name</label>
+      <input v-model="name" type="text" placeholder="Enter your first name" class="w-full border border-gray-300 rounded px-3 py-2" />
+      
+      <label class="block mb-2 text-base font-semibold text-gray-800">Last Name</label>
+      <input v-model="surname" type="text" placeholder="Enter your last name" class="w-full border border-gray-300 rounded px-3 py-2" />
 
+      <label class="block mb-2 text-base font-semibold text-gray-800">Email</label>
+      <input v-model="email" type="email" placeholder="Enter your email" class="w-full border border-gray-300 rounded px-3 py-2" />
+
+      <label class="block mb-2 text-base font-semibold text-gray-800">Password</label>
+      <input v-model="password" type="password" placeholder="Enter your password" class="w-full border border-gray-300 rounded px-3 py-2" />
+
+      <label class="block mb-2 text-base font-semibold text-gray-800">Profile Photo</label>
+      <input v-model="photoUrl" type="url" placeholder="Enter your photo (URL)" class="w-full border border-gray-300 rounded px-3 py-2" />
+    </div>
+
+    <div class="mt-4">
       <button @click="onSubmit" class="w-full bg-black text-white rounded py-2 font-semibold hover:bg-gray-800">
         Create account
       </button>
+      <div class="text-sm text-gray-600 text-center mt-4">
+        Already have an account? <RouterLink to="/login" class="underline">Log In</RouterLink>
+      </div>
     </div>
+    
   </div>
 </template>
