@@ -113,6 +113,21 @@ export const useNewsStore = defineStore('news', {
         console.error("Failed to load comments for news", newsId, err)
         return []
       }
+    },
+
+    async vote(newsId, value) {
+      // backend: POST /api/news/{id}/vote?value=real|fake
+      await api.post(`/news/${newsId}/vote`, null, { params: { value } })
+    },
+
+    async addComment(newsId, { userId, content, imageUrl = '', anonymous = false }) {
+      // backend: POST /api/news/{id}/comments?userId=&content=&imageUrl=&anonymous=
+      const res = await api.post(
+        `/news/${newsId}/comments`,
+        null,
+        { params: { userId, content, imageUrl, anonymous } }
+      )
+      return res.data  // {id, newsId, userId, userName, content, imageUrl, createdAt}
     }
 
 
