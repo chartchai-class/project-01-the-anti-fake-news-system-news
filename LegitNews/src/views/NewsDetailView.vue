@@ -87,65 +87,73 @@ onMounted(async () => {
 
 <template>
   <div v-if="news" class="flex flex-col lg:flex-row gap-6 max-w-[1240px] w-full mx-auto my-6 px-4">
-
-    <!-- Main News -->
-    <div class="bg-white w-full lg:w-[800px] p-5 rounded-xl shadow-md">
-      <div class="flex justify-between items-center mb-2 text-2xl font-bold">
-        <span>{{ news.headline }}</span>
-      </div>
-
-      <div class="text-sm text-gray-600 mb-4">
-        <div>
-          Reporter: {{ news.reporter }} | {{ news.date }}
+    <!-- Left Column: Main News + Back Button -->
+    <div class="flex flex-col w-full lg:w-[800px]">
+      <!-- Main News -->
+      <div class="bg-white w-full p-5 rounded-xl shadow-md">
+        <div class="flex justify-between items-center mb-2 text-2xl font-bold">
+          <span>{{ news.headline }}</span>
         </div>
-        <div class="flex gap-2 mt-2">
-          <span class="px-3 py-1 rounded text-xs font-bold text-white bg-green-600">{{ news.votes.real }}</span>
-          <span class="px-3 py-1 rounded text-xs font-bold text-white bg-red-600">{{ news.votes.fake }}</span>
+
+        <div class="text-sm text-gray-600 mb-4">
+          <div>
+            Reporter: {{ news.reporter }} | {{ news.date }}
+          </div>
+          <div class="flex gap-2 mt-2">
+            <span class="px-3 py-1 rounded text-xs font-bold text-white bg-green-600">{{ news.votes.real }}</span>
+            <span class="px-3 py-1 rounded text-xs font-bold text-white bg-red-600">{{ news.votes.fake }}</span>
+          </div>
+        </div>
+
+        <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 bg-gray-100 flex items-center justify-center mb-4 rounded-lg overflow-hidden">
+          <img :src="news.image" alt="news image" class="w-full h-full object-contain"/>
+        </div>
+
+        <div class="min-h-[150px] p-3 rounded-lg text-gray-700 text-base">
+          <p>{{ news.detail }}</p>
+        </div>
+
+        <div class="flex gap-4 mt-5">
+          <button
+            @click="toggleComment"
+            class="flex-1 py-3 rounded-md border border-black bg-white text-sm font-bold"
+          >
+            {{ showComment ? "Hide Comments" : "View Comment" }}
+          </button>
+          <button
+            @click="toggleVote"
+            class="flex-1 py-3 rounded-md border border-black bg-white text-sm font-bold"
+          >
+            {{ showVote ? "Cancel Vote" : "Vote & Comment" }}
+          </button>
+        </div>
+
+        <!-- Comments -->
+        <div v-if="showComment" class="mt-5">
+          <div v-if="loadingCmt" class="text-sm text-gray-500">Loading comments...</div>
+          <div v-else-if="cmtError" class="text-sm text-red-600">{{ cmtError }}</div>
+          <VoteCommentView :id="newsId" mode="view-comment" :initial="comments" />
+        </div>
+
+        <!-- Vote -->
+        <div v-if="showVote" class="mt-5">
+          <VoteCommentView :id="newsId" mode="vote" />
         </div>
       </div>
 
-      <div class="w-full h-64 sm:h-72 md:h-80 lg:h-96 bg-gray-100 flex items-center justify-center mb-4 rounded-lg overflow-hidden">
-        <img :src="news.image" alt="news image" class="w-full h-full object-contain"/>
-      </div>
-
-      <div class="min-h-[150px] p-3 rounded-lg text-gray-700 text-base">
-        <p>{{ news.detail }}</p>
-      </div>
-
-      <div class="flex gap-4 mt-5">
-        <button
-          @click="toggleComment"
-          class="flex-1 py-3 rounded-md border border-black bg-white text-sm font-bold"
+      <div class="mt-5 flex justify-start">
+        <RouterLink
+          to="/"
+          class="flex items-center justify-center w-[150px] h-[40px] bg-white text-black border border-gray-400 rounded hover:bg-gray-100 transition"
         >
-          {{ showComment ? "Hide Comments" : "View Comment" }}
-        </button>
-        <button
-          @click="toggleVote"
-          class="flex-1 py-3 rounded-md border border-black bg-white text-sm font-bold"
-        >
-          {{ showVote ? "Cancel Vote" : "Vote & Comment" }}
-        </button>
-      </div>
-
-      <!-- Comments -->
-      <div v-if="showComment" class="mt-5">
-        <div v-if="loadingCmt" class="text-sm text-gray-500">Loading comments...</div>
-        <div v-else-if="cmtError" class="text-sm text-red-600">{{ cmtError }}</div>
-        <VoteCommentView :id="newsId" mode="view-comment" :initial="comments" />
-        <!-- If your VoteCommentView doesn't accept 'initial', it can fetch via store too;
-             keeping it here lets you control when the call happens -->
-      </div>
-
-      <!-- Vote -->
-      <div v-if="showVote" class="mt-5">
-        <VoteCommentView :id="newsId" mode="vote" />
+          Back to home
+        </RouterLink>
       </div>
     </div>
 
     <!-- Related News -->
     <div class="w-full lg:w-[400px] flex flex-col gap-5">
-      <h3 v-if="relatedNews.length" class="text-lg font-bold px-2"> Related News</h3>
-
+      <h3 v-if="relatedNews.length" class="text-lg font-bold px-2">Related News</h3>
       <RouterLink
         v-for="(item, i) in relatedNews"
         :key="i"
@@ -184,10 +192,5 @@ onMounted(async () => {
   <div v-else class="p-5">
     <p>⚠️ News not found</p>
   </div>
-
-  <div class="mt-8 ml-[50px]">
-    <RouterLink to="/"class="flex items-center justify-center w-[150px] h-[40px] bg-white text-black border border-gray-400 rounded hover:bg-gray-100 transition">
-      Back to home
-    </RouterLink>
-  </div>
 </template>
+

@@ -134,10 +134,6 @@ function clearFilters() {
       </div>
 
       <div class="flex flex-row flex-wrap sm:flex-nowrap gap-5 w-full sm:w-auto sm:justify-end items-center text-base font-semibold text-gray-800">
-        <div v-if="!isLoading" class="flex items-center">
-          <span>{{ categoryLabel }}: {{ filteredNews.length }}</span>
-        </div>
-
         <div class="flex items-center gap-2">
           <label class="text-base font-semibold">Sort By</label>
           <select
@@ -162,6 +158,10 @@ function clearFilters() {
             <option :value="12">12</option>
             <option :value="15">15</option>
           </select>
+        </div>
+
+        <div v-if="!isLoading" class="flex items-center">
+          <span>{{ categoryLabel }}: {{ filteredNews.length }}</span>
         </div>
       </div>
     </div>
