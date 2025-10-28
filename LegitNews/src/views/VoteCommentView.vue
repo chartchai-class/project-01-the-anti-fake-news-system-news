@@ -1,33 +1,41 @@
 <script setup>
-import { useNewsStore } from '@/stores/newsStore'
 import { ref, computed } from 'vue'
+import axios from 'axios'
+import { useNewsStore } from '@/stores/newsStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const props = defineProps({
   id: { type: Number, required: true },
-  mode: { type: String, default: "vote" } 
+  mode: { type: String, default: "vote" }
 })
 
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080'
+const api = axios.create({ baseURL: `${API_BASE}/api` })
+
 const store = useNewsStore()
+const auth  = useAuthStore()
 
 const news = store.allNews.find(n => n.id === props.id) || null
-
 const isViewOnly = computed(() => props.mode === 'view-comment')
 
-const selectedVote = ref(null)  
-const commentName = ref("")     
-const commentText = ref("")
-const commentImage = ref("")
-const hasVoted = ref(false)      
-const userVote = ref(null)       
-const userCommentIndex = ref(null) 
+const selectedVote      = ref(null)
+const commentName       = ref("")
+const commentText       = ref("")
+const commentImage      = ref(null)   // File or null
+const hasVoted          = ref(false)
+const userVote          = ref(null)
+const userCommentIndex  = ref(null)
+const anonymous         = ref(false)
 
-function submitVote() {
-  if (!selectedVote.value) {
-    alert("Please select Real or Fake before submitting.")
-    return
-  }
-  if (!news) {
-    alert("News not found")
+async function submitVote() {
+  if (!selectedVote.value) { alert("Please select Real or Fake before submitting."); return }
+  if (!news) { alert("News not found"); return }
+
+  try {
+    await api.post(`/news/${news.id}/vote`, null, { params: { value: selectedVote.value } })
+  } catch (e) {
+    console.error(e)
+    alert("Vote failed.")
     return
   }
 
@@ -35,28 +43,38 @@ function submitVote() {
     if (userVote.value === "real") news.votes.real--
     else if (userVote.value === "fake") news.votes.fake--
   }
+  if (selectedVote.value === "real") news.votes.real++
+  else news.votes.fake++
 
-  if (selectedVote.value === "real") {
-    news.votes.real++
-  } else {
-    news.votes.fake++
+  const displayName = (anonymous.value ? "Anonymous" : (commentName.value.trim() || auth.currentUser?.name || "Anonymous"))
+  let imageUrl = ""
+
+  // Optional: upload image file to Firebase (if present and store has helper)
+  try {
+    if (commentImage.value instanceof File && typeof store.uploadCommentImage === 'function') {
+      imageUrl = await store.uploadCommentImage(commentImage.value, news.category)
+    }
+  } catch (e) {
+    console.warn("Image upload skipped/failed:", e)
   }
 
-  const userDisplayName = commentName.value.trim() || "Anonymous"
-
-  if (userCommentIndex.value !== null) {
-    news.comments[userCommentIndex.value] = {
-      ...news.comments[userCommentIndex.value],
-      name: userDisplayName,
-      text: commentText.value,
-      image: commentImage.value,
-      date: new Date().toLocaleString()
+  // Save comment only if text or image present
+  if (commentText.value.trim() || imageUrl) {
+    const userId = anonymous.value ? 1 : (auth.currentUser?.id || 1)
+    try {
+      // Backend currently accepts only userId + content
+      await api.post(`/news/${news.id}/comments`, null, {
+        params: { userId, content: commentText.value.trim() }
+      })
+    } catch (e) {
+      console.error(e)
+      alert("Comment failed to save, but your vote was recorded.")
     }
-  } else if (commentText.value.trim() || commentImage.value.trim()) {
+
     news.comments.push({
-      name: userDisplayName,
-      text: commentText.value,
-      image: commentImage.value,
+      name: displayName,
+      text: commentText.value.trim(),
+      image: imageUrl || "",
       date: new Date().toLocaleString()
     })
     userCommentIndex.value = news.comments.length - 1
@@ -64,16 +82,17 @@ function submitVote() {
 
   hasVoted.value = true
   userVote.value = selectedVote.value
-
   alert(`✅ You voted "${selectedVote.value}".`)
 }
 
 function changeVote() {
   hasVoted.value = false
-  selectedVote.value = userVote.value 
-  commentText.value = userCommentIndex.value !== null ? news.comments[userCommentIndex.value].text : ""
-  commentImage.value = userCommentIndex.value !== null ? news.comments[userCommentIndex.value].image : ""
-  commentName.value = userCommentIndex.value !== null ? news.comments[userCommentIndex.value].name : ""
+  selectedVote.value = userVote.value
+  if (userCommentIndex.value !== null && news?.comments[userCommentIndex.value]) {
+    const c = news.comments[userCommentIndex.value]
+    commentText.value = c.text || ""
+    commentName.value = c.name || ""
+  }
 }
 </script>
 
@@ -101,6 +120,7 @@ function changeVote() {
       </p>
 
       <div v-if="!hasVoted" class="space-y-4">
+
         <div class="flex gap-4 mb-4">
           <button
             type="button"
@@ -124,18 +144,19 @@ function changeVote() {
           </button>
         </div>
 
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" v-model="anonymous" />
+          Post as Anonymous
+        </label>
+
+
         <input
-          type="text"
-          v-model="commentName"
-          placeholder="Your Name (Optional)"
+          type="file"
+          accept="image/*"
+          @change="e => commentImage.value = e.target.files?.[0] || null"
           class="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-black focus:bg-white"
         />
-        <input
-          type="text"
-          v-model="commentImage"
-          placeholder="Image URL (Optional)"
-          class="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-black focus:bg-white"
-        />
+
         <textarea
           rows="4"
           v-model="commentText"
