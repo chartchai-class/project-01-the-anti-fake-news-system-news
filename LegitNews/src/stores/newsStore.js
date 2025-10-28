@@ -128,7 +128,15 @@ export const useNewsStore = defineStore('news', {
         { params: { userId, content, imageUrl, anonymous } }
       )
       return res.data  // {id, newsId, userId, userName, content, imageUrl, createdAt}
+    },
+
+    async createNews(payload) {
+      // backend: POST /api/news with JSON body
+      // expected fields: category, headline, details, reporter, dateTime, imageUrl, createdById (optional)
+      const res = await api.post('/news', payload)
+      return res.data
     }
+
 
 
   }

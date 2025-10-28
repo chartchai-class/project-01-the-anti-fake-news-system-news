@@ -18,3 +18,11 @@ export async function uploadCommentImage(file, category, newsId) {
   await uploadBytes(r, file)
   return await getDownloadURL(r)
 }
+
+export async function uploadNewsImage(file, category) {
+  const safeCat = encodeURIComponent(category || 'General')
+  const path = `News/${safeCat}/${Date.now()}-${file.name}`
+  const r = ref(storage, path)
+  await uploadBytes(r, file)
+  return await getDownloadURL(r)
+}

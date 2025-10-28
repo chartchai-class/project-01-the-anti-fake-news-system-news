@@ -2,15 +2,24 @@
 import { ref } from 'vue'
 import { useNewsStore } from '@/stores/newsStore'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { uploadNewsImage } from '@/lib/firebaseUpload'
 
 const store = useNewsStore()
+const auth  = useAuthStore()
 const router = useRouter()
 
 const headline = ref("")
-const detail = ref("")
+const detail   = ref("")
 const reporter = ref("")
-const image = ref("")
+const imageUrl = ref("")        // keep your existing URL box
+const imageFile = ref(null)     // new: optional file
 const category = ref("Local News")
+
+function onPickFile(e) {
+  const f = e?.target?.files?.[0]
+  imageFile.value = f || null
+}
 
 async function submitNews() {
   if (!headline.value || !detail.value || !category.value) {
@@ -18,35 +27,55 @@ async function submitNews() {
     return
   }
 
-  const lastId = store.newsList.length > 0 
-    ? Math.max(...store.newsList.map(n => n.id)) 
-    : 0
+  let finalImageUrl = imageUrl.value?.trim() || ""
 
-  const newNews = {
-    category: category.value,
-    id: lastId + 1,                     
-    headline: headline.value,
-    detail: detail.value,
-    reporter: reporter.value || "Anonymous",
-    date: new Date().toISOString().slice(0, 16).replace("T", " "),
-    image: image.value || "https://via.placeholder.com/150",
-    votes: { real: 0, fake: 0 },
-    comments: []
+  // if a file is provided, upload to Firebase and use that URL
+  if (imageFile.value) {
+    try {
+      finalImageUrl = await uploadNewsImage(imageFile.value, category.value)
+    } catch (e) {
+      console.error(e)
+      alert("Image upload failed.")
+      return
+    }
   }
 
-  store.addNews(newNews)
+  const payload = {
+    category: category.value,
+    headline: headline.value,
+    details:  detail.value,
+    reporter: reporter.value || "Anonymous",
+    dateTime: new Date().toISOString(),
+    imageUrl: finalImageUrl || "",             // backend will pass-through http(s) or resolve path
+  }
 
-  // clear form
-  headline.value = ""
-  detail.value = ""
-  reporter.value = ""
-  image.value = ""
-  category.value = ""
+  // attach creator user if available
+  if (auth.currentUser?.id) {
+    payload.createdById = auth.currentUser.id
+  }
 
-  alert("✅ News added successfully!")
-  router.push('/')
+  try {
+    const created = await store.createNews(payload)
+    // refresh list so the new item from backend appears
+    await store.fetchNews()
+
+    // clear form
+    headline.value = ""
+    detail.value   = ""
+    reporter.value = ""
+    imageUrl.value = ""
+    imageFile.value = null
+    category.value = "Local News"
+
+    alert("✅ News added successfully!")
+    router.push('/')
+  } catch (e) {
+    console.error(e)
+    alert("Failed to create news.")
+  }
 }
 </script>
+
 
 <template>
   <div class="bg-white w-[calc(100%-100px)] mx-[50px] mt-12 mb-12 rounded-xl shadow-lg overflow-hidden">
@@ -82,14 +111,16 @@ async function submitNews() {
         </div>
 
         <div>
-          <label class="block mb-2 text-base font-semibold text-gray-800">Image URL</label>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Image File (Optional)</label>
           <input 
-            type="url" 
-            v-model="image" 
-            placeholder="https://" 
+            type="file" 
+            accept="image/*"
+            @change="onPickFile"
             class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
           />
+          <p class="text-xs text-gray-500 mt-1">If a file is selected, the file will be uploaded and used instead of the URL above.</p>
         </div>
+
 
         <div>
           <label class="block mb-2 text-base font-semibold text-gray-800">Reporter</label>
