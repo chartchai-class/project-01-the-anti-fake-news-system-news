@@ -44,7 +44,6 @@ async function loadComments() {
   }
 }
 
-
 function toggleComment() {
   showComment.value = !showComment.value
   showVote.value = false
