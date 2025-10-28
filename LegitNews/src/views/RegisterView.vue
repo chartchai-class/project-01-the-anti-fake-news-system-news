@@ -14,10 +14,10 @@ const auth = useAuthStore()
 const router = useRouter()
 auth.init()
 
-function onSubmit() {
+async function onSubmit() {
   err.value = ''
   try {
-    auth.register({
+    await auth.register({
       name: name.value.trim(),
       surname: surname.value.trim(),
       email: email.value.trim(),
@@ -26,9 +26,10 @@ function onSubmit() {
     })
     router.push('/profile')
   } catch (e) {
-    err.value = e.message || 'Register failed'
+    err.value = e?.response?.data?.message || e.message || 'Register failed'
   }
 }
+
 </script>
 
 <template>

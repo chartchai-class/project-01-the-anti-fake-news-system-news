@@ -11,15 +11,16 @@ const auth = useAuthStore()
 const router = useRouter()
 auth.init()
 
-function onSubmit() {
+async function onSubmit() {
   err.value = ''
   try {
-    auth.login({ email: email.value.trim(), password: password.value })
+    await auth.login({ email: email.value.trim(), password: password.value })
     router.push('/profile')
   } catch (e) {
-    err.value = e.message || 'Login failed'
+    err.value = e?.response?.data?.message || e.message || 'Login failed'
   }
 }
+
 </script>
 
 <template>

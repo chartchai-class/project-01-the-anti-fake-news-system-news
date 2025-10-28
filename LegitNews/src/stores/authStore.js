@@ -1,74 +1,62 @@
-// Pinia store for simple auth (localStorage, string-compare)
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
-const AUTH_KEY = 'legitnews_auth_v1'
-const USERS_KEY = 'legitnews_users_v1'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080'
+const api = axios.create({ baseURL: `${API_BASE}/api` })
+
+const AUTH_USER_KEY  = 'legitnews_auth_user_v1'
+const AUTH_TOKEN_KEY = 'legitnews_auth_token_v1'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    currentUser: null,   // { id, name, surname, email, photoUrl, membership, notifications? }
-    users: [],           // demo user storage (local only)
+    currentUser: null,  // { id, name, email, role }
+    token: null
   }),
   getters: {
-    isLoggedIn: (s) => !!s.currentUser,
-    unreadCount: (s) => s.currentUser?.notifications ?? 0,
-    role: (s) => s.currentUser?.membership ?? 'guest',
+    isLoggedIn: (s) => !!s.token && !!s.currentUser,
+    role: (s) => s.currentUser?.role?.toLowerCase() || 'guest',
+    unreadCount: () => 0 // keep for UI compatibility
   },
   actions: {
     _save() {
-      localStorage.setItem(AUTH_KEY, JSON.stringify({ currentUser: this.currentUser }))
-      localStorage.setItem(USERS_KEY, JSON.stringify(this.users))
+      sessionStorage.setItem(AUTH_USER_KEY, JSON.stringify(this.currentUser || null))
+      sessionStorage.setItem(AUTH_TOKEN_KEY, this.token || '')
     },
     _load() {
       try {
-        const a = JSON.parse(localStorage.getItem(AUTH_KEY) || '{}')
-        const u = JSON.parse(localStorage.getItem(USERS_KEY) || '[]')
-        this.currentUser = a.currentUser || null
-        this.users = Array.isArray(u) ? u : []
-      } catch {/* ignore */}
+        this.currentUser = JSON.parse(sessionStorage.getItem(AUTH_USER_KEY) || 'null')
+        this.token = sessionStorage.getItem(AUTH_TOKEN_KEY) || null
+        if (this.token) api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+      } catch {}
     },
     init() {
-      if (!this.users.length && this.currentUser == null) this._load()
-      if (!this.users.length) {
-        // seed one admin (optional; delete if you don't want this)
-        this.users.push({
-          id: 1,
-          name: 'Admin',
-          surname: 'User',
-          email: 'admin@legit.news',
-          password: 'admin',
-          photoUrl: '',
-          membership: 'administrator',
-        })
-        this._save()
-      }
+      if (!this.currentUser || !this.token) this._load()
     },
-    register({ name, surname, email, password, photoUrl = '' }) {
-      if (this.users.find(u => u.email === email)) throw new Error('Email already registered')
-      const newUser = {
-        id: Date.now(), name, surname, email, password, photoUrl, membership: 'reader'
-      }
-      this.users.push(newUser)
-      this.currentUser = { ...newUser, password: undefined, notifications: 0 }
+
+    async register({ name, surname, email, password, photoUrl = '' }) {
+      const res = await api.post('/auth/register', { name, surname, email, password, photoUrl })
+      const d = res.data
+      this.token = d.token
+      this.currentUser = { id: d.id, name: d.name, email: d.email, role: d.role }
+      api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
       this._save()
     },
-    login({ email, password }) {
-      const user = this.users.find(u => u.email === email && u.password === password)
-      if (!user) throw new Error('Invalid credentials')
-      this.currentUser = { ...user, password: undefined, notifications: this.currentUser?.notifications ?? 0 }
+
+    async login({ email, password }) {
+      const res = await api.post('/auth/login', { email, password })
+      const d = res.data
+      this.token = d.token
+      this.currentUser = { id: d.id, name: d.name, email: d.email, role: d.role }
+      api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
       this._save()
     },
-    logout() { this.currentUser = null; this._save() },
-    addNotification(n = 1) {
-      if (!this.currentUser) return
-      this.currentUser.notifications = (this.currentUser.notifications ?? 0) + n
-      this._save()
-    },
-    markNotificationsRead() {
-      if (!this.currentUser) return
-      this.currentUser.notifications = 0
-      this._save()
-    },
-    applyForMembership() { return true }
+
+    logout() {
+      this.currentUser = null
+      this.token = null
+      delete api.defaults.headers.common['Authorization']
+      sessionStorage.removeItem(AUTH_USER_KEY)
+      sessionStorage.removeItem(AUTH_TOKEN_KEY)
+    }
   }
 })
