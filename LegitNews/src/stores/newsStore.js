@@ -105,7 +105,7 @@ export const useNewsStore = defineStore('news', {
         const comments = (page?.content || []).map(c => ({
           name: c.userName || "Anonymous",
           text: c.content || "",
-          image: "", // (you can later link user avatars)
+          image: c.imageUrl || "",
           date: c.createdAt ? new Date(c.createdAt).toLocaleString() : ""
         }))
         return comments

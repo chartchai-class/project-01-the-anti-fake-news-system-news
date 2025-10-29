@@ -7,6 +7,7 @@ import { uploadNewsImage } from '@/lib/firebaseUpload'
 
 const store = useNewsStore()
 const auth  = useAuthStore()
+auth.init()
 const router = useRouter()
 
 const headline = ref("")
@@ -22,6 +23,12 @@ function onPickFile(e) {
 }
 
 async function submitNews() {
+
+  if (!auth.isLoggedIn || auth.role !== 'member') {
+    alert('Only logged-in Member accounts can add news.')
+    return
+  }
+
   if (!headline.value || !detail.value || !category.value) {
     alert("⚠️ Headline, Detail and Category are required.")
     return

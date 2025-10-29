@@ -8,6 +8,7 @@ import Term from '@/views/Term.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import { useAuthStore } from '@/stores/authStore'
 
 
 const routes = [
@@ -21,7 +22,8 @@ const routes = [
   },
   { path: '/add-news', 
     name: 'add-news', 
-    component: AddNewsView 
+    component: AddNewsView,
+    meta: { requiresMember: true } 
   },
   {
   path: '/category/:name',
@@ -51,6 +53,22 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to) => {
+  const auth = useAuthStore()
+  auth.init()
+  if (to.meta?.requiresMember) {
+    if (!auth.isLoggedIn) {
+      alert('Please log in to add news.')
+      return { name: 'login' }
+    }
+    if (auth.role !== 'member') {
+      alert('Only Member accounts can add news.')
+      return false // block navigation
+    }
+  }
+  return true
 })
 
 export default router

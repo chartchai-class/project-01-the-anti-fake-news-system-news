@@ -14,6 +14,7 @@ const api = axios.create({ baseURL: `${API_BASE}/api` })
 
 const store = useNewsStore()
 const auth  = useAuthStore()
+auth.init()
 
 const news = store.allNews.find(n => n.id === props.id) || null
 const isViewOnly = computed(() => props.mode === 'view-comment')
@@ -28,8 +29,20 @@ const userCommentIndex  = ref(null)
 const anonymous         = ref(false)
 
 async function submitVote() {
-  if (!selectedVote.value) { alert("Please select Real or Fake before submitting."); return }
-  if (!news) { alert("News not found"); return }
+  // ✅ Require login for *any* vote or comment
+  if (!auth.isLoggedIn) {
+    alert("Please log in first to vote or comment.")
+    return
+  }
+
+  if (!selectedVote.value) { 
+    alert("Please select Real or Fake before submitting.") 
+    return 
+  }
+  if (!news) { 
+    alert("News not found") 
+    return 
+  }
 
   try {
     await api.post(`/news/${news.id}/vote`, null, { params: { value: selectedVote.value } })
@@ -46,10 +59,11 @@ async function submitVote() {
   if (selectedVote.value === "real") news.votes.real++
   else news.votes.fake++
 
-  const displayName = (anonymous.value ? "Anonymous" : (commentName.value.trim() || auth.currentUser?.name || "Anonymous"))
-  let imageUrl = ""
+  const displayName = (anonymous.value 
+    ? "Anonymous" 
+    : (commentName.value.trim() || auth.currentUser?.name || "Anonymous"))
 
-  // Optional: upload image file to Firebase (if present and store has helper)
+  let imageUrl = ""
   try {
     if (commentImage.value instanceof File && typeof store.uploadCommentImage === 'function') {
       imageUrl = await store.uploadCommentImage(commentImage.value, news.category)
@@ -58,13 +72,14 @@ async function submitVote() {
     console.warn("Image upload skipped/failed:", e)
   }
 
-  // Save comment only if text or image present
   if (commentText.value.trim() || imageUrl) {
-    const userId = anonymous.value ? 1 : (auth.currentUser?.id || 1)
+    const userId = auth.currentUser.id
     try {
-      // Backend currently accepts only userId + content
-      await api.post(`/news/${news.id}/comments`, null, {
-        params: { userId, content: commentText.value.trim() }
+      await store.addComment(news.id, {
+        userId,
+        content: commentText.value.trim(),
+        imageUrl,
+        anonymous: anonymous.value
       })
     } catch (e) {
       console.error(e)
@@ -95,6 +110,7 @@ function changeVote() {
   }
 }
 </script>
+
 
 <template>
   <div v-if="news" class="p-5 sm:p-8 max-w-3xl mx-auto">
