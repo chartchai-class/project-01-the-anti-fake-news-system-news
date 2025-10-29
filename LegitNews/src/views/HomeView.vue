@@ -1,10 +1,14 @@
 <script setup>
 import { useNewsStore } from '@/stores/newsStore'
-import { RouterLink, useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { ref, computed, onMounted, watch } from 'vue'
 
 const store = useNewsStore()
+const auth  = useAuthStore()
+auth.init()
 const route = useRoute()
+const router = useRouter()
 
 const isLoading = ref(true)
 
@@ -120,17 +124,31 @@ function clearFilters() {
   itemsPerPage.value = 9
   currentPage.value = 1
 }
+
+function goAddNews() {                 
+  if (!auth.isLoggedIn) {
+    alert('Please log in to add news.')
+    router.push('/login')
+    return
+  }
+  if (auth.role !== 'member') {
+    alert('Only Member accounts can add news.')
+    return
+  }
+  router.push('/add-news')
+}
 </script>
 
 <template>
   <div class="home">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center px-6 py-3 max-w-[1200px] mx-auto bg-white mb-4 gap-4">
       <div class="w-full sm:w-auto">
-        <RouterLink to="/add-news">
-          <button class="w-full sm:w-auto bg-black text-white text-base font-semibold px-4 py-2 rounded cursor-pointer hover:bg-gray-800">
-            Add News
-          </button>
-        </RouterLink>
+        <button
+          @click="goAddNews"
+          class="w-full sm:w-auto bg-black text-white text-base font-semibold px-4 py-2 rounded cursor-pointer hover:bg-gray-800"
+        >
+          Add News
+        </button>
       </div>
 
       <div class="flex flex-row flex-wrap sm:flex-nowrap gap-5 w-full sm:w-auto sm:justify-end items-center text-base font-semibold text-gray-800">

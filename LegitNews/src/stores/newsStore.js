@@ -103,9 +103,11 @@ export const useNewsStore = defineStore('news', {
         const res = await api.get(`/news/${newsId}/comments`, { params: { page: 0, size: 50 } })
         const page = res.data
         const comments = (page?.content || []).map(c => ({
+          id: c.id,
+          userId: c.userId || null,
           name: c.userName || "Anonymous",
           text: c.content || "",
-          image: "", // (you can later link user avatars)
+          image: c.imageUrl || "",
           date: c.createdAt ? new Date(c.createdAt).toLocaleString() : ""
         }))
         return comments
@@ -128,7 +130,33 @@ export const useNewsStore = defineStore('news', {
         { params: { userId, content, imageUrl, anonymous } }
       )
       return res.data  // {id, newsId, userId, userName, content, imageUrl, createdAt}
-    }
+    },
+
+    async createNews(payload) {
+      // backend: POST /api/news with JSON body
+      // expected fields: category, headline, details, reporter, dateTime, imageUrl, createdById (optional)
+      const res = await api.post('/news', payload)
+      return res.data
+    },
+
+        //  Update my comment (PUT)
+    async editComment(newsId, commentId, { userId, content, imageUrl = '', anonymous = false }) {
+      const res = await api.put(
+        `/news/${newsId}/comments/${commentId}`,
+        null,
+        { params: { userId, content, imageUrl, anonymous } }
+      )
+      return res.data
+    },
+
+    //  Delete my comment (DELETE)
+    async deleteComment(newsId, commentId, userId) {
+      const res = await api.delete(
+        `/news/${newsId}/comments/${commentId}`,
+        { params: { userId } }
+      )
+      return res.data
+    },
 
 
   }
