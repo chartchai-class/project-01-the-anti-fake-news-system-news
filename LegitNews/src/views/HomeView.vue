@@ -26,9 +26,9 @@ watch(
 const currentPage = ref(1)
 const itemsPerPage = ref(9)
 
-const filterType = ref("all") // all, real, fake
+const filterType = ref("all") 
 const reporterFilter = ref("")
-const sortOrder = ref("newest") // newest or oldest
+const sortOrder = ref("newest") 
 const startDate = ref("")
 const endDate = ref("")
 
@@ -207,9 +207,7 @@ function clearFilters() {
         @click="prevPage"
         :class="['cursor-pointer select-none', currentPage === 1 ? 'opacity-40 cursor-not-allowed' : '']">&lt;
       </span>
-
       <span>Page {{ currentPage }} / {{ totalPages }}</span>
-
       <span
         @click="nextPage"
         :class="['cursor-pointer select-none', currentPage === totalPages ? 'opacity-40 cursor-not-allowed' : '']">&gt;
