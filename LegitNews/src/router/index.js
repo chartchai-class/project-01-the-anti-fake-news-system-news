@@ -11,6 +11,7 @@ import ProfileView from '@/views/ProfileView.vue'
 import AdminDashboard from '@/views/AdminDashboard.vue'
 import AdminManageUser from '@/views/AdminManageUser.vue'
 import AdminManageComment from '@/views/AdminManageComment.vue'
+import AdminManageNews from '@/views/AdminManageNews.vue'
 
 const routes = [
   { path: '/', 
@@ -70,7 +71,12 @@ const routes = [
     path: '/admin/manage-comment',
     name: 'admin-manage-comment',
     component: AdminManageComment
-  }  
+  },
+  {
+    path: '/admin/manage-news',
+    name: 'admin-manage-news',
+    component: AdminManageNews
+  }
 ]
 
 const router = createRouter({

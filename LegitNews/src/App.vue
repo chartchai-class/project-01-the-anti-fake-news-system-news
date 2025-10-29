@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue" 
 import { RouterLink, useRouter } from "vue-router"
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import ProfileBadge from '@/components/ProfileBadge.vue'
@@ -11,6 +11,12 @@ auth.init()
 const isOpen = ref(false)
 const searchTerm = ref("")
 const router = useRouter()
+
+// 💡 MOCK DATA FOR NOTIFICATION BADGES
+// In a real application, these counts would be fetched from your database/API
+const newsCount = ref(3); // Pending news submissions
+const commentCount = ref(5); // Reported comments
+const userRequestCount = ref(2); // Pending user role/account requests
 
 function handleSearch() {
   if (searchTerm.value.trim()) {
@@ -41,25 +47,60 @@ function handleSearch() {
       </div>
     </header>
 
-    <!-- Admin Nav (desktop) -->
+    <!-- Admin Nav -->
     <nav class="hidden md:flex bg-white border border-gray-300 mx-auto w-full max-w-[1200px] mt-3">
       <div class="grid grid-cols-4 w-full text-center">
-        <RouterLink to="/admin/dashboard" class="py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition">Dashboard</RouterLink>
-        <RouterLink to="/admin/manage-news" class="py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition">Manage News</RouterLink>
-        <RouterLink to="/admin/manage-comment" class="py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition">Manage Comment</RouterLink>
-        <RouterLink to="/admin/manage-user" class="py-3 text-black font-medium hover:bg-gray-100 transition">Manage User</RouterLink>
+        <RouterLink to="/admin/dashboard" v-slot="{ href, navigate }" class="py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition [&.router-link-active]:bg-gray-100 [&.router-link-active]:font-bold">
+            <a :href="href" @click="navigate" class="flex justify-center items-center h-full">
+                <span>Dashboard</span>
+            </a>
+        </RouterLink>
+
+        <RouterLink to="/admin/manage-news" v-slot="{ href, navigate }" class="py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition [&.router-link-active]:bg-gray-100 [&.router-link-active]:font-bold">
+            <a :href="href" @click="navigate" class="flex justify-center items-center h-full">
+                <span>Manage News</span>
+            </a>
+        </RouterLink>
+
+        <RouterLink to="/admin/manage-comment" v-slot="{ href, navigate }" class="relative py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition [&.router-link-active]:bg-gray-100 [&.router-link-active]:font-bold">
+            <a :href="href" @click="navigate" class="flex justify-center items-center h-full">
+                <span>Manage Comment</span>
+                <span v-if="commentCount > 0" class="ml-2 inline-flex items-center bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full leading-none">
+                    {{ commentCount }}
+                </span>
+            </a>
+        </RouterLink>
+
+        <RouterLink to="/admin/manage-user" v-slot="{ href, navigate }" class="relative py-3 text-black font-medium hover:bg-gray-100 transition [&.router-link-active]:bg-gray-100 [&.router-link-active]:font-bold">
+            <a :href="href" @click="navigate" class="flex justify-center items-center h-full">
+                <span>Manage User</span>
+                <span v-if="userRequestCount > 0" class="ml-2 inline-flex items-center bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full leading-none">
+                    {{ userRequestCount }}
+                </span>
+            </a>
+        </RouterLink>
       </div>
     </nav>
 
-    <!-- 2nd Nav (desktop) -->
+    <!-- 2nd Nav  -->
     <nav class="hidden md:flex bg-white border-b border-gray-300 mx-auto w-full max-w-[1200px] items-center justify-between mt-3">
       <div class="flex flex-wrap gap-1">
         <RouterLink to="/" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200">All News</RouterLink>
-        <RouterLink to="/category/Local News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200">Local</RouterLink>
-        <RouterLink to="/category/Global News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200">Global</RouterLink>
-        <RouterLink to="/category/Business News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200">Business</RouterLink>
-        <RouterLink to="/category/Sport News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200">Sport</RouterLink>
-        <RouterLink to="/category/Entertainment News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200">Entertainment</RouterLink>
+        <RouterLink to="/category/Local News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200"
+          >Local
+        </RouterLink>
+        <RouterLink to="/category/Global News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200"
+          >Global
+        </RouterLink>
+        <RouterLink to="/category/Business News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200"
+          >Business
+        </RouterLink>
+        <RouterLink to="/category/Sport News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200"
+          >Sport
+        </RouterLink>
+        <RouterLink to="/category/Entertainment News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200"
+          >Entertainment
+        </RouterLink>
       </div>
 
       <div class="flex justify-center md:justify-end">
@@ -73,19 +114,31 @@ function handleSearch() {
       </div>
     </nav>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile -->
     <div v-if="isOpen" class="absolute top-[70px] left-0 w-full bg-white shadow-lg z-50">
       <nav class="flex flex-col space-y-3 px-6 py-4">
-        <!-- Admin Menu -->
         <p class="text-gray-500 text-sm font-semibold mt-2">Admin Menu</p>
         <RouterLink to="/admin/dashboard" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Dashboard</RouterLink>
-        <RouterLink to="/admin/manage-news" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Manage News</RouterLink>
-        <RouterLink to="/admin/manage-comment" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Manage Comment</RouterLink>
-        <RouterLink to="/admin/manage-user" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Manage User</RouterLink>
+        <RouterLink to="/admin/manage-news" class="flex items-center px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none relative">
+            Manage News
+            <span v-if="newsCount > 0" class="ml-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full leading-none absolute right-3">
+                {{ newsCount }}
+            </span>
+        </RouterLink>
+        <RouterLink to="/admin/manage-comment" class="flex items-center px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none relative">
+            Manage Comment
+            <span v-if="commentCount > 0" class="ml-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full leading-none absolute right-3">
+                {{ commentCount }}
+            </span>
+        </RouterLink>
+        <RouterLink to="/admin/manage-user" class="flex items-center px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none relative">
+            Manage User
+            <span v-if="userRequestCount > 0" class="ml-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full leading-none absolute right-3">
+                {{ userRequestCount }}
+            </span>
+        </RouterLink>
 
         <hr class="my-3 border-gray-300" />
-
-        <!-- News Categories -->
         <p class="text-gray-500 text-sm font-semibold mt-2">Categories</p>
         <RouterLink to="/" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">All News</RouterLink>
         <RouterLink to="/category/Local News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Local</RouterLink>
@@ -94,7 +147,6 @@ function handleSearch() {
         <RouterLink to="/category/Sport News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Sport</RouterLink>
         <RouterLink to="/category/Entertainment News" class="px-3 py-2 rounded-lg text-black font-medium hover:bg-gray-200 border-none">Entertainment</RouterLink>
 
-        <!-- Search -->
         <input
           v-model="searchTerm"
           @keyup.enter="handleSearch"

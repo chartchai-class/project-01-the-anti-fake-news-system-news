@@ -100,12 +100,8 @@ watch(
 </script>
 
 <template>
-<div class="p-4 sm:p-8 bg-gray-50 min-h-screen font-inter">
+<div class="sm:p-8 min-h-screen font-inter">
     <div class="max-w-[1200px] mx-auto">
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Manage Comments</h1>
-        </header>
-
         <div class="flex items-center space-x-4 mb-6 border-b border-gray-200">
             <button
                 @click="changeTab('reported')"
@@ -167,22 +163,22 @@ watch(
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr v-if="currentTab === 'reported'">
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">Comment</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">News Article</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reports</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider w-1/3">Comment</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Author</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">News Article</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reports</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reason</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">Actions</th>
                     </tr>
                     <tr v-else>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">Comment</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">News Article</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deleted By</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deleted Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider w-1/3">Comment</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Author</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">News Article</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Deleted By</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Deleted Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reason</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">

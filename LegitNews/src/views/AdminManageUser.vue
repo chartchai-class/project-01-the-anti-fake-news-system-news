@@ -101,12 +101,8 @@ watch(
 </script>
 
 <template>
-<div class="p-4 sm:p-8 min-h-screen font-inter">
+<div class="sm:p-8 min-h-screen font-inter">
     <div class="max-w-[1200px] mx-auto">
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Manage Users</h1>
-        </header>
-
         <div class="flex items-center space-x-4 mb-6 border-b border-gray-200">
             <button
                 @click="changeTab('all')"
@@ -153,21 +149,21 @@ watch(
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr v-if="currentTab === 'all'">
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Join Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">News Submitted</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comments</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Role</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Join Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">News Submitted</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Comments</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">Actions</th>
                     </tr>
                     <tr v-else>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Request Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">News Submitted</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comments</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Request Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">News Submitted</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Comments</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">

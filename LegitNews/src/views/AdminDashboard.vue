@@ -35,12 +35,8 @@ const getInitials = (name) => {
 </script>
 
 <template>
-    <div class="min-h-screen font-inter p-4 sm:p-8">
+    <div class="min-h-screen font-inter sm:p-8">
         <div class="max-w-7xl mx-auto w-full" style="max-width: 1200px;">
-            <header class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
-            </header>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 <RouterLink
                     v-for="(stat, index) in stats"
