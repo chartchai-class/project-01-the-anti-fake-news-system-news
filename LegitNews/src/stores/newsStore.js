@@ -103,6 +103,8 @@ export const useNewsStore = defineStore('news', {
         const res = await api.get(`/news/${newsId}/comments`, { params: { page: 0, size: 50 } })
         const page = res.data
         const comments = (page?.content || []).map(c => ({
+          id: c.id,
+          userId: c.userId || null,
           name: c.userName || "Anonymous",
           text: c.content || "",
           image: c.imageUrl || "",
@@ -135,8 +137,26 @@ export const useNewsStore = defineStore('news', {
       // expected fields: category, headline, details, reporter, dateTime, imageUrl, createdById (optional)
       const res = await api.post('/news', payload)
       return res.data
-    }
+    },
 
+        //  Update my comment (PUT)
+    async editComment(newsId, commentId, { userId, content, imageUrl = '', anonymous = false }) {
+      const res = await api.put(
+        `/news/${newsId}/comments/${commentId}`,
+        null,
+        { params: { userId, content, imageUrl, anonymous } }
+      )
+      return res.data
+    },
+
+    //  Delete my comment (DELETE)
+    async deleteComment(newsId, commentId, userId) {
+      const res = await api.delete(
+        `/news/${newsId}/comments/${commentId}`,
+        { params: { userId } }
+      )
+      return res.data
+    },
 
 
   }

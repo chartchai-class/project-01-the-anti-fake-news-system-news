@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useNewsStore } from '@/stores/newsStore'
 import { useAuthStore } from '@/stores/authStore'
@@ -28,30 +28,60 @@ const userVote          = ref(null)
 const userCommentIndex  = ref(null)
 const anonymous         = ref(false)
 
+// ---- helpers to persist vote status across navigations (frontend-only) ----
+function voteKey(newsId, userId) { return `nv_${newsId}_${userId}` }   // stores {"hasVoted":true,"userVote":"real|fake"}
+function saveVoteState(newsId, userId, v) {
+  sessionStorage.setItem(voteKey(newsId, userId), JSON.stringify({ hasVoted:true, userVote:v }))
+}
+function loadVoteState(newsId, userId) {
+  try { return JSON.parse(sessionStorage.getItem(voteKey(newsId, userId)) || 'null') } catch { return null }
+}
+
+onMounted(async () => {
+  if (!news) return
+
+  // Load comments (fresh) then find my comment
+  const loaded = await store.fetchComments(news.id)
+  // hydrate the local list so UI renders consistently
+  news.comments = loaded
+
+  if (auth.isLoggedIn) {
+    // Restore vote state from session
+    const sv = loadVoteState(news.id, auth.currentUser.id)
+    if (sv?.hasVoted) {
+      hasVoted.value = true
+      userVote.value = sv.userVote
+      selectedVote.value = sv.userVote
+    }
+
+    // Locate my existing comment in the freshly loaded comments
+    const idx = news.comments.findIndex(c => c.userId === auth.currentUser.id)
+    if (idx !== -1) {
+      userCommentIndex.value = idx
+      // You can decide whether to prefill textarea automatically:
+      // commentText.value = news.comments[idx].text || ""
+    }
+  }
+})
+
 async function submitVote() {
   // ✅ Require login for *any* vote or comment
   if (!auth.isLoggedIn) {
     alert("Please log in first to vote or comment.")
     return
   }
-
-  if (!selectedVote.value) { 
-    alert("Please select Real or Fake before submitting.") 
-    return 
-  }
-  if (!news) { 
-    alert("News not found") 
-    return 
-  }
+  if (!selectedVote.value) { alert("Please select Real or Fake before submitting."); return }
+  if (!news) { alert("News not found"); return }
 
   try {
-    await api.post(`/news/${news.id}/vote`, null, { params: { value: selectedVote.value } })
+    await api.post(`/news/${news.id}/vote`, null, { params: { value: selectedVote.value, userId: auth.currentUser.id } })
   } catch (e) {
     console.error(e)
     alert("Vote failed.")
     return
   }
 
+  // local adjust tallies (your existing logic)
   if (hasVoted.value && userVote.value) {
     if (userVote.value === "real") news.votes.real--
     else if (userVote.value === "fake") news.votes.fake--
@@ -59,10 +89,11 @@ async function submitVote() {
   if (selectedVote.value === "real") news.votes.real++
   else news.votes.fake++
 
-  const displayName = (anonymous.value 
-    ? "Anonymous" 
+  const displayName = (anonymous.value
+    ? "Anonymous"
     : (commentName.value.trim() || auth.currentUser?.name || "Anonymous"))
 
+  // Optional image upload (kept as-is: uses store.uploadCommentImage if provided)
   let imageUrl = ""
   try {
     if (commentImage.value instanceof File && typeof store.uploadCommentImage === 'function') {
@@ -72,31 +103,57 @@ async function submitVote() {
     console.warn("Image upload skipped/failed:", e)
   }
 
+  // ---- MINIMAL CHANGE: if I already have a comment, EDIT instead of ADD ----
   if (commentText.value.trim() || imageUrl) {
     const userId = auth.currentUser.id
     try {
-      await store.addComment(news.id, {
-        userId,
-        content: commentText.value.trim(),
-        imageUrl,
-        anonymous: anonymous.value
-      })
+      if (userCommentIndex.value !== null && userCommentIndex.value >= 0) {
+        const existing = news.comments[userCommentIndex.value]
+        // call store.editComment (you already added)
+        const updated = await store.editComment(news.id, existing.id, {
+          userId,
+          content: commentText.value.trim(),
+          imageUrl,
+          anonymous: anonymous.value
+        })
+        // update local array using backend DTO
+        news.comments[userCommentIndex.value] = {
+          id: updated.id,
+          userId: updated.userId || userId,
+          name: updated.userName || displayName,
+          text: updated.content || "",
+          image: updated.imageUrl || "",
+          date: updated.createdAt ? new Date(updated.createdAt).toLocaleString() : new Date().toLocaleString()
+        }
+      } else {
+        // add new
+        const created = await store.addComment(news.id, {
+          userId,
+          content: commentText.value.trim(),
+          imageUrl,
+          anonymous: anonymous.value
+        })
+        // push exactly what backend returns so it has id/userId
+        const item = {
+          id: created.id,
+          userId: created.userId || userId,
+          name: created.userName || displayName,
+          text: created.content || "",
+          image: created.imageUrl || "",
+          date: created.createdAt ? new Date(created.createdAt).toLocaleString() : new Date().toLocaleString()
+        }
+        news.comments.push(item)
+        userCommentIndex.value = news.comments.length - 1
+      }
     } catch (e) {
       console.error(e)
       alert("Comment failed to save, but your vote was recorded.")
     }
-
-    news.comments.push({
-      name: displayName,
-      text: commentText.value.trim(),
-      image: imageUrl || "",
-      date: new Date().toLocaleString()
-    })
-    userCommentIndex.value = news.comments.length - 1
   }
 
   hasVoted.value = true
   userVote.value = selectedVote.value
+  saveVoteState(news.id, auth.currentUser.id, selectedVote.value) // 🔐 persist vote state
   alert(`✅ You voted "${selectedVote.value}".`)
 }
 
@@ -110,6 +167,7 @@ function changeVote() {
   }
 }
 </script>
+
 
 
 <template>
