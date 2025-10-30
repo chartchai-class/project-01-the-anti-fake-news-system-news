@@ -72,6 +72,8 @@ export const useNewsStore = defineStore('news', {
             real: Number.isFinite(n.votesReal) ? n.votesReal : 0,   
             fake: Number.isFinite(n.votesFake) ? n.votesFake : 0    
           },
+          hidden: !!n.hidden,
+          views: n.views ?? 0,
           comments: []
         }))
 
@@ -211,6 +213,31 @@ export const useNewsStore = defineStore('news', {
     // Admin deletes a comment and writes history
     async adminDeleteComment(newsId, commentId, { reason = '' } = {}) {
       await api.delete(`/admin/comments/${commentId}`, { params: { reason } })
+    },
+
+    async fetchAdminNews({ status = 'active', page = 0, size = 50 } = {}) {
+      const res = await api.get('/admin/news', { params: { status, page, size } })
+      const pageData = res.data
+      const list = Array.isArray(pageData?.content) ? pageData.content : []
+      // Map to your table shape:
+      return list.map(n => ({
+        id: n.id,
+        title: n.headline ?? 'Untitled',
+        author: n.reporter ?? 'Anonymous',
+        submittedBy: n.createdByName || 'System',
+        category: n.category ?? 'General',
+        date: n.dateTime ? new Date(n.dateTime).toLocaleString() : '',
+        status: (Number(n.votesReal) > Number(n.votesFake)) ? 'Verified' : 'Fake',
+        views: n.views ?? 0,
+        hidden: !!n.hidden
+      }))
+    },
+
+    async adminHideNews(id) {
+      await api.patch(`/admin/news/${id}/hide`)
+    },
+    async adminRestoreNews(id) {
+      await api.patch(`/admin/news/${id}/restore`)
     }
 
 
