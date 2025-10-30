@@ -1,104 +1,159 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { ref, computed, watch, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
 
-const route = useRoute();
-const router = useRouter();
-// The tab logic remains the same (defaults to 'all', uses 'pending' query for the second tab)
-const currentTab = computed(() => route.query.tab === 'pending' ? 'pending' : 'all');
-const searchQuery = ref('');
-const isLoading = ref(false); 
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080'
+const api = axios.create({ baseURL: `${API_BASE}/api` })
 
-const allUsersData = ref([
-    { id: 1, name: 'Carol White', email: 'carol@example.com', role: 'member', joinDate: '2025-10-20', newsSubmitted: 15, comments: 45, initials: 'CW' },
-    { id: 2, name: 'David Lee', email: 'david@example.com', role: 'member', joinDate: '2025-10-18', newsSubmitted: 12, comments: 32, initials: 'DL' },
-    { id: 3, name: 'Emma Davis', email: 'emma@example.com', role: 'reader', joinDate: '2025-10-27', newsSubmitted: 0, comments: 5, initials: 'ED' },
-    { id: 4, name: 'Frank Wilson', email: 'frank@example.com', role: 'reader', joinDate: '2025-10-26', newsSubmitted: 0, comments: 2, initials: 'FW' },
-    { id: 5, name: 'Grace Hall', email: 'grace@example.com', role: 'reader', joinDate: '2025-10-25', newsSubmitted: 0, comments: 0, initials: 'GH' },
-    // Pending users 
-    { id: 6, name: 'Alice Cooper', email: 'alice@example.com', role: 'reader', joinDate: '2025-10-25', newsSubmitted: 5, comments: 12, initials: 'AC', request: 'member' },
-    { id: 7, name: 'Bob Martin', email: 'bob@example.com', role: 'reader', joinDate: '2025-10-26', newsSubmitted: 3, comments: 8, initials: 'BM', request: 'member' },
-]);
+const route = useRoute()
+const router = useRouter()
 
+// Tabs
+const currentTab = computed(() =>
+  route.query.tab === 'pending' ? 'pending' : 'all'
+)
 
-const pendingRequests = computed(() => {
-    return allUsersData.value.filter(user => user.request === 'member');
-});
+// Search + loading
+const searchQuery = ref('')
+const isLoading = ref(false)
 
-const activeUsers = computed(() => {
-    return allUsersData.value.filter(user => !user.request);
-});
+// Table data (loaded from backend; fallback to empty if it fails)
+const allUsersData = ref([])
 
-const usersToShow = computed(() => {
-    return currentTab.value === 'pending' ? pendingRequests.value : activeUsers.value;
-});
+// --- Fetch users + pending requests on mount ---
+onMounted(async () => {
+  isLoading.value = true
+  try {
+    const [usersRes, pendingRes] = await Promise.all([
+      api.get('/admin/users'),
+      api.get('/admin/membership-requests')
+    ])
+
+    // IDs of users who requested membership
+    const pendingIds = new Set((pendingRes.data || []).map(u => u.id))
+
+    // Normalize to the shape your table expects
+    allUsersData.value = (usersRes.data || []).map(u => ({
+      id: u.id,
+      name: u.name || '',
+      email: u.email || '',
+      role: (u.role || 'reader').toLowerCase(), // 'reader' | 'member' | 'admin'
+      joinDate: u.joinDate || '',
+      newsSubmitted: u.newsSubmitted ?? 0,
+      comments: u.comments ?? 0,
+      request: pendingIds.has(u.id) ? 'member' : undefined
+    }))
+  } catch (e) {
+    console.error('Failed to load users/requests:', e)
+    allUsersData.value = []
+  } finally {
+    isLoading.value = false
+  }
+})
+
+// Derived lists
+const pendingRequests = computed(() =>
+  allUsersData.value.filter(user => user.request === 'member')
+)
+
+const activeUsers = computed(() =>
+  allUsersData.value.filter(user => !user.request)
+)
+
+const usersToShow = computed(() =>
+  currentTab.value === 'pending' ? pendingRequests.value : activeUsers.value
+)
 
 const filteredUsers = computed(() => {
-    const term = searchQuery.value.toLowerCase().trim();
-    if (!term) return usersToShow.value;
+  const term = searchQuery.value.toLowerCase().trim()
+  if (!term) return usersToShow.value
+  return usersToShow.value.filter(
+    u =>
+      (u.name || '').toLowerCase().includes(term) ||
+      (u.email || '').toLowerCase().includes(term)
+  )
+})
 
-    return usersToShow.value.filter(user =>
-        user.name.toLowerCase().includes(term) ||
-        user.email.toLowerCase().includes(term)
-    );
-});
-
+// Keep your existing tab buttons behavior
 function changeTab(tab) {
-    if (tab !== currentTab.value) {
-        searchQuery.value = '';
-        isLoading.value = true;
-        // Pushes the tab query to the URL
-        router.push({ query: { tab: tab === 'all' ? undefined : 'pending' } });
-        setTimeout(() => {
-            isLoading.value = false;
-        }, 500);
-    }
+  if (tab !== currentTab.value) {
+    searchQuery.value = ''
+    isLoading.value = true
+    router.push({ query: { tab: tab === 'all' ? undefined : 'pending' } })
+    setTimeout(() => (isLoading.value = false), 500)
+  }
 }
 
-function handleApprove(userId) {
-    const user = allUsersData.value.find(u => u.id === userId);
-    if (user && user.request === 'member') {
-        console.log(`Approving membership request for: ${user.name}`);
-        user.role = 'member';
-        user.request = undefined;
+// --- Approve / Reject hooked to backend ---
+async function handleApprove(userId) {
+  try {
+    await api.post(`/admin/membership-requests/${userId}/approve`)
+    const u = allUsersData.value.find(x => x.id === userId)
+    if (u) {
+      u.role = 'member'
+      u.request = undefined
     }
+  } catch (e) {
+    console.error('Approve failed:', e)
+    alert('Failed to approve this request.')
+  }
 }
 
-function handleReject(userId) {
-    const user = allUsersData.value.find(u => u.id === userId);
-    if (user && user.request === 'member') {
-        console.log(`Rejecting membership request for: ${user.name}`);
-        user.request = undefined;
+async function handleReject(userId) {
+  try {
+    await api.post(`/admin/membership-requests/${userId}/reject`)
+    const u = allUsersData.value.find(x => x.id === userId)
+    if (u) {
+      u.request = undefined
     }
+  } catch (e) {
+    console.error('Reject failed:', e)
+    alert('Failed to reject this request.')
+  }
 }
 
+// View detail (stub—leave as is or route later)
 function viewUserDetail(userId) {
-    console.log(`Viewing detail for user ID: ${userId}`);
+  console.log(`Viewing detail for user ID: ${userId}`)
 }
 
+// UI helpers (unchanged)
 function getRoleClass(role) {
-    return role === 'member' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-700';
+  return role === 'member'
+    ? 'bg-blue-100 text-blue-800'
+    : 'bg-gray-100 text-gray-700'
 }
 
 function getAvatarBgClass(name) {
-    const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const colors = ['bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-red-500', 'bg-amber-500', 'bg-cyan-500'];
-    return colors[hash % colors.length];
+  const hash = (name || '').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  const colors = ['bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-red-500', 'bg-amber-500', 'bg-cyan-500']
+  return colors[hash % colors.length]
 }
 
 function getInitials(name) {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  return (name || '')
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .toUpperCase() || 'U'
 }
 
+// Reset search when tab changes
 watch(
-    () => route.query.tab,
-    (newTab, oldTab) => {
-        if (newTab !== oldTab) {
-            searchQuery.value = '';
-        }
-    }
-);
+  () => route.query.tab,
+  (n, o) => {
+    if (n !== o) searchQuery.value = ''
+  }
+)
+
+// --- Minimal pagination stubs to match your template (no UI change) ---
+const currentPage = ref(1)
+const totalPages = computed(() => 1)
+function prevPage() { /* no-op for now */ }
+function nextPage() { /* no-op for now */ }
 </script>
+
 
 <template>
 <div class="sm:p-8 min-h-screen font-inter">

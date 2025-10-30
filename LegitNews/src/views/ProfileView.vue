@@ -1,7 +1,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore'
-import { useRouter, RouterLink } from 'vue-router'
-import { computed } from 'vue'
+import { useRouter, RouterLink, onBeforeUnmount, nextTick } from 'vue-router'
+import { computed, watch, nextTick as vueNextTick } from 'vue'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -9,10 +9,38 @@ auth.init()
 
 const u = computed(() => auth.currentUser)
 
+
+vueNextTick(() => {
+  if (auth.isLoggedIn) {
+    auth.checkMembershipStatus()
+  }
+
+  const onFocus = () => {
+    if (auth.isLoggedIn) auth.checkMembershipStatus()
+  }
+  window.addEventListener('focus', onFocus)
+
+
+  window.addEventListener('beforeunload', () => {
+    window.removeEventListener('focus', onFocus)
+  })
+
+
+  watch(
+    () => auth.role,
+    (r) => {
+      if (r === 'member') {
+        window.removeEventListener('focus', onFocus)
+      }
+    }
+  )
+})
+
 function logout() { auth.logout(); router.push('/login') }
-function readNotifications() { auth.markNotificationsRead() }
-function applyMembership() { auth.applyForMembership(); alert('Application submitted (demo).') }
+function readNotifications() { auth.markNotificationsRead?.() }
+function applyMembership() { auth.applyForMembership?.() }
 </script>
+
 
 <template>
   <div>
@@ -25,7 +53,7 @@ function applyMembership() { auth.applyForMembership(); alert('Application submi
         <div>
           <div class="text-xl font-bold">{{ u.name }} {{ u.surname }}</div>
           <div class="text-sm text-gray-600">{{ u.email }}</div>
-          <div class="text-sm mt-1">Membership: <span class="font-semibold capitalize">{{ u.membership }}</span></div>
+          <div class="text-sm mt-1">Membership: <span class="font-semibold capitalize">{{ u.role }}</span></div>
         </div>
       </div>
 

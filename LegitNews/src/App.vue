@@ -48,7 +48,7 @@ function handleSearch() {
     </header>
 
     <!-- Admin Nav -->
-    <nav class="hidden md:flex bg-white border border-gray-300 mx-auto w-full max-w-[1200px] mt-3">
+    <nav v-if="auth.role === 'admin'" class="hidden md:flex bg-white border border-gray-300 mx-auto w-full max-w-[1200px] mt-3">
       <div class="grid grid-cols-4 w-full text-center">
         <RouterLink to="/admin/dashboard" v-slot="{ href, navigate }" class="py-3 border-r border-gray-300 text-black font-medium hover:bg-gray-100 transition [&.router-link-active]:bg-gray-100 [&.router-link-active]:font-bold">
             <a :href="href" @click="navigate" class="flex justify-center items-center h-full">

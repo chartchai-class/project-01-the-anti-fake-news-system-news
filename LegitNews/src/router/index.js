@@ -63,22 +63,26 @@ const routes = [
   { 
     path: '/admin/dashboard', 
     name: 'admin-dashboard', 
-    component: AdminDashboard
+    component: AdminDashboard,
+     meta: { requiresAdmin: true }
   },  
   {
     path: '/admin/manage-user',
     name: 'admin-manage-user',
-    component: AdminManageUser
+    component: AdminManageUser,
+    meta: { requiresAdmin: true }
   },
   {
     path: '/admin/manage-comment',
     name: 'admin-manage-comment',
-    component: AdminManageComment
+    component: AdminManageComment,
+    meta: { requiresAdmin: true }
   },
   {
     path: '/admin/manage-news',
     name: 'admin-manage-news',
-    component: AdminManageNews
+    component: AdminManageNews,
+    meta: { requiresAdmin: true }
   }
 ]
 
@@ -99,6 +103,11 @@ router.beforeEach((to) => {
       alert('Only Member accounts can add news.')
       return false // block navigation
     }
+  }
+
+  if (to.meta?.requiresAdmin) {
+    if (!auth.isLoggedIn) { alert('Please log in.'); return { name: 'login' } }
+    if (auth.role !== 'admin') { alert('Admins only.'); return false }
   }
   return true
 })

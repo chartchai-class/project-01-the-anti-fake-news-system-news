@@ -51,6 +51,39 @@ export const useAuthStore = defineStore('auth', {
       this._save()
     },
 
+    async refreshMe() {
+      if (!this.currentUser?.id) return
+      const res = await api.get(`/users/${this.currentUser.id}`)
+      // Expect { id, name, email, role, membershipRequested, ... }
+      const d = res.data
+      this.currentUser = { ...this.currentUser, ...d }
+      this._save()
+    },
+
+    async applyForMembership() {
+      if (!this.currentUser?.id) { alert('Please log in first.'); return }
+      await api.post(`/users/${this.currentUser.id}/membership/request`)
+      await this.refreshMe()
+      alert('✅ Your membership request has been submitted.')
+    },
+
+    async checkMembershipStatus() {
+      if (!this.isLoggedIn) return;
+      try {
+        const res = await api.get(`/users/${this.currentUser.id}`);
+        const newRole = res.data.role?.toLowerCase();
+        if (newRole && newRole !== this.currentUser.role) {
+          this.currentUser.role = newRole;
+          this._save();
+          if (newRole === 'member') {
+            alert('🎉 Your membership request has been approved!');
+          }
+        }
+      } catch (err) {
+        console.warn('Membership check failed', err);
+      }
+    },
+
     logout() {
       this.currentUser = null
       this.token = null
