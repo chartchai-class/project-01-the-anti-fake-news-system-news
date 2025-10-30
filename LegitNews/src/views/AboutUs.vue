@@ -6,13 +6,8 @@ import profile3 from '@/assets/images/profile3.jpg'
 
 <template>
   <div class="p-8 max-w-5xl mx-auto">
-    <!-- Header -->
     <h1 class="text-3xl font-bold mb-8 text-center">About Us</h1>
-
-    <!-- Cards container -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Card 1 -->
       <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col items-center text-center">
         <div class="w-full aspect-square overflow-hidden">
           <img :src="profile1" alt="Profile 1" class="w-full h-full object-cover" />
@@ -24,7 +19,6 @@ import profile3 from '@/assets/images/profile3.jpg'
         </div>
       </div>
 
-      <!-- Card 2 -->
       <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col items-center text-center">
         <div class="w-full aspect-square overflow-hidden">
           <img :src="profile2" alt="Profile 2" class="w-full h-full object-cover" />
@@ -36,7 +30,6 @@ import profile3 from '@/assets/images/profile3.jpg'
         </div>
       </div>
 
-      <!-- Card 3 -->
       <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col items-center text-center">
         <div class="w-full aspect-square overflow-hidden">
           <img :src="profile3" alt="Profile 3" class="w-full h-full object-cover" />
@@ -51,11 +44,14 @@ import profile3 from '@/assets/images/profile3.jpg'
     </div>
   </div>
 
-    <div class="mt-8 ml-[50px]">
-    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
-      ← back to home
-    </RouterLink>
-  </div>
+    <div class="mt-5 flex justify-start">
+        <RouterLink
+          to="/"
+          class="flex items-center justify-center w-[150px] h-[40px] bg-white text-black border border-gray-400 rounded hover:bg-gray-100 transition"
+        >
+          Back to home
+        </RouterLink>
+    </div>
   
 </template>
 

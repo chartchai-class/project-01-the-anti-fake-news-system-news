@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
 const api = axios.create({
-  baseURL: `${API_BASE}/api` // backend prefix
+  baseURL: `${API_BASE}/api` 
 });
 
 export const useNewsStore = defineStore('news', {
@@ -19,7 +19,6 @@ export const useNewsStore = defineStore('news', {
   },
 
   actions: {
-    // ✅ LocalStorage helpers
     saveLocal(newsList) {
       localStorage.setItem("extraNews", JSON.stringify(newsList))
     },
@@ -31,7 +30,6 @@ export const useNewsStore = defineStore('news', {
       }
     },
 
-    // ✅ Add News (frontend only, persists in localStorage)
     addNews(news) {
       this.newsList.unshift(news)
 
@@ -40,7 +38,6 @@ export const useNewsStore = defineStore('news', {
       this.saveLocal(local)
     },
 
-    // ✅ Dummy Data
     loadDummyNews() {
       this.newsList = Array.from({ length: 20 }, (_, i) => ({
         id: i + 1,
@@ -55,37 +52,29 @@ export const useNewsStore = defineStore('news', {
       }))
     },
 
-    // ✅ Fetch backend + merge localStorage
     async fetchNews() {
       this.loading = true
       this.error = null
       try {
-        // Spring uses zero-based page + "size", not "limit"
         const res = await api.get("/news", { params: { page: 0, size: 1000 } })
-
-        // If backend returns Page<NewsDTO>, pick res.data.content
         const page = res.data
         const raw = Array.isArray(page?.content) ? page.content : (Array.isArray(res.data) ? res.data : [])
-
-        // Map backend fields -> frontend shape
         const backendNews = raw.map(n => ({
           id: n.id,
           category: n.category ?? "General",
           headline: n.headline ?? "Untitled",
-          detail: n.details ?? "",                                  // backend: details
+          detail: n.details ?? "",                                  
           reporter: n.reporter ?? "Anonymous",
-          date: n.dateTime ? new Date(n.dateTime).toLocaleString()  // backend: dateTime (ISO)
+          date: n.dateTime ? new Date(n.dateTime).toLocaleString() 
                             : new Date().toLocaleString(),
-          image: n.imagePublicUrl || n.imageUrl || "",              // prefer computed Firebase URL
+          image: n.imagePublicUrl || n.imageUrl || "",              
           votes: {
-            real: Number.isFinite(n.votesReal) ? n.votesReal : 0,   // backend: votesReal
-            fake: Number.isFinite(n.votesFake) ? n.votesFake : 0    // backend: votesFake
+            real: Number.isFinite(n.votesReal) ? n.votesReal : 0,   
+            fake: Number.isFinite(n.votesFake) ? n.votesFake : 0    
           },
-          // Comments are now separate in backend (/api/news/{id}/comments); keep empty for list page
           comments: []
         }))
 
-        // Merge with localStorage extras (local first)
         const local = this.loadLocal()
         this.newsList = [...local, ...backendNews]
       } catch (err) {
@@ -97,7 +86,6 @@ export const useNewsStore = defineStore('news', {
       }
     },
 
-    // ✅ Fetch comments for a single news article
     async fetchComments(newsId) {
       try {
         const res = await api.get(`/news/${newsId}/comments`, { params: { page: 0, size: 50 } })
@@ -180,28 +168,23 @@ export const useNewsStore = defineStore('news', {
 
 
     async vote(newsId, value) {
-      // backend: POST /api/news/{id}/vote?value=real|fake
       await api.post(`/news/${newsId}/vote`, null, { params: { value } })
     },
 
     async addComment(newsId, { userId, content, imageUrl = '', anonymous = false }) {
-      // backend: POST /api/news/{id}/comments?userId=&content=&imageUrl=&anonymous=
       const res = await api.post(
         `/news/${newsId}/comments`,
         null,
         { params: { userId, content, imageUrl, anonymous } }
       )
-      return res.data  // {id, newsId, userId, userName, content, imageUrl, createdAt}
+      return res.data  
     },
 
     async createNews(payload) {
-      // backend: POST /api/news with JSON body
-      // expected fields: category, headline, details, reporter, dateTime, imageUrl, createdById (optional)
       const res = await api.post('/news', payload)
       return res.data
     },
 
-        //  Update my comment (PUT)
     async editComment(newsId, commentId, { userId, content, imageUrl = '', anonymous = false }) {
       const res = await api.put(
         `/news/${newsId}/comments/${commentId}`,
@@ -211,7 +194,6 @@ export const useNewsStore = defineStore('news', {
       return res.data
     },
 
-    //  Delete my comment (DELETE)
     async deleteComment(newsId, commentId, userId) {
       const res = await api.delete(
         `/news/${newsId}/comments/${commentId}`,

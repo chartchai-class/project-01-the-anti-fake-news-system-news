@@ -5,23 +5,15 @@ import axios from 'axios'
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080'
 const api = axios.create({ baseURL: `${API_BASE}/api` })
-
 const route = useRoute()
 const router = useRouter()
-
-// Tabs
 const currentTab = computed(() =>
   route.query.tab === 'pending' ? 'pending' : 'all'
 )
-
-// Search + loading
 const searchQuery = ref('')
 const isLoading = ref(false)
-
-// Table data (loaded from backend; fallback to empty if it fails)
 const allUsersData = ref([])
 
-// --- Fetch users + pending requests on mount ---
 onMounted(async () => {
   isLoading.value = true
   try {
@@ -30,15 +22,13 @@ onMounted(async () => {
       api.get('/admin/membership-requests')
     ])
 
-    // IDs of users who requested membership
     const pendingIds = new Set((pendingRes.data || []).map(u => u.id))
 
-    // Normalize to the shape your table expects
     allUsersData.value = (usersRes.data || []).map(u => ({
       id: u.id,
       name: u.name || '',
       email: u.email || '',
-      role: (u.role || 'reader').toLowerCase(), // 'reader' | 'member' | 'admin'
+      role: (u.role || 'reader').toLowerCase(),
       joinDate: u.joinDate || '',
       newsSubmitted: u.newsSubmitted ?? 0,
       comments: u.comments ?? 0,
@@ -52,7 +42,6 @@ onMounted(async () => {
   }
 })
 
-// Derived lists
 const pendingRequests = computed(() =>
   allUsersData.value.filter(user => user.request === 'member')
 )
@@ -75,7 +64,6 @@ const filteredUsers = computed(() => {
   )
 })
 
-// Keep your existing tab buttons behavior
 function changeTab(tab) {
   if (tab !== currentTab.value) {
     searchQuery.value = ''
@@ -85,7 +73,6 @@ function changeTab(tab) {
   }
 }
 
-// --- Approve / Reject hooked to backend ---
 async function handleApprove(userId) {
   try {
     await api.post(`/admin/membership-requests/${userId}/approve`)
@@ -113,16 +100,18 @@ async function handleReject(userId) {
   }
 }
 
-// View detail (stub—leave as is or route later)
 function viewUserDetail(userId) {
   console.log(`Viewing detail for user ID: ${userId}`)
 }
 
-// UI helpers (unchanged)
 function getRoleClass(role) {
-  return role === 'member'
-    ? 'bg-blue-100 text-blue-800'
-    : 'bg-gray-100 text-gray-700'
+  if (role === 'admin') {
+    return 'bg-purple-100 text-purple-800'
+  } else if (role === 'member') {
+    return 'bg-blue-100 text-blue-800'
+  } else {
+    return 'bg-gray-100 text-gray-700'
+  }
 }
 
 function getAvatarBgClass(name) {
@@ -139,7 +128,6 @@ function getInitials(name) {
     .toUpperCase() || 'U'
 }
 
-// Reset search when tab changes
 watch(
   () => route.query.tab,
   (n, o) => {
@@ -147,11 +135,10 @@ watch(
   }
 )
 
-// --- Minimal pagination stubs to match your template (no UI change) ---
 const currentPage = ref(1)
 const totalPages = computed(() => 1)
-function prevPage() { /* no-op for now */ }
-function nextPage() { /* no-op for now */ }
+function prevPage() { }
+function nextPage() { }
 </script>
 
 
