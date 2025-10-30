@@ -24,25 +24,36 @@ async function loadTab() {
   isLoading.value = true
   try {
     if (currentTab.value === 'active') {
-      activeNewsData.value  = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
+      const data = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
+      console.log('✅ Active data received:', data, 'Length:', data?.length)
+      console.log('📊 Full active data:', JSON.stringify(data, null, 2))
+      activeNewsData.value = Array.isArray(data) ? data : (data?.data || data?.content || [])
     } else {
-      deletedNewsData.value = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
+      const data = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
+      console.log('✅ Deleted data received:', data, 'Length:', data?.length)
+      console.log('📊 Full deleted data:', JSON.stringify(data, null, 2))
+      deletedNewsData.value = Array.isArray(data) ? data : (data?.data || data?.content || [])
     }
+  } catch (error) {
+    console.error('❌ Error loading news:', error)
   } finally {
     isLoading.value = false
   }
 }
 
-onMounted(loadTab)
-watch(() => route.query.tab, loadTab)
+onMounted(() => {
+  loadTab()
+})
 
-
+watch(() => route.query.tab, () => {
+  loadTab()
+})
 
 watch(() => route.query.tab, () => {
   searchQuery.value = ''
   selectedCategory.value = 'All News'
   selectedStatus.value = 'Status'
-})
+}, { immediate: false })
 
 // ---- (unchanged) filters + helpers ----
 const newsToShow = computed(() => currentTab.value === 'deleted' ? deletedNewsData.value : activeNewsData.value)
@@ -91,12 +102,20 @@ function changeTab(tab) {
 async function handleDeleteNews(id, title) {
   if (!confirm(`Hide this news?\n\n${title}`)) return
   await store.adminHideNews(id)   // DB: hidden=true
-  await loadTab()                 // refresh current tab (now it moves to Deleted)
+  // Reload both tabs to reflect the move
+  const activeData = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
+  const deletedData = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
+  activeNewsData.value = Array.isArray(activeData) ? activeData : (activeData?.data || activeData?.content || [])
+  deletedNewsData.value = Array.isArray(deletedData) ? deletedData : (deletedData?.data || deletedData?.content || [])
 }
 
 async function handleUndoDelete(id) {
   await store.adminRestoreNews(id) // DB: hidden=false
-  await loadTab()                  // refresh current tab (now it moves to Active)
+  // Reload both tabs to reflect the move
+  const activeData = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
+  const deletedData = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
+  activeNewsData.value = Array.isArray(activeData) ? activeData : (activeData?.data || activeData?.content || [])
+  deletedNewsData.value = Array.isArray(deletedData) ? deletedData : (deletedData?.data || deletedData?.content || [])
 }
 
 function handleViewNews(id) { router.push({ name: 'news-detail', params: { id } }) }
