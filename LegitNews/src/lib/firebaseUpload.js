@@ -26,20 +26,29 @@ function ensureAuth() {
   return authReady
 }
 
-export async function uploadCommentImage(file, category, newsId) {
-  await ensureAuth()
-  const safeCat = encodeURIComponent(category || 'General')
-  const path = `Comments/${safeCat}/${newsId}/${Date.now()}-${file.name}`
-  const r = ref(storage, path)
-  await uploadBytes(r, file)           // you can add { contentType: file.type } if you like
-  return await getDownloadURL(r)
-}
-
+// ✅ For News image upload
 export async function uploadNewsImage(file, category) {
   await ensureAuth()
-  const safeCat = encodeURIComponent(category || 'General')
-  const path = `News/${safeCat}/${Date.now()}-${file.name}`
+  const safeCat = encodeURIComponent(category.replace(/\s+/g, '+'))
+  const ext = file.name.split('.').pop()
+  const fileName = `${Date.now()}.${ext || 'webp'}`
+  const path = `images/${safeCat}/${fileName}`   // ✅ match backend convention
   const r = ref(storage, path)
   await uploadBytes(r, file)
-  return await getDownloadURL(r)
+  console.log("✅ Uploaded to Firebase:", path)
+  // Return relative path for DB (backend will compute public URL)
+  return `/${path}`
+}
+
+// ✅ For Comment image upload
+export async function uploadCommentImage(file, category, newsId) {
+  await ensureAuth()
+  const safeCat = encodeURIComponent(category.replace(/\s+/g, '+'))
+  const ext = file.name.split('.').pop()
+  const fileName = `${Date.now()}.${ext || 'webp'}`
+  const path = `images/Comments/${safeCat}/${newsId}/${fileName}`
+  const r = ref(storage, path)
+  await uploadBytes(r, file)
+  console.log("✅ Uploaded comment image:", path)
+  return `/${path}`
 }
