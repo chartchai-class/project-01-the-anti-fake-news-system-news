@@ -48,26 +48,11 @@ function changeTab(tab) {
   }
 }
 
-function handleViewComment(commentId) {
-  // find in reported list (only those have newsId reliably)
-  const c = reportedCommentsData.value.find(x => x.id === commentId)
-  if (!c?.newsId) return
-  router.push({ name: 'news-detail', params: { id: c.newsId }, query: { commentId: c.id } })
-}
-
-async function handleDeleteComment(commentId, reason) {
-  // if you already wired admin delete in another component, you can keep that.
-  // Here we optimistically call the store's admin delete by commentId only.
-  // If your backend expects /admin/news/{newsId}/comments/{id}, do that instead.
-  const c = reportedCommentsData.value.find(x => x.id === commentId)
-  if (!c) return
-  try {
-    await store.adminDeleteComment(c.newsId, c.id, { reason })
-    await loadTabData() // refresh both lists as needed
-  } catch (e) {
-    console.error('Failed to delete comment', e)
-    alert('Failed to delete comment.')
-  }
+// Row click: only for reported (comment still exists)
+function handleRowClick(row) {
+  if (currentTab.value !== 'reported') return
+  if (!row?.newsId) return
+  router.push({ name: 'news-detail', params: { id: row.newsId }, query: { commentId: row.id } })
 }
 
 function getReasonClass(reason) {
@@ -85,8 +70,6 @@ function getReasonClass(reason) {
 onMounted(loadTabData)
 watch(() => route.query.tab, loadTabData)
 </script>
-
-
 
 <template>
   <div class="sm:p-8 min-h-screen font-inter">
@@ -137,7 +120,7 @@ watch(() => route.query.tab, loadTabData)
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Date</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reports</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reason</th>
-              <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">Actions</th>
+              <!-- Actions column removed -->
             </tr>
             <tr v-else>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider w-1/3">Comment</th>
@@ -146,18 +129,28 @@ watch(() => route.query.tab, loadTabData)
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Deleted By</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Deleted Date</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reason</th>
-              <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 tracking-wider">Actions</th>
+              <!-- Actions column removed -->
             </tr>
           </thead>
 
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-if="filteredComments.length === 0">
-              <td :colspan="7" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+              <td :colspan="6" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                 No {{ currentTab === 'reported' ? 'reported comments' : 'deleted history items' }} found.
               </td>
             </tr>
 
-            <tr v-for="comment in filteredComments" :key="comment.id" class="hover:bg-gray-50 transition duration-150">
+            <tr
+              v-for="comment in filteredComments"
+              :key="comment.id"
+              @click="handleRowClick(comment)"
+              :class="[
+                'transition duration-150',
+                currentTab === 'reported' ? 'cursor-pointer hover:bg-gray-50' : ''
+              ]"
+              tabindex="0"
+              @keyup.enter="handleRowClick(comment)"
+            >
               <td class="px-6 py-4 text-sm text-gray-900 max-w-[300px] truncate">{{ comment.content }}</td>
 
               <template v-if="currentTab === 'reported'">
@@ -170,16 +163,6 @@ watch(() => route.query.tab, loadTabData)
                     {{ comment.reason }}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                  <div class="flex justify-center space-x-2">
-                    <button @click="handleViewComment(comment.id)" title="View Details" class="text-gray-500 hover:text-blue-600 p-2 rounded-full hover:bg-gray-100 transition duration-150">
-                      <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    </button>
-                    <button @click="handleDeleteComment(comment.id, comment.reason)" title="Delete Comment" class="text-gray-500 hover:text-red-600 p-2 rounded-full hover:bg-red-100 transition duration-150">
-                      <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </button>
-                  </div>
-                </td>
               </template>
 
               <template v-else>
@@ -191,11 +174,6 @@ watch(() => route.query.tab, loadTabData)
                   <span :class="[getReasonClass(comment.reason), 'px-3 inline-flex text-xs leading-5 font-semibold rounded-full']">
                     {{ comment.reason }}
                   </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                  <button @click="handleViewComment(comment.id)" title="View Details" class="text-gray-500 hover:text-blue-600 p-2 rounded-full hover:bg-gray-100 transition duration-150">
-                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                  </button>
                 </td>
               </template>
             </tr>
