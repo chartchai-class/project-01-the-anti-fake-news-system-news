@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNewsStore } from '@/stores/newsStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useRoute } from 'vue-router'
+import { uploadCommentImage } from '@/lib/firebaseUpload'
 
 const props = defineProps({
   id: { type: Number, required: true },
@@ -98,8 +99,8 @@ async function submitVote() {
   // optional image upload (if your store has it)
   let imageUrl = ""
   try {
-    if (commentImage.value instanceof File && typeof store.uploadCommentImage === 'function') {
-      imageUrl = await store.uploadCommentImage(commentImage.value, news.category)
+    if (commentImage.value instanceof File) {
+      imageUrl = await uploadCommentImage(commentImage.value, news.id)
     }
   } catch (e) {
     console.warn("Image upload skipped/failed:", e)
@@ -172,6 +173,11 @@ function changeVote() {
     commentText.value = c.text || ""
     commentName.value = c.name || ""
   }
+}
+
+function onPickCommentImage(e) {
+  const f = e?.target?.files?.[0]
+  commentImage.value = f || null
 }
 
 async function reportThisComment(c) {
@@ -270,7 +276,7 @@ async function adminDeleteThisComment(c) {
         <input
           type="file"
           accept="image/*"
-          @change="e => commentImage.value = e.target.files?.[0] || null"
+          @change="onPickCommentImage"
           class="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:border-black focus:bg-white"
         />
 
