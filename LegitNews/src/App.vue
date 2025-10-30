@@ -4,6 +4,8 @@ import { RouterLink, useRouter } from "vue-router"
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import ProfileBadge from '@/components/ProfileBadge.vue'
 import { useAuthStore } from '@/stores/authStore'
+import { onMounted } from 'vue'
+import axios from 'axios'
 
 const auth = useAuthStore() 
 auth.init()
@@ -12,11 +14,8 @@ const isOpen = ref(false)
 const searchTerm = ref("")
 const router = useRouter()
 
-// 💡 MOCK DATA FOR NOTIFICATION BADGES
-// In a real application, these counts would be fetched from your database/API
-const newsCount = ref(3); // Pending news submissions
-const commentCount = ref(5); // Reported comments
-const userRequestCount = ref(2); // Pending user role/account requests
+const commentCount = ref(0);
+const userRequestCount = ref(0);
 
 function handleSearch() {
   if (searchTerm.value.trim()) {
@@ -25,6 +24,26 @@ function handleSearch() {
     isOpen.value = false
   }
 }
+
+async function fetchNotificationCounts() {
+  try {
+    // Fetch reported comments count
+    const commentsRes = await axios.get(`${import.meta.env.VITE_API_BASE || 'http://localhost:8080'}/api/admin/comments/reported`)
+    commentCount.value = commentsRes.data.length || 0
+    
+    // Fetch membership requests count
+    const usersRes = await axios.get(`${import.meta.env.VITE_API_BASE || 'http://localhost:8080'}/api/admin/users/membership-requests`)
+    userRequestCount.value = usersRes.data.length || 0
+  } catch (e) {
+    console.warn('Failed to fetch notification counts:', e)
+  }
+}
+
+onMounted(() => {
+  if (auth.role === 'admin') {
+    fetchNotificationCounts()
+  }
+})
 </script>
 
 <template>

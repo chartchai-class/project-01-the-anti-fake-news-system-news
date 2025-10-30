@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter, RouterLink } from 'vue-router'
+import { uploadProfileImage } from '@/lib/firebaseUpload'
 
 const name = ref('')
 const surname = ref('')
 const email = ref('')
 const password = ref('')
-const photoUrl = ref('')
+const photoFile = ref(null)
 
 const err = ref('')
 const nameErr = ref('')
@@ -18,6 +19,11 @@ const passwordErr = ref('')
 const auth = useAuthStore()
 const router = useRouter()
 auth.init()
+
+function onPickPhoto(e) {
+  const f = e?.target?.files?.[0]
+  photoFile.value = f || null
+}
 
 async function onSubmit() {
   err.value = ''
@@ -32,10 +38,23 @@ async function onSubmit() {
   if (!password.value) {
     passwordErr.value = 'Require Password'
   } else if (!/^[0-9]{6,}$/.test(password.value)) {
-  passwordErr.value = 'Password must be at least 6 digits and numbers only'
-}
+    passwordErr.value = 'Password must be at least 6 digits and numbers only'
+  }
 
   if (nameErr.value || surnameErr.value || emailErr.value || passwordErr.value) return
+
+  let photoUrl = ''
+  
+  // Upload profile photo if provided
+  if (photoFile.value) {
+    try {
+      photoUrl = await uploadProfileImage(photoFile.value, email.value.trim())
+    } catch (e) {
+      console.error('Photo upload failed:', e)
+      err.value = 'Photo upload failed. Please try again.'
+      return
+    }
+  }
 
   try {
     await auth.register({
@@ -43,7 +62,7 @@ async function onSubmit() {
       surname: surname.value.trim(),
       email: email.value.trim(),
       password: password.value,
-      photoUrl: photoUrl.value.trim()
+      photoUrl
     })
     router.push('/profile')
   } catch (e) {
@@ -59,17 +78,13 @@ async function onSubmit() {
     <div v-if="err" class="mb-3 text-red-600 text-sm font-semibold text-center">{{ err }}</div>
 
     <div class="space-y-3">
-
       <!-- First Name -->
       <label class="block mb-1 text-base font-semibold text-gray-800">First Name</label>
       <input
         v-model="name"
         type="text"
         placeholder="Enter your first name"
-        :class="[
-          'w-full border rounded px-3 py-2',
-          nameErr ? 'border-red-500' : 'border-gray-300'
-        ]"
+        :class="['w-full border rounded px-3 py-2', nameErr ? 'border-red-500' : 'border-gray-300']"
       />
       <p v-if="nameErr" class="text-red-600 text-sm text-left">{{ nameErr }}</p>
 
@@ -79,10 +94,7 @@ async function onSubmit() {
         v-model="surname"
         type="text"
         placeholder="Enter your last name"
-        :class="[
-          'w-full border rounded px-3 py-2',
-          surnameErr ? 'border-red-500' : 'border-gray-300'
-        ]"
+        :class="['w-full border rounded px-3 py-2', surnameErr ? 'border-red-500' : 'border-gray-300']"
       />
       <p v-if="surnameErr" class="text-red-600 text-sm text-left">{{ surnameErr }}</p>
 
@@ -92,10 +104,7 @@ async function onSubmit() {
         v-model="email"
         type="email"
         placeholder="Enter your email"
-        :class="[
-          'w-full border rounded px-3 py-2',
-          emailErr ? 'border-red-500' : 'border-gray-300'
-        ]"
+        :class="['w-full border rounded px-3 py-2', emailErr ? 'border-red-500' : 'border-gray-300']"
       />
       <p v-if="emailErr" class="text-red-600 text-sm text-left">{{ emailErr }}</p>
 
@@ -105,22 +114,19 @@ async function onSubmit() {
         v-model="password"
         type="password"
         placeholder="Enter password"
-        :class="[
-          'w-full border rounded px-3 py-2',
-          passwordErr ? 'border-red-500' : 'border-gray-300'
-        ]"
+        :class="['w-full border rounded px-3 py-2', passwordErr ? 'border-red-500' : 'border-gray-300']"
       />
       <p v-if="passwordErr" class="text-red-600 text-sm text-left">{{ passwordErr }}</p>
 
-      <!-- Photo URL (optional) -->
+      <!-- Profile Photo -->
       <label class="block mb-1 text-base font-semibold text-gray-800">Profile Photo (optional)</label>
       <input
-        v-model="photoUrl"
-        type="url"
-        placeholder="Enter your photo URL (optional)"
+        type="file"
+        accept="image/*"
+        @change="onPickPhoto"
         class="w-full border border-gray-300 rounded px-3 py-2"
       />
-
+      <p class="text-xs text-gray-500">Upload your profile picture</p>
     </div>
 
     <div class="mt-4">

@@ -9,7 +9,7 @@ const AUTH_TOKEN_KEY = 'legitnews_auth_token_v1'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    currentUser: null,  // { id, name, email, role }
+    currentUser: null,  // { id, name, surname, email, role, photoUrl }
     token: null
   }),
   getters: {
@@ -37,7 +37,14 @@ export const useAuthStore = defineStore('auth', {
       const res = await api.post('/auth/register', { name, surname, email, password, photoUrl })
       const d = res.data
       this.token = d.token
-      this.currentUser = { id: d.id, name: d.name, email: d.email, role: d.role }
+      this.currentUser = { 
+        id: d.id, 
+        name: d.name, 
+        surname: d.surname,
+        email: d.email, 
+        role: d.role,
+        photoUrl: d.photoUrl
+      }
       api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
       this._save()
     },
@@ -46,7 +53,14 @@ export const useAuthStore = defineStore('auth', {
       const res = await api.post('/auth/login', { email, password })
       const d = res.data
       this.token = d.token
-      this.currentUser = { id: d.id, name: d.name, email: d.email, role: d.role }
+      this.currentUser = { 
+        id: d.id, 
+        name: d.name,
+        surname: d.surname, 
+        email: d.email, 
+        role: d.role,
+        photoUrl: d.photoUrl
+      }
       api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
       this._save()
     },
@@ -54,9 +68,17 @@ export const useAuthStore = defineStore('auth', {
     async refreshMe() {
       if (!this.currentUser?.id) return
       const res = await api.get(`/users/${this.currentUser.id}`)
-      // Expect { id, name, email, role, membershipRequested, ... }
       const d = res.data
-      this.currentUser = { ...this.currentUser, ...d }
+      this.currentUser = { 
+        ...this.currentUser, 
+        id: d.id,
+        name: d.name,
+        surname: d.surname,
+        email: d.email,
+        role: d.role,
+        photoUrl: d.photoUrl,
+        membershipRequested: d.membershipRequested
+      }
       this._save()
     },
 

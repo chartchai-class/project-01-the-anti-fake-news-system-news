@@ -31,6 +31,9 @@ const userVote          = ref(null)
 const userCommentIndex  = ref(null)
 const anonymous         = ref(false)
 
+// Store user profile photos for comments
+const userPhotos = ref({})
+
 // --- local vote persistence ---
 function voteKey(newsId, userId) { return `nv_${newsId}_${userId}` }
 function saveVoteState(newsId, userId, v) {
@@ -40,12 +43,42 @@ function loadVoteState(newsId, userId) {
   try { return JSON.parse(sessionStorage.getItem(voteKey(newsId, userId)) || 'null') } catch { return null }
 }
 
+// Fetch user profile photos for all commenters
+async function fetchUserPhotos() {
+  if (!news?.comments) return
+  
+  const uniqueUserIds = [...new Set(news.comments.map(c => c.userId).filter(id => id))]
+  
+  for (const userId of uniqueUserIds) {
+    try {
+      const res = await api.get(`/users/${userId}`)
+      if (res.data.photoUrl) {
+        userPhotos.value[userId] = res.data.photoUrl
+      }
+    } catch (e) {
+      console.warn(`Failed to fetch photo for user ${userId}`, e)
+    }
+  }
+}
+
+function getCommentUserInitials(comment) {
+  const name = comment.name || 'Anonymous'
+  const parts = name.split(' ')
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase()
+  }
+  return name.substring(0, 2).toUpperCase()
+}
+
 onMounted(async () => {
   if (!news) return
 
   // refresh comments from backend
   const loaded = await store.fetchComments(news.id)
   news.comments = loaded
+
+  // Fetch profile photos for all commenters
+  await fetchUserPhotos()
 
   // restore vote state + locate my comment
   if (auth.isLoggedIn) {
@@ -96,7 +129,7 @@ async function submitVote() {
     ? "Anonymous"
     : (commentName.value.trim() || auth.currentUser?.name || "Anonymous"))
 
-  // optional image upload (if your store has it)
+  // optional image upload
   let imageUrl = ""
   try {
     if (commentImage.value instanceof File) {
@@ -118,7 +151,6 @@ async function submitVote() {
             userId, content: commentText.value.trim(), imageUrl, anonymous: anonymous.value
           })
         } else {
-          // fallback direct API
           const res = await api.put(`/news/${news.id}/comments/${existing.id}`, null, {
             params: { userId, content: commentText.value.trim(), imageUrl, anonymous: anonymous.value }
           })
@@ -152,6 +184,11 @@ async function submitVote() {
         }
         news.comments.push(item)
         userCommentIndex.value = news.comments.length - 1
+        
+        // Add current user's photo to the cache
+        if (auth.currentUser.photoUrl && !anonymous.value) {
+          userPhotos.value[userId] = auth.currentUser.photoUrl
+        }
       }
     } catch (e) {
       console.error(e)
@@ -217,17 +254,32 @@ async function adminDeleteThisComment(c) {
     <div class="mb-6">
       <h3 class="text-lg font-semibold mb-3">💬 Comments ({{ news.comments.length }})</h3>
       <div v-for="(c, i) in news.comments" :key="c.id || i" :id="c.id ? `c-${c.id}` : null" class="flex items-start mb-4 space-x-3">
-        <div class="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
-        <div class="text-sm">
+        <!-- Profile Picture or Initials -->
+        <div class="w-10 h-10 rounded-full flex-shrink-0 overflow-hidden">
+          <img 
+            v-if="userPhotos[c.userId]" 
+            :src="userPhotos[c.userId]" 
+            alt="profile"
+            class="w-full h-full object-cover"
+          />
+          <div 
+            v-else
+            class="w-full h-full bg-gray-900 text-white flex items-center justify-center text-sm font-bold"
+          >
+            {{ getCommentUserInitials(c) }}
+          </div>
+        </div>
+
+        <div class="text-sm flex-1">
           <strong class="block font-medium">{{ c.name || 'Anonymous' }}</strong>
           <p class="mt-1">{{ c.text }}</p>
-          <img v-if="c.image" :src="c.image" alt="comment image" class="max-w-[100px] mt-1 rounded" />
+          <img v-if="c.image" :src="c.image" alt="comment image" class="max-w-[200px] mt-2 rounded" />
           <small class="text-gray-500 block mt-1">{{ c.date }}</small>
 
           <div class="mt-1 text-xs flex gap-3">
             <!-- Report (non-admin) -->
             <button
-              v-if="$pinia.state.value.auth?.currentUser?.role?.toLowerCase?.() !== 'admin'"
+              v-if="auth.role !== 'admin'"
               @click="reportThisComment(c)"
               class="text-blue-600 hover:underline"
               type="button"
@@ -237,7 +289,7 @@ async function adminDeleteThisComment(c) {
 
             <!-- Delete (admin only) -->
             <button
-              v-if="$pinia.state.value.auth?.currentUser?.role?.toLowerCase?.() === 'admin'"
+              v-if="auth.role === 'admin'"
               @click="adminDeleteThisComment(c)"
               class="text-red-600 hover:underline"
               type="button"

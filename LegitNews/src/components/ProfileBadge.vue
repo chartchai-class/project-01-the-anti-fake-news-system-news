@@ -14,6 +14,7 @@ const initials = computed(() => {
   return (n + s).toUpperCase()
 })
 const unread = computed(() => auth.unreadCount)
+const photoUrl = computed(() => auth.currentUser?.photoUrl)
 
 function go() { router.push(isLoggedIn.value ? '/profile' : '/login') }
 </script>
@@ -23,14 +24,28 @@ function go() { router.push(isLoggedIn.value ? '/profile' : '/login') }
     class="relative flex items-center gap-2 pl-2 pr-3 py-1 rounded-lg border border-gray-300 hover:border-gray-500 bg-white transition"
     aria-label="Profile or Login"
   >
-
-    <div class="relative h-8 w-8 rounded-md bg-gray-900 text-white flex items-center justify-center text-sm font-bold">
+    <div class="relative h-8 w-8 rounded-md overflow-hidden flex items-center justify-center text-sm font-bold">
       <template v-if="isLoggedIn">
-        <span>{{ initials }}</span>
+        <!-- Show photo if available -->
+        <img 
+          v-if="photoUrl" 
+          :src="photoUrl" 
+          alt="profile"
+          class="h-full w-full object-cover"
+        />
+        <!-- Otherwise show initials -->
+        <div 
+          v-else
+          class="h-full w-full bg-gray-900 text-white flex items-center justify-center"
+        >
+          <span>{{ initials }}</span>
+        </div>
       </template>
 
       <template v-else>
-        <i class="bi bi-box-arrow-in-right text-lg"></i>
+        <div class="h-full w-full bg-gray-900 text-white flex items-center justify-center">
+          <i class="bi bi-box-arrow-in-right text-lg"></i>
+        </div>
       </template>
 
       <span v-if="unread > 0"
