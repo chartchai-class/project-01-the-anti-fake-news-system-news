@@ -117,6 +117,68 @@ export const useNewsStore = defineStore('news', {
       }
     },
 
+    // --- ADMIN: fetch reported comments ---
+    async fetchAdminReportedComments({ page = 0, size = 50 } = {}) {
+      const tryPaths = [
+        '/admin/reported-comments',
+        '/admin/comments/reported',
+        '/admin/reports'
+      ]
+      for (const p of tryPaths) {
+        try {
+          const res = await api.get(p, { params: { page, size } })
+          const src = Array.isArray(res.data?.content) ? res.data.content
+                  : (Array.isArray(res.data) ? res.data : [])
+          return src.map(dto => ({
+            id: dto.id,
+            newsId: dto.newsId ?? dto.news?.id,
+            content: dto.content ?? '',
+            author: dto.authorName ?? dto.author ?? 'Anonymous',
+            article: dto.newsHeadline ?? dto.article ?? dto.news?.headline ?? 'Unknown',
+            date: dto.createdAt ? new Date(dto.createdAt).toLocaleString() : (dto.date ?? ''),
+            reports: dto.reports ?? dto.reportsCount ?? 0,
+            reason: dto.reason ?? 'Reported',
+          }))
+        } catch (e) {
+          // try next path
+        }
+      }
+      console.warn('No admin reported-comments endpoint responded.')
+      return []
+    },
+
+    // --- ADMIN: fetch deleted comments (history) ---
+    async fetchAdminDeletedComments({ page = 0, size = 50 } = {}) {
+      const tryPaths = [
+        '/admin/deleted-comments',
+        '/admin/comments/deleted',
+      ]
+      for (const p of tryPaths) {
+        try {
+          const res = await api.get(p, { params: { page, size } })
+          const src = Array.isArray(res.data?.content) ? res.data.content
+                  : (Array.isArray(res.data) ? res.data : [])
+          return src.map(dto => ({
+            id: dto.id,
+            newsId: dto.newsId ?? dto.news?.id,
+            content: dto.content ?? '',
+            author: dto.authorName ?? dto.author ?? 'Anonymous',
+            article: dto.newsHeadline ?? dto.article ?? dto.news?.headline ?? 'Unknown',
+            deletedBy: dto.deletedBy ?? 'Admin',
+            deletedDate: dto.deletedAt
+              ? new Date(dto.deletedAt).toLocaleString()
+              : (dto.deletedDate ?? ''),
+            reason: dto.reason ?? 'Removed',
+          }))
+        } catch (e) {
+          // try next path
+        }
+      }
+      console.warn('No admin deleted-comments endpoint responded.')
+      return []
+    },
+
+
     async vote(newsId, value) {
       // backend: POST /api/news/{id}/vote?value=real|fake
       await api.post(`/news/${newsId}/vote`, null, { params: { value } })
@@ -157,6 +219,17 @@ export const useNewsStore = defineStore('news', {
       )
       return res.data
     },
+
+    async reportComment(newsId, commentId, { reason = '' } = {}) {
+    await api.post(`/news/${newsId}/comments/${commentId}/report`, null, {
+        params: { reason }
+      })
+    },
+
+    // Admin deletes a comment and writes history
+    async adminDeleteComment(newsId, commentId, { reason = '' } = {}) {
+      await api.delete(`/admin/comments/${commentId}`, { params: { reason } })
+    }
 
 
   }
