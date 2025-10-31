@@ -57,7 +57,7 @@ onMounted(() => {
 
       <div class="absolute left-1/2 transform -translate-x-1/2">
         <RouterLink to="/">
-          <img src="./assets/Legit News Logo.png" alt="Legit News Logo" class="h-[60px] w-auto">
+          <img src="./assets/logo.png" alt="Legit News Logo" class="h-[60px] w-auto">
         </RouterLink>
       </div>
 
@@ -211,7 +211,7 @@ onMounted(() => {
       </div>
 
       <div class="flex-1 flex justify-center md:justify-end">
-        <img src="./assets/Legit News Logo.png" alt="Legit News Logo" class="h-[60px] w-auto">
+        <img src="./assets/logo.png" alt="Legit News Logo" class="h-[60px] w-auto">
       </div>
     </footer>
   </div>
