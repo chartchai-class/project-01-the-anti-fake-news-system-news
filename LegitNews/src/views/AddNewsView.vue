@@ -2,54 +2,91 @@
 import { ref } from 'vue'
 import { useNewsStore } from '@/stores/newsStore'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { uploadNewsImage } from '@/lib/firebaseUpload'
 
 const store = useNewsStore()
+const auth  = useAuthStore()
+auth.init()
 const router = useRouter()
 
 const headline = ref("")
-const detail = ref("")
+const detail   = ref("")
 const reporter = ref("")
-const image = ref("")
+const imageUrl = ref("")        // keep your existing URL box
+const imageFile = ref(null)     // new: optional file
 const category = ref("Local News")
 
+function onPickFile(e) {
+  const f = e?.target?.files?.[0]
+  imageFile.value = f || null
+}
+
 async function submitNews() {
+
+  if (!auth.isLoggedIn || !['member', 'admin'].includes(auth.role)) {
+    alert('Only logged-in Member accounts can add news.')
+    return
+  }
+
   if (!headline.value || !detail.value || !category.value) {
     alert("⚠️ Headline, Detail and Category are required.")
     return
   }
 
-  const lastId = store.newsList.length > 0 
-    ? Math.max(...store.newsList.map(n => n.id)) 
-    : 0
+  let finalImageUrl = imageUrl.value?.trim() || ""
 
-  const newNews = {
-    category: category.value,
-    id: lastId + 1,                     
-    headline: headline.value,
-    detail: detail.value,
-    reporter: reporter.value || "Anonymous",
-    date: new Date().toISOString().slice(0, 16).replace("T", " "),
-    image: image.value || "https://via.placeholder.com/150",
-    votes: { real: 0, fake: 0 },
-    comments: []
+  // if a file is provided, upload to Firebase and use that URL
+  if (imageFile.value) {
+    try {
+      finalImageUrl = await uploadNewsImage(imageFile.value, category.value)
+    } catch (e) {
+      console.error(e)
+      alert("Image upload failed.")
+      return
+    }
   }
 
-  store.addNews(newNews)
+  const payload = {
+    category: category.value,
+    headline: headline.value,
+    details:  detail.value,
+    reporter: reporter.value || "Anonymous",
+    dateTime: new Date().toISOString(),
+    imageUrl: finalImageUrl || "",             // backend will pass-through http(s) or resolve path
+  }
 
-  // clear form
-  headline.value = ""
-  detail.value = ""
-  reporter.value = ""
-  image.value = ""
-  category.value = ""
+  // attach creator user if available
+  if (auth.currentUser?.id) {
+    payload.createdById = auth.currentUser.id
+    payload.createdByRole = auth.role
+  }
 
-  alert("✅ News added successfully!")
-  router.push('/')
+  try {
+    const created = await store.createNews(payload)
+    // refresh list so the new item from backend appears
+    await store.fetchNews()
+
+    // clear form
+    headline.value = ""
+    detail.value   = ""
+    reporter.value = ""
+    imageUrl.value = ""
+    imageFile.value = null
+    category.value = "Local News"
+
+    alert("✅ News added successfully!")
+    router.push('/')
+  } catch (e) {
+    console.error(e)
+    alert("Failed to create news.")
+  }
 }
 </script>
 
+
 <template>
-  <div class="bg-white w-full max-w-3xl mx-auto mt-12 rounded-xl shadow-lg overflow-hidden">
+  <div class="bg-white w-[calc(100%-100px)] mx-[50px] mt-12 mb-12 rounded-xl shadow-lg overflow-hidden">
     <div class="h-24 bg-black text-white flex justify-center items-center text-lg sm:text-xl font-bold text-center px-4">
       Have a story to share? Upload your news and let us verify it!
     </div>
@@ -82,14 +119,16 @@ async function submitNews() {
         </div>
 
         <div>
-          <label class="block mb-2 text-base font-semibold text-gray-800">Image URL</label>
+          <label class="block mb-2 text-base font-semibold text-gray-800">Image File (Optional)</label>
           <input 
-            type="url" 
-            v-model="image" 
-            placeholder="https://" 
+            type="file" 
+            accept="image/*"
+            @change="onPickFile"
             class="w-full p-3 rounded-lg border border-gray-300 bg-gray-100 text-base focus:outline-none focus:border-black focus:bg-white"
           />
+          <p class="text-xs text-gray-500 mt-1">If a file is selected, the file will be uploaded and used instead of the URL above.</p>
         </div>
+
 
         <div>
           <label class="block mb-2 text-base font-semibold text-gray-800">Reporter</label>
@@ -146,9 +185,10 @@ async function submitNews() {
     </form>
   </div>
 
-    <div class="mt-8 ml-[50px]">
-    <RouterLink to="/" class="flex items-center justify-center w-[150px] h-[40px] bg-black text-white rounded hover:bg-gray-800 transition">
-      ← back to home
+  <div class="mt-8 mb-8 mx-[50px]">
+    <RouterLink to="/"class="flex items-center justify-center w-[150px] h-[40px] bg-white text-black border border-gray-400 rounded hover:bg-gray-100 transition">
+      Back to home
     </RouterLink>
   </div>
+
 </template>
