@@ -1,0 +1,5 @@
+services: 
+  web: 
+    image: "htetoothu/se331-frontend:latest" 
+    ports:  
+      - 8001:80
