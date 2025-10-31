@@ -99,7 +99,7 @@ router.beforeEach((to) => {
       alert('Please log in to add news.')
       return { name: 'login' }
     }
-    if (auth.role !== 'member') {
+    if (auth.role !== 'member' && auth.role !== 'admin') {
       alert('Only Member accounts can add news.')
       return false // block navigation
     }

@@ -24,7 +24,7 @@ function onPickFile(e) {
 
 async function submitNews() {
 
-  if (!auth.isLoggedIn || auth.role !== 'member') {
+  if (!auth.isLoggedIn || !['member', 'admin'].includes(auth.role)) {
     alert('Only logged-in Member accounts can add news.')
     return
   }
@@ -59,6 +59,7 @@ async function submitNews() {
   // attach creator user if available
   if (auth.currentUser?.id) {
     payload.createdById = auth.currentUser.id
+    payload.createdByRole = auth.role
   }
 
   try {

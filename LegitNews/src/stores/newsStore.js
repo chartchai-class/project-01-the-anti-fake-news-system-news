@@ -127,7 +127,6 @@ export const useNewsStore = defineStore('news', {
             article: dto.newsHeadline ?? dto.article ?? dto.news?.headline ?? 'Unknown',
             date: dto.createdAt ? new Date(dto.createdAt).toLocaleString() : (dto.date ?? ''),
             reports: dto.reports ?? dto.reportsCount ?? 0,
-            reason: dto.reason ?? 'Reported',
           }))
         } catch (e) {
           // try next path
@@ -151,14 +150,15 @@ export const useNewsStore = defineStore('news', {
           return src.map(dto => ({
             id: dto.id,
             newsId: dto.newsId ?? dto.news?.id,
-            content: dto.content ?? '',
+            // ⚠️ use contentSnapshot as the comment content for deleted items
+            content: dto.contentSnapshot ?? dto.content ?? '',
             author: dto.authorName ?? dto.author ?? 'Anonymous',
             article: dto.newsHeadline ?? dto.article ?? dto.news?.headline ?? 'Unknown',
             deletedBy: dto.deletedBy ?? 'Admin',
             deletedDate: dto.deletedAt
               ? new Date(dto.deletedAt).toLocaleString()
-              : (dto.deletedDate ?? ''),
-            reason: dto.reason ?? 'Removed',
+              : (dto.deletedDate ?? '')
+            // reason removed (no longer needed by UI)
           }))
         } catch (e) {
           // try next path
@@ -219,19 +219,30 @@ export const useNewsStore = defineStore('news', {
       const res = await api.get('/admin/news', { params: { status, page, size } })
       const pageData = res.data
       const list = Array.isArray(pageData?.content) ? pageData.content : []
-      // Map to your table shape:
-      return list.map(n => ({
-        id: n.id,
-        title: n.headline ?? 'Untitled',
-        author: n.reporter ?? 'Anonymous',
-        submittedBy: n.createdByName || 'System',
-        category: n.category ?? 'General',
-        date: n.dateTime ? new Date(n.dateTime).toLocaleString() : '',
-        status: (Number(n.votesReal) > Number(n.votesFake)) ? 'Verified' : 'Fake',
-        views: n.views ?? 0,
-        hidden: !!n.hidden
-      }))
+
+      return list.map(n => {
+        const votesReal =
+          Number(n.votesReal ?? n.votes_real ?? n?.votes?.real ?? 0) || 0
+        const votesFake =
+          Number(n.votesFake ?? n.votes_fake ?? n?.votes?.fake ?? 0) || 0
+
+        return {
+          id: n.id,
+          title: n.headline ?? 'Untitled',
+          author: n.reporter ?? 'Anonymous',
+          submittedBy: n.createdByName || 'System',
+          category: n.category ?? 'General',
+          date: n.dateTime ? new Date(n.dateTime).toLocaleString() : '',
+          votesReal,
+          votesFake,
+          votes: { real: votesReal, fake: votesFake },
+          status: (votesReal > votesFake) ? 'Verified' : 'Fake',
+          views: n.views ?? 0,
+          hidden: !!n.hidden
+        }
+      })
     },
+
 
     async adminHideNews(id) {
       await api.patch(`/admin/news/${id}/hide`)

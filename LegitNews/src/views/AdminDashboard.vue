@@ -7,12 +7,12 @@ const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080'
 const api = axios.create({ baseURL: `${API_BASE}/api` })
 
 const stats = ref([
-    { title: 'Total News', value: '0', change: '+0%', iconBgClass: 'bg-amber-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>', to: { path: '/admin/news', query: { status: 'all' } } },
+    { title: 'Total News', value: '0', change: '+0%', iconBgClass: 'bg-amber-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>', to: { path: '/', query: { status: 'all' } } },
     { title: 'Verified News', value: '0', change: '+0%', iconBgClass: 'bg-green-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>', to: { path: '/', query: { type: 'real' } } },
     { title: 'Fake News', value: '0', change: '+0%', iconBgClass: 'bg-red-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>', to: { path: '/', query: { type: 'fake' } } },
-    { title: 'Total Users', value: '0', change: '+0%', iconBgClass: 'bg-blue-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>', to: '/admin/users' },
-    { title: 'Members', value: '0', change: '+0%', iconBgClass: 'bg-purple-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>', to: '/admin/users' },
-    { title: 'Readers', value: '0', change: '+0%', iconBgClass: 'bg-cyan-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>', to: '/admin/users' },
+    { title: 'Total Users', value: '0', change: '+0%', iconBgClass: 'bg-blue-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>', to: '/admin/manage-user' },
+    { title: 'Members', value: '0', change: '+0%', iconBgClass: 'bg-purple-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>', to: '/admin/manage-user' },
+    { title: 'Readers', value: '0', change: '+0%', iconBgClass: 'bg-cyan-500', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>', to: '/admin/manage-user' },
 ]);
 
 const recentActivity = ref([]);
@@ -55,7 +55,7 @@ async function fetchDashboardData() {
         stats.value[4].value = members.toString()
         stats.value[5].value = readers.toString()
         
-        // Generate recent activity from news (last 5)
+        // Recent activity
         const recentNews = allNews
             .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
             .slice(0, 5)
@@ -72,7 +72,6 @@ async function fetchDashboardData() {
         
     } catch (e) {
         console.error('Failed to fetch dashboard data:', e)
-        // Keep mock/default values on error
         setMockData()
     }
 }
@@ -133,9 +132,7 @@ onMounted(() => {
                             <div class="flex flex-col">
                                 <span class="text-gray-500 font-medium text-sm">{{ stat.title }}</span>
                                 <span class="text-3xl font-extrabold text-gray-900 mt-1">{{ stat.value }}</span>
-                                <span :class="['mt-2 text-sm font-semibold', stat.change.startsWith('+') ? 'text-green-600' : 'text-red-600']">
-                                    {{ stat.change }} <span class="font-normal text-gray-500">from last month</span>
-                                </span>
+                                <!-- Removed the change line -->
                             </div>
                             <div :class="[stat.iconBgClass, 'p-4 rounded-xl text-white shadow-md']" v-html="stat.icon"></div>
                         </div>

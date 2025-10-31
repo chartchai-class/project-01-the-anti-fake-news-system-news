@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { uploadProfileImage } from '@/lib/firebaseUpload'
 import axios from 'axios'
@@ -15,11 +15,16 @@ const user = computed(() => auth.currentUser)
 const userNews = ref([])
 const isUploadingPhoto = ref(false)
 
+const role = computed(() => (user.value?.role || '').toLowerCase())
+const isAdmin = computed(() => role.value === 'admin')
+const membershipBtnText = computed(() =>
+  isAdmin.value ? 'View Membership Requests' : 'Apply Membership'
+)
+
 onMounted(async () => {
   await auth.init()
   isLoading.value = false
   
-  // Fetch user's news
   if (user.value?.id) {
     try {
       const res = await api.get(`/users/${user.value.id}/news`)
@@ -32,11 +37,20 @@ onMounted(async () => {
 
 function applyMembership() {
   if (!user.value) return
-  if (user.value.role?.toLowerCase() === 'member') {
+  if (role.value === 'member') {
     alert('You are already a member!')
     return
   }
   auth.applyForMembership?.()
+}
+
+// Unified click handler (minimal change: fixed route target)
+function handleMembershipClick() {
+  if (isAdmin.value) {
+    router.push({ name: 'admin-manage-user', query: { tab: 'pending' } })
+    return
+  }
+  applyMembership()
 }
 
 function logout() {
@@ -44,9 +58,9 @@ function logout() {
   router.push('/login')
 }
 
-function getRoleClass(role) {
-  if (!role) return 'bg-gray-100 text-gray-700'
-  const r = role.toLowerCase()
+function getRoleClass(roleInput) {
+  if (!roleInput) return 'bg-gray-100 text-gray-700'
+  const r = roleInput.toLowerCase()
   if (r === 'admin') return 'bg-purple-100 text-purple-800'
   if (r === 'member') return 'bg-blue-100 text-blue-800'
   return 'bg-gray-100 text-gray-700'
@@ -64,14 +78,9 @@ async function onClickProfilePhoto() {
     isUploadingPhoto.value = true
     try {
       const photoUrl = await uploadProfileImage(file, user.value.email)
-      
-      // Update backend
       await api.put(`/users/${user.value.id}/photo`, null, { params: { photoUrl } })
-      
-      // Update local state
       auth.currentUser.photoUrl = photoUrl
       auth._save()
-      
       alert('✅ Profile photo updated successfully!')
     } catch (e) {
       console.error('Photo upload failed:', e)
@@ -143,10 +152,10 @@ async function onClickProfilePhoto() {
           </RouterLink>
 
           <button
-            @click="applyMembership"
+            @click="handleMembershipClick"
             class="px-4 py-2 rounded border border-gray-400 bg-white hover:bg-gray-100 transition"
           >
-            Apply Membership
+            {{ membershipBtnText }}
           </button>
         </div>
 

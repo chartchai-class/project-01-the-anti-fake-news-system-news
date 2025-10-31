@@ -131,7 +131,7 @@ function goAddNews() {
     router.push('/login')
     return
   }
-  if (auth.role !== 'member') {
+  if (auth.role !== 'member' && auth.role !== 'admin') {
     alert('Only Member accounts can add news.')
     return
   }

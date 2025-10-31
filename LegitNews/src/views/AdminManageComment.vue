@@ -55,18 +55,6 @@ function handleRowClick(row) {
   router.push({ name: 'news-detail', params: { id: row.newsId }, query: { commentId: row.id } })
 }
 
-function getReasonClass(reason) {
-  switch ((reason || '').toLowerCase().split('/')[0].trim()) {
-    case 'spam':
-    case 'spam/scam': return 'bg-red-100 text-red-800'
-    case 'offensive content':
-    case 'hate speech': return 'bg-purple-100 text-purple-800'
-    case 'misinformation': return 'bg-yellow-100 text-yellow-800'
-    case 'spam/harassment': return 'bg-orange-100 text-orange-800'
-    default: return 'bg-gray-100 text-gray-700'
-  }
-}
-
 onMounted(loadTabData)
 watch(() => route.query.tab, loadTabData)
 </script>
@@ -100,7 +88,7 @@ watch(() => route.query.tab, loadTabData)
           <input
             type="text"
             v-model="searchQuery"
-            :placeholder="currentTab === 'reported' ? 'Search comments by content, author, or news title...' : 'Search deleted comments by content, author, or reason...'"
+            :placeholder="currentTab === 'reported' ? 'Search comments by content, author, or news title...' : 'Search deleted comments by content, author, or news title...'"
             class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
           />
         </div>
@@ -119,8 +107,7 @@ watch(() => route.query.tab, loadTabData)
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">News Article</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Date</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reports</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reason</th>
-              <!-- Actions column removed -->
+              <!-- Reason column removed -->
             </tr>
             <tr v-else>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider w-1/3">Comment</th>
@@ -128,14 +115,13 @@ watch(() => route.query.tab, loadTabData)
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">News Article</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Deleted By</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Deleted Date</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">Reason</th>
-              <!-- Actions column removed -->
+              <!-- Reason column removed -->
             </tr>
           </thead>
 
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-if="filteredComments.length === 0">
-              <td :colspan="6" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+              <td :colspan="currentTab === 'reported' ? 5 : 5" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                 No {{ currentTab === 'reported' ? 'reported comments' : 'deleted history items' }} found.
               </td>
             </tr>
@@ -158,11 +144,6 @@ watch(() => route.query.tab, loadTabData)
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ comment.article }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ comment.date }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">{{ comment.reports }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span :class="[getReasonClass(comment.reason), 'px-3 inline-flex text-xs leading-5 font-semibold rounded-full']">
-                    {{ comment.reason }}
-                  </span>
-                </td>
               </template>
 
               <template v-else>
@@ -170,11 +151,6 @@ watch(() => route.query.tab, loadTabData)
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ comment.article }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ comment.deletedBy }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ comment.deletedDate }}</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span :class="[getReasonClass(comment.reason), 'px-3 inline-flex text-xs leading-5 font-semibold rounded-full']">
-                    {{ comment.reason }}
-                  </span>
-                </td>
               </template>
             </tr>
           </tbody>
@@ -182,7 +158,6 @@ watch(() => route.query.tab, loadTabData)
       </div>
     </div>
 
-    <!-- (Optional) simple pager placeholders kept from your original -->
     <div v-if="!isLoading" class="text-center my-5 text-base flex justify-center items-center gap-4">
       <span class="cursor-pointer select-none opacity-40 cursor-not-allowed">&lt;</span>
       <span>Page 1 / 1</span>

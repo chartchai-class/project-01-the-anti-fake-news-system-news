@@ -2,6 +2,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useNewsStore } from '@/stores/newsStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const route = useRoute()
 const router = useRouter()
@@ -13,25 +14,20 @@ const selectedCategory = ref('All News')
 const selectedStatus = ref('Status')
 const isLoading = ref(false)
 
-const categories = ['All News', 'Local', 'Global', 'Business', 'Sports', 'Entertainment']
+const categories = ['All News', 'Local News', 'Global News', 'Business News', 'Sport News', 'Entertainment News']
 const statuses   = ['Status', 'All News', 'Verified News', 'Fake News']
 
 const activeNewsData  = ref([])
 const deletedNewsData = ref([])
-
 
 async function loadTab() {
   isLoading.value = true
   try {
     if (currentTab.value === 'active') {
       const data = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
-      console.log('✅ Active data received:', data, 'Length:', data?.length)
-      console.log('📊 Full active data:', JSON.stringify(data, null, 2))
       activeNewsData.value = Array.isArray(data) ? data : (data?.data || data?.content || [])
     } else {
       const data = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
-      console.log('✅ Deleted data received:', data, 'Length:', data?.length)
-      console.log('📊 Full deleted data:', JSON.stringify(data, null, 2))
       deletedNewsData.value = Array.isArray(data) ? data : (data?.data || data?.content || [])
     }
   } catch (error) {
@@ -55,8 +51,26 @@ watch(() => route.query.tab, () => {
   selectedStatus.value = 'Status'
 }, { immediate: false })
 
-// ---- (unchanged) filters + helpers ----
 const newsToShow = computed(() => currentTab.value === 'deleted' ? deletedNewsData.value : activeNewsData.value)
+
+// Use votes provided by fetchAdminNews (supports multiple key styles)
+function getVoteCounts(n) {
+  const real =
+    n.votesReal ??
+    n.votes_real ??
+    n.realVotes ??
+    n.real_votes ??
+    n?.votes?.real ??
+    0
+  const fake =
+    n.votesFake ??
+    n.votes_fake ??
+    n.fakeVotes ??
+    n.fake_votes ??
+    n?.votes?.fake ??
+    0
+  return { real: Number(real) || 0, fake: Number(fake) || 0 }
+}
 
 const filteredNews = computed(() => {
   let filtered = [...newsToShow.value]
@@ -69,28 +83,40 @@ const filteredNews = computed(() => {
     )
   }
 
-  // For active tab only
+  // Case-insensitive category comparison
   if (currentTab.value === 'active' && selectedCategory.value !== 'All News') {
-    filtered = filtered.filter(n => (n.category || '') === selectedCategory.value)
-  }
-  if (currentTab.value === 'active' && selectedStatus.value !== 'Status' && selectedStatus.value !== 'All News') {
-    const need = selectedStatus.value === 'Verified News' ? 'Verified' : 'Fake'
     filtered = filtered.filter(n => {
-      const isVerified = Number(n.votes?.real ?? 0) > Number(n.votes?.fake ?? 0)
-      return need === 'Verified' ? isVerified : !isVerified
+      const newsCategory = (n.category || '').toLowerCase().replace(/\s+/g, ' ').trim()
+      const filterCategory = selectedCategory.value.toLowerCase().replace(/\s+/g, ' ').trim()
+      return newsCategory === filterCategory
     })
   }
-  return filtered.map(n => ({
-    id: n.id,
-    title: n.title || n.headline || 'Untitled',
-    author: n.author || n.reporter || 'Anonymous',
-    submittedBy: n.createdByName || 'System',
-    category: n.category || 'General',
-    date: n.date || '',
-    status: (Number(n.votes?.real ?? 0) > Number(n.votes?.fake ?? 0)) ? 'Verified' : 'Fake',
-    views: n.views ?? 0,
-    hidden: !!n.hidden
-  }))
+
+  // Filter by computed status (from votes)
+  if (currentTab.value === 'active' && selectedStatus.value !== 'Status' && selectedStatus.value !== 'All News') {
+    const wantVerified = selectedStatus.value === 'Verified News'
+    filtered = filtered.filter(n => {
+      const { real, fake } = getVoteCounts(n)
+      const isVerified = real > fake
+      return wantVerified ? isVerified : !isVerified
+    })
+  }
+
+  // Map rows with computed status (from votes)
+  return filtered.map(n => {
+    const { real, fake } = getVoteCounts(n)
+    return {
+      id: n.id,
+      title: n.title || n.headline || 'Untitled',
+      author: n.author || n.reporter || 'Anonymous',
+      submittedBy: n.createdByName || 'System',
+      category: n.category || 'General',
+      date: n.dateTime || n.date || '',
+      status: real > fake ? 'Verified' : 'Fake',
+      views: n.views ?? 0,
+      hidden: !!n.hidden
+    }
+  })
 })
 
 function changeTab(tab) {
@@ -101,8 +127,7 @@ function changeTab(tab) {
 
 async function handleDeleteNews(id, title) {
   if (!confirm(`Hide this news?\n\n${title}`)) return
-  await store.adminHideNews(id)   // DB: hidden=true
-  // Reload both tabs to reflect the move
+  await store.adminHideNews(id)
   const activeData = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
   const deletedData = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
   activeNewsData.value = Array.isArray(activeData) ? activeData : (activeData?.data || activeData?.content || [])
@@ -110,8 +135,7 @@ async function handleDeleteNews(id, title) {
 }
 
 async function handleUndoDelete(id) {
-  await store.adminRestoreNews(id) // DB: hidden=false
-  // Reload both tabs to reflect the move
+  await store.adminRestoreNews(id)
   const activeData = await store.fetchAdminNews({ status: 'active',  page: 0, size: 200 })
   const deletedData = await store.fetchAdminNews({ status: 'deleted', page: 0, size: 200 })
   activeNewsData.value = Array.isArray(activeData) ? activeData : (activeData?.data || activeData?.content || [])
@@ -120,6 +144,21 @@ async function handleUndoDelete(id) {
 
 function handleViewNews(id) { router.push({ name: 'news-detail', params: { id } }) }
 function handleEditNews(id) { router.push({ name: 'edit-news',   params: { id } }) }
+
+// Navigate to add news (allow admin and member)
+function goAddNews() {
+  const auth = useAuthStore()
+  if (!auth.isLoggedIn) {
+    alert('Please log in to add news.')
+    router.push('/login')
+    return
+  }
+  if (auth.role !== 'member' && auth.role !== 'admin') {
+    alert('Only Member and Admin accounts can add news.')
+    return
+  }
+  router.push('/add-news')
+}
 
 function getStatusClass(status) {
   switch (status) {
@@ -131,10 +170,11 @@ function getStatusClass(status) {
 </script>
 
 
+
+
 <template>
   <div class="sm:p-8 min-h-screen font-inter">
     <div class="max-w-[1200px] mx-auto">
-      <!-- Tabs + Controls (same structure) -->
       <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-2">
         <div class="flex items-center space-x-4 mb-4 sm:mb-0 overflow-x-auto whitespace-nowrap">
           <button
@@ -157,15 +197,13 @@ function getStatusClass(status) {
             </select>
           </template>
 
-          <RouterLink to="/add-news">
-            <button class="w-full sm:w-auto bg-black text-white text-base font-semibold px-4 py-2 rounded cursor-pointer hover:bg-gray-800">
-              Add News
-            </button>
-          </RouterLink>
+          <!-- FIXED: Use goAddNews function instead of RouterLink -->
+          <button @click="goAddNews" class="w-full sm:w-auto bg-black text-white text-base font-semibold px-4 py-2 rounded cursor-pointer hover:bg-gray-800">
+            Add News
+          </button>
         </div>
       </div>
 
-      <!-- Mobile filters (kept) -->
       <div v-if="currentTab === 'active'" class="flex gap-4 mb-6 md:hidden">
         <select v-model="selectedCategory" class="w-1/2 px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150">
           <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
@@ -175,7 +213,6 @@ function getStatusClass(status) {
         </select>
       </div>
 
-      <!-- Search -->
       <div class="mb-6">
         <div class="relative flex-grow">
           <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -222,10 +259,15 @@ function getStatusClass(status) {
               </td>
             </tr>
 
+            <!-- FIXED: Made row clickable for active tab -->
             <tr
               v-for="news in filteredNews"
               :key="news.id"
-              :class="currentTab === 'deleted' ? 'opacity-60' : ''"
+              :class="[
+                currentTab === 'deleted' ? 'opacity-60' : '',
+                currentTab === 'active' ? 'cursor-pointer' : ''
+              ]"
+              @click="currentTab === 'active' ? handleViewNews(news.id) : null"
               class="hover:bg-gray-50 transition duration-150"
             >
               <td class="px-6 py-4 text-sm font-medium text-gray-900 max-w-[340px] truncate">{{ news.title }}</td>
@@ -245,7 +287,8 @@ function getStatusClass(status) {
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ news.views }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                <!-- FIXED: Stop click propagation on action buttons -->
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium" @click.stop>
                   <div class="flex justify-center space-x-2">
                     <button @click="handleViewNews(news.id)" title="View" class="text-gray-500 hover:text-blue-600 p-2 rounded-full hover:bg-gray-100 transition">
                       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -282,7 +325,6 @@ function getStatusClass(status) {
       </div>
     </div>
 
-    <!-- Keep your pager skeleton if you want -->
     <div v-if="!isLoading" class="text-center my-5 text-base flex justify-center items-center gap-4">
       <span class="cursor-pointer select-none opacity-40 cursor-not-allowed">&lt;</span>
       <span>Page 1 / 1</span>
