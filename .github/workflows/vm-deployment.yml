@@ -37,7 +37,7 @@ jobs:
           username: ${{secrets.HOST_USER_NAME}}   
           key: ${{secrets.HOST_SSH_PRIVATE_KEY}} 
           port: 22 
-          source: "./LegitNews/docker-compose.yml" 
+          source: "docker-compose.yml" 
           target: "/home/ubuntu/frontend" 
       - 
         name:   docker compose 
@@ -53,4 +53,3 @@ jobs:
               docker compose down 
               docker compose pull 
               docker compose up -d 
-              rm -rf /home/ubuntu/frontend 
